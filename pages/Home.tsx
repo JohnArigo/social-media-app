@@ -25,18 +25,18 @@ export type postType = {
   author: User;
   authorid: number;
 };
-export default function Home(posts: postType[]) {
+
+export type postsType = {
+  posts: postType[];
+};
+export default function Home({ posts }: postsType) {
   console.log(posts);
-  const [postData, setPostData] = useState<postType[]>(posts);
+  const [postData, setPostData] = useState<postsType>({ posts });
 
   return (
     <main className="w-screen h-screen bg-gray-100">
       <Stories />
-      <section className="h-full w-full bg-red-200">
-        {postData.map((post: postType) => {
-          return <div>{post.content}</div>;
-        })}
-      </section>
+      <section className="h-full w-full bg-red-200"></section>
     </main>
   );
 }
