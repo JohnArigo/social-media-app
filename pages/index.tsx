@@ -1,41 +1,62 @@
+import { getSession } from "next-auth/react";
 import { useState } from "react";
+import PostList from "../components/postList";
 import Stories from "../components/stories";
 import prisma from "../lib/prisma";
+import { postType, User } from "./Home";
 
 export async function getServerSideProps() {
-  const posts = await prisma.post.findMany();
+  const session = await getSession();
+  const user = await prisma.user.findMany({
+    where: {
+      email: session?.user?.email!,
+    },
+    include: {
+      posts: {
+        include: {
+          author: true,
+        },
+      },
+    },
+  });
   return {
     props: {
-      posts: posts,
+      user: user,
     },
   };
 }
-export type User = {
-  id: number;
-  email: string;
-  fName: string;
-  lName: string;
-  password: string;
-  posts: postType[];
+export type UserArray = {
+  user: User[];
 };
-export type postType = {
-  title: string;
-  content: string;
-  published: boolean;
-  author: User;
-  authorid: number;
-};
-export default function Home(posts: postType[]) {
-  console.log(posts);
-  const [postData, setPostData] = useState<postType[]>(posts);
+
+export default function Home({ user }: UserArray) {
+  const profile = user[0];
+  const [postData, setPostData] = useState<postType[]>(user[0].posts);
 
   return (
-    <main className="w-screen h-screen bg-gray-100">
-      <Stories />
-      <section className="h-full w-full bg-red-200">
-        {postData.map((post: postType) => {
-          return <div>{post.content}</div>;
-        })}
+    <main className="w-screen h-auto overflow-y-auto">
+      <section className="h-28 bg-red-300">This is the banner photo</section>
+      <section className="w-full h-30 flex flex-row items-center  absolute z-10 top-14">
+        <div className="ml-5 w-28 h-28  flex justify-center items-center bg-green-500">
+          R
+        </div>
+        <div className="mt-10 ml-5">{profile.fName + " " + profile.lName}</div>
+      </section>
+
+      <section className="mt-32 h-40 bg-white w-full shadow-sm flex justify-start">
+        <h3 className="ml-5">About Me</h3>
+      </section>
+      <section className="mt-3 bg-white h-40 w-full shadow-sm flex justify-start">
+        <h3 className="ml-5">Friends</h3>
+      </section>
+      <section className="mt-3 bg-white h-40 w-full shadow-sm flex justify-start">
+        <h3 className="ml-5">Announcements</h3>
+      </section>
+      <h1 className="flex items-center justify-center h-14">
+        {profile.fName + " " + profile.lName}'s Posts
+      </h1>
+      <section className="mt-5 h-auto ">
+        <PostList postData={postData} setPostData={setPostData} />
       </section>
     </main>
   );

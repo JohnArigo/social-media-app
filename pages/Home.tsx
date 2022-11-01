@@ -1,9 +1,14 @@
 import { useState } from "react";
+import PostList from "../components/postList";
 import Stories from "../components/stories";
 import prisma from "../lib/prisma";
 
 export async function getServerSideProps() {
-  const posts = await prisma.post.findMany();
+  const posts = await prisma.post.findMany({
+    include: {
+      author: true,
+    },
+  });
   return {
     props: {
       posts: posts,
@@ -18,6 +23,7 @@ export type User = {
   password: string;
   posts: postType[];
 };
+
 export type postType = {
   title: string;
   content: string;
@@ -31,12 +37,12 @@ export type postsType = {
 };
 export default function Home({ posts }: postsType) {
   console.log(posts);
-  const [postData, setPostData] = useState<postsType>({ posts });
+  const [postData, setPostData] = useState<postType[]>(posts);
 
   return (
-    <main className="w-screen h-screen bg-gray-100">
+    <main className="w-screen h-screen bg-gray-200">
       <Stories />
-      <section className="h-full w-full bg-red-200"></section>
+      <PostList postData={postData} setPostData={setPostData} />
     </main>
   );
 }
