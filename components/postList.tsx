@@ -1,4 +1,4 @@
-import { postType } from "../pages/Home";
+import { postType } from "../pages/home";
 
 export type postDataType = {
   postData: postType[];

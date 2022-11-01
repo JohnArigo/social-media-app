@@ -1,11 +1,23 @@
 import { getSession } from "next-auth/react";
 import { useState } from "react";
-import PostList from "../components/postList";
+import PostList from "../../components/postList";
 
-import prisma from "../lib/prisma";
-import { postType, User } from "./home";
+import prisma from "../../lib/prisma";
+import { postType, User } from "../home";
 
-export async function getServerSideProps() {
+export async function getStaticPaths() {
+  const pages = await prisma.user.findMany();
+
+  const paths = pages.map((page) => {
+    return { params: { id: page.id + page.fName + page.lName + page.id + 69 } };
+  });
+
+  return {
+    paths,
+    fallback: false,
+  };
+}
+export async function getStaticProps(paths: string) {
   const session = await getSession();
   const user = await prisma.user.findMany({
     where: {
