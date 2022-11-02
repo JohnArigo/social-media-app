@@ -1,9 +1,9 @@
-import { getSession } from "next-auth/react";
-import { useState } from "react";
+import { getSession, useSession } from "next-auth/react";
+import { useState, useEffect } from "react";
 import PostList from "../../components/postList";
 
 import prisma from "../../lib/prisma";
-import { postType, User } from "../home";
+import { postType, User } from "../../lib/types";
 
 export async function getStaticPaths() {
   const pages = await prisma.user.findMany();
@@ -39,11 +39,33 @@ export async function getStaticProps(paths: string) {
 }
 export type UserArray = {
   user: User[];
+  users?: User[];
 };
 
 export default function Home({ user }: UserArray) {
-  const profile = user[0];
-  const [postData, setPostData] = useState<postType[]>(user[0].posts);
+  const { data: session } = useSession();
+
+  const [userData, setUserData] = useState<User>({
+    id: 1,
+    email: session?.user?.email!,
+    fName: "first",
+    lName: "last",
+    password: "password123",
+    friends: [],
+    posts: [],
+  });
+
+  useEffect(() => {
+    user.filter((user: User) => {
+      if (user.email === session?.user?.email!) {
+        setUserData(user);
+      }
+    });
+  }, []);
+
+  const profile = userData;
+
+  const [postData, setPostData] = useState<postType[]>(userData.posts!);
 
   return (
     <main className="w-screen h-auto overflow-y-auto">

@@ -1,30 +1,28 @@
-import { signIn } from "next-auth/react";
+import { signIn, useSession } from "next-auth/react";
 import { useState, FormEventHandler } from "react";
-import prisma from "../lib/prisma";
+import { PasswordInput, TextInput } from "@mantine/core";
+import { IconEyeCheck, IconEyeOff } from "@tabler/icons";
+import Link from "next/link";
 
 export interface credentialType {
   email: string;
   password: string;
 }
 
-// export async function getServerSideProps() {
-//   const user = await prisma.user.findMany({
-//     where: {
-//       email: "familyarigo3@gmail.com",
-//     },
-//   });
+// SignIn.getInitialProps = async (ctx: any) => {
 //   return {
 //     props: {
-//       user: user,
+//       user: ctx,
 //     },
 //   };
-// }
+// };
 
 export default function SignIn() {
+  const { data: session } = useSession();
   //console.log(user);
   const [accountInfo, setAccountInfo] = useState<credentialType>({
-    email: " ",
-    password: " ",
+    email: "",
+    password: "",
   });
 
   const handleChange = (event: any) => {
@@ -47,33 +45,54 @@ export default function SignIn() {
 
     console.log(res);
   };
-
-  return (
-    <main className="w-screen h-screen flex justify-center items-center">
-      <form
-        onSubmit={handleSubmit}
-        className="h-full w-full flex flex-col justify-center"
-      >
-        <label>Email Address</label>
-        <input
-          className="w-full h-12"
-          name="email"
-          type="email"
-          value={accountInfo?.email}
-          onChange={handleChange}
-          required
-        />
-        <label>Password</label>
-        <input
-          className="w-full h-12"
-          name="password"
-          type="text"
-          value={accountInfo?.password}
-          onChange={handleChange}
-          required
-        />
-        <button className="mt-10">Sign up</button>
-      </form>
-    </main>
-  );
+  if (!session) {
+    return (
+      <main className="w-screen h-screen flex justify-center items-center">
+        <form
+          onSubmit={handleSubmit}
+          className="h-full w-full flex flex-col justify-center"
+        >
+          <label>Email Address</label>
+          <TextInput
+            className="w-full h-12"
+            name="email"
+            type="email"
+            //error="Invalid email"
+            value={accountInfo?.email}
+            onChange={handleChange}
+            required
+          />
+          <label>Password</label>
+          <PasswordInput
+            className="w-full h-12"
+            name="password"
+            value={accountInfo?.password}
+            onChange={handleChange}
+            //defaultValue="secret"
+            visibilityToggleIcon={({ reveal, size }) =>
+              reveal ? <IconEyeOff size={size} /> : <IconEyeCheck size={size} />
+            }
+            required
+            withAsterisk
+          />
+          <button className="mt-10">Sign in</button>
+        </form>
+      </main>
+    );
+  } else
+    return (
+      <main className="flex flex-col justify-center items-center w-screen h-screen">
+        <div className="text-center">
+          You are currently logged in using email:
+        </div>
+        <b>{session.user?.email}</b>
+        <div>
+          If this is an error please{" "}
+          <Link href="api/auth/signout">
+            <b>SIGN-OUT</b>
+          </Link>{" "}
+          and try again
+        </div>
+      </main>
+    );
 }

@@ -1,3 +1,5 @@
+import { PasswordInput, TextInput } from "@mantine/core";
+import { IconEyeCheck, IconEyeOff } from "@tabler/icons";
 import { useState } from "react";
 
 export interface signUpType {
@@ -42,10 +44,13 @@ export default function SignUp() {
     e.preventDefault();
     try {
       await postNewUser(accountInfo);
+      //success then MODAL
     } catch (error) {
       console.log(error);
     }
   };
+
+  console.log(accountInfo);
 
   return (
     <main className="w-screen h-screen flex justify-center items-center">
@@ -54,7 +59,7 @@ export default function SignUp() {
         className="h-full w-full flex flex-col justify-center"
       >
         <label>First Name</label>
-        <input
+        <TextInput
           className="w-full h-12"
           name="fName"
           type="text"
@@ -63,7 +68,7 @@ export default function SignUp() {
           required
         />
         <label>Last Name</label>
-        <input
+        <TextInput
           className="w-full h-12"
           name="lName"
           type="text"
@@ -72,7 +77,7 @@ export default function SignUp() {
           required
         />
         <label>Email Address</label>
-        <input
+        <TextInput
           className="w-full h-12"
           name="email"
           type="email"
@@ -81,13 +86,17 @@ export default function SignUp() {
           required
         />
         <label>Password</label>
-        <input
+        <PasswordInput
           className="w-full h-12"
           name="password"
-          type="text"
           value={accountInfo.password}
           onChange={handleChange}
+          defaultValue="secret"
+          visibilityToggleIcon={({ reveal, size }) =>
+            reveal ? <IconEyeOff size={size} /> : <IconEyeCheck size={size} />
+          }
           required
+          withAsterisk
         />
         <button className="mt-10">Sign up</button>
       </form>

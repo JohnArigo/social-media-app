@@ -18,11 +18,11 @@ import HeaderNoSession from "./headNoSession";
 //   };
 // }
 
-export default function Header(user: any) {
+export default function Header({ setOpened }: any) {
   const { data: session, status } = useSession();
 
   if (status === "authenticated") {
-    return <HeaderSession />;
+    return <HeaderSession setOpened={setOpened} />;
   } else {
     return <HeaderNoSession />;
   }

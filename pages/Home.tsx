@@ -1,42 +1,32 @@
+import { getSession } from "next-auth/react";
 import { useState } from "react";
+import internal from "stream";
 import PostList from "../components/postList";
 import Stories from "../components/stories";
 import prisma from "../lib/prisma";
+import { postType, HomeType } from "../lib/types";
 
 export async function getServerSideProps() {
+  const session = await getSession();
   const posts = await prisma.post.findMany({
     include: {
       author: true,
     },
   });
+  const user = await prisma.user.findMany({
+    where: {
+      email: session?.user?.email!,
+    },
+  });
   return {
     props: {
       posts: posts,
+      user: user,
     },
   };
 }
-export type User = {
-  id: number;
-  email: string;
-  fName: string;
-  lName: string;
-  password: string;
-  posts: postType[];
-};
 
-export type postType = {
-  title: string;
-  content: string;
-  published: boolean;
-  author: User;
-  authorid: number;
-};
-
-export type postsType = {
-  posts: postType[];
-};
-export default function Home({ posts }: postsType) {
-  console.log(posts);
+export default function Home({ posts, user }: HomeType) {
   const [postData, setPostData] = useState<postType[]>(posts);
 
   return (

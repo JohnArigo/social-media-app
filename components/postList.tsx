@@ -1,4 +1,4 @@
-import { postType } from "../pages/home";
+import { postType } from "../lib/types";
 
 export type postDataType = {
   postData: postType[];
@@ -8,6 +8,7 @@ export type postDataType = {
 };
 
 export default function PostList({ postData, setPostData }: postDataType) {
+  console.log(postData);
   return (
     <section className=" shadow-sm pb-24 text-black h-full w-full flex flex-row flex-wrap justify-center items-end overflow-y-scroll">
       {postData.map((post: postType, index: number) => {
@@ -15,7 +16,7 @@ export default function PostList({ postData, setPostData }: postDataType) {
           return (
             <div
               className="w-full h-80 bg-white rounded-xl mt-5 flex flex-col"
-              key={post.title + post.authorid + index}
+              key={post.title + post.authorId + index}
             >
               <div
                 className="self-end mr-1 text-xs text-gray-300"
