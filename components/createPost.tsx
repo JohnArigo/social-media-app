@@ -29,22 +29,26 @@ export type postTypeSend = {
 
 export default function CreatePost({ user }: UserArray) {
   const { data: session } = useSession();
+  //find userID for API call
   const userID = parseInt(session?.user?.name?.toString()!);
-  useEffect(() => {
-    user.filter((user: User) => {
-      if (user.email === session?.user?.email!) {
-        setUserData(user);
-      }
-    });
-  }, []);
+  //userData for rendering
   const [userData, setUserData] = useState<User>({
     id: userID,
     email: session?.user?.email!,
-    fName: "firsafdasfst",
+    fName: session?.user?.image!,
     lName: "last",
+    password: "password123",
     friends: [],
     posts: [],
   });
+  //api call to fetch user data from db
+  useEffect(() => {
+    fetch(`../api/findUser/${userID}`)
+      .then((res) => res.json())
+      .then((data) => {
+        setUserData(data);
+      });
+  }, []);
 
   const [postData, setPostData] = useState<postTypeSend>({
     title: "",

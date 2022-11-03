@@ -9,6 +9,7 @@ export type postDataType = {
 };
 
 export default function PostList({ postData, setPostData }: postDataType) {
+  //   console.log(postData);
   return (
     <section className=" shadow-sm pb-24 text-black h-full w-full flex flex-row flex-wrap justify-center items-start overflow-y-scroll">
       {postData.map((post: postType, index: number) => {

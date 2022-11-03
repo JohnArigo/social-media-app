@@ -9,23 +9,6 @@ export type HeaderSessionType = {
 };
 export default function HeaderSession({ setOpened, user }: HeaderSessionType) {
   const { data: session, status } = useSession();
-  useEffect(() => {
-    user?.filter((user: User) => {
-      if (user.email === session?.user?.email!) {
-        setUserData(user);
-      }
-    });
-  }, []);
-  const userID = parseInt(session?.user?.name?.toString()!);
-  const [userData, setUserData] = useState<User>({
-    id: userID,
-    email: session?.user?.email!,
-    fName: "first",
-    lName: "last",
-    password: "password123",
-    friends: [],
-    posts: [],
-  });
 
   return (
     <main className="bottom-0 fixed w-full h-20 bg-yellow-500 flex flex-row justify-around items-center">

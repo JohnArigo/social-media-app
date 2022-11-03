@@ -1,19 +1,26 @@
 import { getSession, useSession } from "next-auth/react";
-import { NextApiRequest } from "next/types";
+import { NextApiHandler, NextApiRequest } from "next/types";
 import { useEffect, useState } from "react";
 import internal from "stream";
 import PostList from "../components/postList";
 import Stories from "../components/stories";
 import prisma from "../lib/prisma";
-import { postType, HomeType, User } from "../lib/types";
+import { postType, HomeType, User, friends } from "../lib/types";
+//import { options } from "pages/api/auth/[...nextauth]";
+import { unstable_getServerSession } from "next-auth/next";
+import { getToken } from "next-auth/jwt";
+import getUserInfo from "./api/findUser/[pid]";
 
 export async function getStaticProps(req: NextApiRequest) {
+  //get session for all users in server
   const session = await getSession({ req });
+  //find all posts
   const posts = await prisma.post.findMany({
     include: {
       author: true,
     },
   });
+  //find users in server
   const user = await prisma.user.findMany({
     where: {
       email: session?.user?.email!,
@@ -29,30 +36,43 @@ export async function getStaticProps(req: NextApiRequest) {
 }
 
 export default function Home({ posts, user }: HomeType) {
+  //all post data
   const [postData, setPostData] = useState<postType[]>(posts);
+  //pull session for ID
   const { data: session } = useSession();
+  //find userID for API call
   const userID = parseInt(session?.user?.name?.toString()!);
+  //userData for rendering
   const [userData, setUserData] = useState<User>({
     id: userID,
     email: session?.user?.email!,
-    fName: "first",
+    fName: session?.user?.image!,
     lName: "last",
     password: "password123",
     friends: [],
     posts: [],
   });
-
+  //api call to fetch user data from db
   useEffect(() => {
-    user.filter((user: User) => {
-      if (user.email === session?.user?.email!) {
-        setUserData(user);
-      }
-    });
+    fetch(`../api/findUser/${userID}`)
+      .then((res) => res.json())
+      .then((data) => {
+        setUserData(data);
+      });
   }, []);
+  //to pass to story componenet *data source*
+  const [friendData, setFriendData] = useState<friends[]>(userData.friends);
+
+  //set post data only if data from session is valid
+  useEffect(() => {
+    if (userData.fName === undefined) {
+      setFriendData(userData.friends!);
+    }
+  }, [userData]);
 
   return (
     <main className="w-screen h-screen bg-gray-200">
-      <Stories allFriends={userData.friends} />
+      <Stories allFriends={friendData} />
       <PostList postData={postData} setPostData={setPostData} />
     </main>
   );

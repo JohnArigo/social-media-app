@@ -18,11 +18,16 @@ export async function getStaticPaths() {
     fallback: false,
   };
 }
-export async function getStaticProps(paths: string) {
-  const session = await getSession();
-  const user = await prisma.user.findMany({
+export async function getStaticProps(context: any) {
+  //   const myID = () => {
+  //     const { id } = query;
+  //     const myID = parseInt(id?.toString()!.slice(0, 1)!);
+  //     return myID;
+  //   };
+  const userID = parseInt(context.params.id.slice(0, 1));
+  const user = await prisma.user.findUnique({
     where: {
-      email: session?.user?.email!,
+      id: userID,
     },
     include: {
       posts: {
@@ -43,33 +48,19 @@ export type UserArray = {
   users?: User[];
 };
 
-export default function Home({ user }: UserArray) {
-  const router = useRouter();
-  const myID = () => {
-    const { id } = router.query;
-    const myID = id!.toString();
-    return myID;
-  };
-  console.log(myID());
+export default function Home({ user }: any) {
+  console.log(user);
   const { data: session } = useSession();
   const userID = parseInt(session?.user?.name?.toString()!);
-  const [userData, setUserData] = useState<User>({
-    id: userID,
-    email: session?.user?.email!,
-    fName: "first",
-    lName: "last",
-    password: "password123",
-    friends: [],
-    posts: [],
-  });
+  const [userData, setUserData] = useState<User>(user);
 
-  useEffect(() => {
-    user.filter((user: User) => {
-      if (user.email === session?.user?.email!) {
-        setUserData(user);
-      }
-    });
-  }, []);
+  //   useEffect(() => {
+  //     user.filter((user: User) => {
+  //       if (user.email === session?.user?.email!) {
+  //         setUserData(user);
+  //       }
+  //     });
+  //   }, [user]);
 
   const profile = userData;
 

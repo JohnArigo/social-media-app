@@ -5,7 +5,7 @@ export type User = {
   lName: string;
   password?: string;
   friends: friends[];
-  posts: postType[];
+  posts?: postType[];
 };
 export type FindUser = {
   id?: number;

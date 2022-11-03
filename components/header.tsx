@@ -18,6 +18,7 @@ import { useState, useEffect } from "react";
 
 export default function Header({ setOpened, user }: any) {
   const { data: session, status } = useSession();
+
   if (status === "authenticated") {
     return <HeaderSession setOpened={setOpened} user={user} />;
   } else {
