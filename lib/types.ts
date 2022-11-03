@@ -7,6 +7,15 @@ export type User = {
   friends: friends[];
   posts: postType[];
 };
+export type FindUser = {
+  id?: number;
+  email?: string;
+  fName?: string;
+  lName?: string;
+  password?: string;
+  friends?: friends[];
+  posts?: postType[];
+};
 
 export type friends = {
   id?: number;
