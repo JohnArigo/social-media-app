@@ -28,16 +28,16 @@ const options: NextAuthOptions = {
           password: string;
         };
         // Add logic here to look up the user from the credentials supplied
-        const user = await prisma.user.findMany({
+        const user = await prisma.user.findUnique({
           where: {
             email: email,
           },
         });
 
-        if (user[0]!.password === password) {
+        if (user?.password === password) {
           // Any object returned will be saved in `user` property of the JWT
           console.log("passed");
-          return user[0];
+          return user;
         } else {
           console.log("failed"); // If you return null then an error will be displayed advising the user to check their details.
           return null;
@@ -72,12 +72,14 @@ const options: NextAuthOptions = {
     async session({ session, token, user }) {
       if (token) {
         token.email = session.user?.email;
+        token.name = session.user?.name;
       }
       return session;
     },
     async jwt({ token, user }) {
       if (user) {
         token.email = user.email;
+        token.name = user.id;
       }
       return token;
     },

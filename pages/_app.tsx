@@ -7,27 +7,32 @@ import { Modal } from "@mantine/core";
 import { useEffect, useState } from "react";
 import CreatePost from "../components/createPost";
 import prisma from "../lib/prisma";
-import { User } from "../lib/types";
+import { postType, User } from "../lib/types";
 
-// export async function getServerSideProps() {
-//   const session = await getSession();
-//   const user = await prisma.user.findMany({
-//     where: {
-//       email: session?.user?.email!,
-//     },
-//   });
-
-//   return {
-//     props: {
-//       user: user,
-//     },
-//   };
-// }
+export async function getServerSideProps() {
+  const session = await getSession();
+  const posts = await prisma.post.findMany({
+    include: {
+      author: true,
+    },
+  });
+  const user = await prisma.user.findUnique({
+    where: {
+      email: session?.user?.email!,
+    },
+  });
+  return {
+    props: {
+      posts: posts,
+      user: user,
+    },
+  };
+}
 
 export default function App({
   Component,
   pageProps,
-}: AppProps<{ session: Session; user: User[] }>) {
+}: AppProps<{ session: Session; user: User[]; posts: postType[] }>) {
   const [opened, setOpened] = useState(false);
   return (
     <SessionProvider session={pageProps.session}>
@@ -38,7 +43,7 @@ export default function App({
       >
         <CreatePost user={pageProps.user} />
       </Modal>
-      <Component {...pageProps} user={pageProps.user} />
+      <Component {...pageProps} />
       <Header setOpened={setOpened} />
     </SessionProvider>
   );

@@ -29,17 +29,7 @@ export type postTypeSend = {
 
 export default function CreatePost({ user }: UserArray) {
   const { data: session } = useSession();
-
-  const [userData, setUserData] = useState<User>({
-    id: 1,
-    email: session?.user?.email!,
-    fName: "first",
-    lName: "last",
-    password: "password123",
-    friends: [],
-    posts: [],
-  });
-
+  const userID = parseInt(session?.user?.name?.toString()!);
   useEffect(() => {
     user.filter((user: User) => {
       if (user.email === session?.user?.email!) {
@@ -47,6 +37,14 @@ export default function CreatePost({ user }: UserArray) {
       }
     });
   }, []);
+  const [userData, setUserData] = useState<User>({
+    id: userID,
+    email: session?.user?.email!,
+    fName: "first",
+    lName: "last",
+    friends: [],
+    posts: [],
+  });
 
   const [postData, setPostData] = useState<postTypeSend>({
     title: "",
@@ -69,6 +67,7 @@ export default function CreatePost({ user }: UserArray) {
     e.preventDefault();
     try {
       await newPost(postData);
+      console.log(postData);
       setPostData({
         title: "",
         content: "",

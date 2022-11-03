@@ -3,7 +3,7 @@ export type User = {
   email: string;
   fName: string;
   lName: string;
-  password: string;
+  password?: string;
   friends: friends[];
   posts: postType[];
 };
