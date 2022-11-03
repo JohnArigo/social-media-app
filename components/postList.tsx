@@ -1,3 +1,4 @@
+import Link from "next/link";
 import { postType } from "../lib/types";
 
 export type postDataType = {
@@ -27,14 +28,25 @@ export default function PostList({ postData, setPostData }: postDataType) {
               >
                 hide
               </div>
-              <div className="flex flex-row mt-3 ml-2 h-1/6 items-center">
-                <div className="w-1/4 ">
-                  <div className="bg-green-600 rounded-full h-16 w-16 flex justify-center items-center">
-                    Image
+              <Link
+                href={`/userProfile/${
+                  post.authorId +
+                  post.author.fName +
+                  post.author.lName +
+                  post.authorId +
+                  69
+                }`}
+              >
+                <div className="flex flex-row mt-3 ml-2 h-1/6 items-center">
+                  <div className="w-1/4 ">
+                    <div className="bg-green-600 rounded-full h-16 w-16 flex justify-center items-center">
+                      Image
+                    </div>
                   </div>
+                  <div>{post.author.fName + " " + post.author.lName}</div>
                 </div>
-                <div>{post.author.fName + " " + post.author.lName}</div>
-              </div>
+              </Link>
+
               <div className=" mt-5 w-full text-xl">{post.title}</div>
               <div className="max-h-2/3 overflow-y-auto">{post.content}</div>
             </div>

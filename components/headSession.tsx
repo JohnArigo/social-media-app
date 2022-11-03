@@ -37,11 +37,7 @@ export default function HeaderSession({ setOpened, user }: HeaderSessionType) {
         <div>Post</div>
       </div>
       <div>Friends</div>
-      <Link
-        href={`/userProfile/${
-          userData?.id + userData?.fName + userData?.lName + userData?.id + 69
-        }`}
-      >
+      <Link href={`/userProfile/myProfile`}>
         <div>Profile</div>
       </Link>
     </main>

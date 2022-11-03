@@ -22,6 +22,10 @@ export type friends = {
   userFriend: User[];
   friendId: number;
 };
+
+export type allFriends = {
+  allFriends: friends[];
+};
 export type postType = {
   title: string;
   content: string;

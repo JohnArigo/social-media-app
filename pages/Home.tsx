@@ -52,7 +52,7 @@ export default function Home({ posts, user }: HomeType) {
 
   return (
     <main className="w-screen h-screen bg-gray-200">
-      <Stories />
+      <Stories allFriends={userData.friends} />
       <PostList postData={postData} setPostData={setPostData} />
     </main>
   );

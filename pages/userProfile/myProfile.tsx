@@ -6,18 +6,6 @@ import PostList from "../../components/postList";
 import prisma from "../../lib/prisma";
 import { postType, User } from "../../lib/types";
 
-export async function getStaticPaths() {
-  const pages = await prisma.user.findMany();
-
-  const paths = pages.map((page) => {
-    return { params: { id: page.id + page.fName + page.lName + page.id + 69 } };
-  });
-
-  return {
-    paths,
-    fallback: false,
-  };
-}
 export async function getStaticProps(paths: string) {
   const session = await getSession();
   const user = await prisma.user.findMany({
@@ -44,13 +32,6 @@ export type UserArray = {
 };
 
 export default function Home({ user }: UserArray) {
-  const router = useRouter();
-  const myID = () => {
-    const { id } = router.query;
-    const myID = id!.toString();
-    return myID;
-  };
-  console.log(myID());
   const { data: session } = useSession();
   const userID = parseInt(session?.user?.name?.toString()!);
   const [userData, setUserData] = useState<User>({
