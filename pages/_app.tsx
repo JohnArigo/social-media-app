@@ -34,6 +34,7 @@ export default function App({
   pageProps,
 }: AppProps<{ session: Session; user: User[]; posts: postType[] }>) {
   const [opened, setOpened] = useState(false);
+
   return (
     <SessionProvider session={pageProps.session}>
       <Modal
