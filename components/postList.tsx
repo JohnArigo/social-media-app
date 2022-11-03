@@ -36,10 +36,7 @@ export default function PostList({ postData, setPostData }: postDataType) {
                 <div>{post.author.fName + " " + post.author.lName}</div>
               </div>
               <div className=" mt-5 w-full text-xl">{post.title}</div>
-              <div className="max-h-2/3 overflow-y-auto">
-                {post.content}
-                Rackham.
-              </div>
+              <div className="max-h-2/3 overflow-y-auto">{post.content}</div>
             </div>
           );
         }

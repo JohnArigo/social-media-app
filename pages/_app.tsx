@@ -44,7 +44,7 @@ export default function App({
         <CreatePost user={pageProps.user} />
       </Modal>
       <Component {...pageProps} />
-      <Header setOpened={setOpened} />
+      <Header setOpened={setOpened} user={pageProps.user} />
     </SessionProvider>
   );
 }

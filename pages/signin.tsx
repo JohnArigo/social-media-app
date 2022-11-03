@@ -9,14 +9,6 @@ export interface credentialType {
   password: string;
 }
 
-// SignIn.getInitialProps = async (ctx: any) => {
-//   return {
-//     props: {
-//       user: ctx,
-//     },
-//   };
-// };
-
 export default function SignIn() {
   const { data: session } = useSession();
   //console.log(user);

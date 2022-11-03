@@ -43,6 +43,7 @@ export type UserArray = {
 };
 
 export default function Home({ user }: UserArray) {
+  console.log(user);
   const { data: session } = useSession();
   const userID = parseInt(session?.user?.name?.toString()!);
   const [userData, setUserData] = useState<User>({

@@ -40,7 +40,7 @@ export default function CreatePost({ user }: UserArray) {
   const [userData, setUserData] = useState<User>({
     id: userID,
     email: session?.user?.email!,
-    fName: "first",
+    fName: "firsafdasfst",
     lName: "last",
     friends: [],
     posts: [],
