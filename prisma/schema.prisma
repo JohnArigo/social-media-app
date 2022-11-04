@@ -16,8 +16,8 @@ model User {
   fName  String
   lName  String
   password String
-  about String?
-  flex String?
+  about String
+  flex String
   friends Friend[]
   posts Post[]
 }
@@ -38,6 +38,6 @@ model Profile {
 
 model Friend {
   id Int @id @default(autoincrement())
-  userFriend User @relation(fields: [friendId], references: [id])
+  userFriend User? @relation(fields: [friendId], references: [id])
   friendId Int 
 }

@@ -4,7 +4,9 @@ export type User = {
   fName: string;
   lName: string;
   password?: string;
-  friends: friends[];
+  friends: Friend[];
+  about?: string;
+  flex?: string;
   posts?: postType[];
 };
 export type FindUser = {
@@ -13,18 +15,18 @@ export type FindUser = {
   fName?: string;
   lName?: string;
   password?: string;
-  friends?: friends[];
+  friends?: Friend[];
   posts?: postType[];
 };
 
-export type friends = {
+export type Friend = {
   id?: number;
   userFriend: User[];
   friendId: number;
 };
 
 export type allFriends = {
-  allFriends: friends[];
+  allFriends: Friend[];
 };
 export type postType = {
   title: string;
@@ -41,4 +43,12 @@ export type postsType = {
 export type HomeType = {
   posts: postType[];
   user: User[];
+};
+
+export type SendUser = {
+  email: string;
+  fName: string;
+  lName: string;
+  about: string;
+  flex: string;
 };

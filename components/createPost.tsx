@@ -4,7 +4,7 @@ import { useEffect, useMemo, useState } from "react";
 import PostList from "../components/postList";
 
 import prisma from "../lib/prisma";
-import { postType, User, friends } from "../lib/types";
+import { postType, User, Friend } from "../lib/types";
 import { UserArray } from "../pages/userProfile/[id]";
 
 async function newPost(sendingPackage: postTypeSend) {

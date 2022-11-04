@@ -1,16 +1,14 @@
 import { getSession, useSession } from "next-auth/react";
 import { NextApiHandler, NextApiRequest } from "next/types";
 import { useEffect, useState } from "react";
-import internal from "stream";
+
 import PostList from "../components/postList";
 import Stories from "../components/stories";
 import prisma from "../lib/prisma";
-import { postType, HomeType, User, friends } from "../lib/types";
+import { postType, HomeType, User, Friend, postsType } from "../lib/types";
 //import { options } from "pages/api/auth/[...nextauth]";
-import { unstable_getServerSession } from "next-auth/next";
-import { getToken } from "next-auth/jwt";
-import getUserInfo from "./api/findUser/[pid]";
 
+//pull all data posts
 export async function getStaticProps(req: NextApiRequest) {
   //get session for all users in server
   const session = await getSession({ req });
@@ -20,22 +18,15 @@ export async function getStaticProps(req: NextApiRequest) {
       author: true,
     },
   });
-  //find users in server
-  const user = await prisma.user.findMany({
-    where: {
-      email: session?.user?.email!,
-    },
-  });
   return {
     props: {
       posts: posts,
-      user: user,
     },
     revalidate: 10,
   };
 }
 
-export default function Home({ posts, user }: HomeType) {
+export default function Home({ posts }: postsType) {
   //all post data
   const [postData, setPostData] = useState<postType[]>(posts);
   //pull session for ID
@@ -61,7 +52,7 @@ export default function Home({ posts, user }: HomeType) {
       });
   }, []);
   //to pass to story componenet *data source*
-  const [friendData, setFriendData] = useState<friends[]>(userData.friends);
+  const [friendData, setFriendData] = useState<Friend[]>(userData.friends);
 
   //set post data only if data from session is valid
   useEffect(() => {

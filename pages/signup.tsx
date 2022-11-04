@@ -7,6 +7,8 @@ export interface signUpType {
   lName: string;
   email: string;
   password: string;
+  about: string;
+  flex: string;
 }
 
 async function postNewUser(sendingPackage: signUpType) {
@@ -28,6 +30,8 @@ export default function SignUp() {
     lName: "",
     email: "",
     password: "",
+    about: "Initial",
+    flex: "Initial",
   });
 
   const handleChange = (event: any) => {
