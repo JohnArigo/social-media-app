@@ -5,7 +5,7 @@ import { useState, useEffect } from "react";
 import PostList from "../../components/postList";
 
 import prisma from "../../lib/prisma";
-import { Friend, postType, User } from "../../lib/types";
+import { Friend, HomeType, postType, User } from "../../lib/types";
 
 export async function getStaticPaths() {
   const pages = await prisma.user.findMany();
@@ -54,24 +54,87 @@ async function newFriend(sendingPackage: any) {
   }
   return await response.json();
 }
+async function removeFriend(sendingPackage: any) {
+  const response = await fetch("../api/removeFriend", {
+    method: "POST",
+    body: JSON.stringify(sendingPackage),
+  });
+  if (!response.ok) {
+    throw new Error(response.statusText);
+  }
+  return await response.json();
+}
+export type currentUser = {
+  friends: Friend[];
+  id: number;
+  email: string;
+};
 
-export default function Home({ user }: any) {
+export default function Home({ user }: HomeType) {
   const { data: session } = useSession();
   const userID = parseInt(session?.user?.name!.toString()!);
+  const initialFriend = [
+    {
+      friendFirstName: "First",
+      friendId: 0,
+      friendLastName: "Last",
+      id: 0,
+      ownerId: 0,
+    },
+  ];
+  const [currentUser, setCurrentUser] = useState<currentUser>({
+    friends: initialFriend,
+    id: userID,
+    email: session?.user?.email!,
+  });
+  useEffect(() => {
+    fetch(`../api/findUserFriends/${userID}`)
+      .then((res) => res.json())
+      .then((data) => {
+        setCurrentUser(data);
+      });
+  }, []);
+
+  //bool to see if friend => will return true
+  const [isMyFriend, setIsMyFriend] = useState<boolean>(false);
+  //userdata for other person that (sessio.user) is viewing
   const [userData, setUserData] = useState<User>(user);
-  const profile = userData;
+  //finding to see if user is a friend
+  useEffect(() => {
+    currentUser.friends.map((friend: Friend) => {
+      if (friend.friendId !== 0) {
+        if (friend.friendId === userData.id) {
+          setIsMyFriend(true);
+        }
+      }
+    });
+  }, [currentUser]);
+
+  //userPosts to map
   const [postData, setPostData] = useState<postType[]>(userData.posts!);
+  //data to send when adding
   const [friend, setFriend] = useState<Friend>({
     friendId: userData.id,
     friendFirstName: userData.fName,
     friendLastName: userData.lName,
     ownerId: userID,
   });
-  console.log(friend);
-  const onSubmit = async () => {
+  //submit add friend to add friend api
+  const addFriend = async () => {
     try {
       await newFriend(friend);
       console.log(friend);
+      setIsMyFriend(true);
+    } catch (error) {
+      console.log(error);
+    }
+  };
+  //submit delete friend to delete API
+  const deleteFriend = async () => {
+    try {
+      await removeFriend(friend);
+      console.log("succesfully remove friend");
+      setIsMyFriend(false);
     } catch (error) {
       console.log(error);
     }
@@ -83,15 +146,26 @@ export default function Home({ user }: any) {
         <div className="ml-5 w-28 h-28  flex justify-center items-center bg-green-500">
           R
         </div>
-        <div className="mt-10 ml-5">{profile.fName + " " + profile.lName}</div>
+        <div className="mt-10 ml-5">
+          {userData.fName + " " + userData.lName}
+        </div>
       </section>
       <section className="mt-20 flex justify-around items-center">
-        <div
-          onClick={onSubmit}
-          className="cursor-pointer text-center rounded-xl w-32 bg-white"
-        >
-          + Add Friend
-        </div>
+        {isMyFriend ? (
+          <div
+            onClick={deleteFriend}
+            className="bg-blue-400 cursor-pointer text-center rounded-xl w-32 "
+          >
+            Friends
+          </div>
+        ) : (
+          <div
+            onClick={addFriend}
+            className="cursor-pointer text-center rounded-xl w-32 bg-white"
+          >
+            Add Friend
+          </div>
+        )}
         <div className="rounded-xl w-32 bg-white text-center">Message</div>
       </section>
 
@@ -105,7 +179,7 @@ export default function Home({ user }: any) {
         <h3 className="ml-5">Announcements</h3>
       </section>
       <h1 className="flex items-center justify-center h-14">
-        {profile.fName + " " + profile.lName}'s Posts
+        {userData.fName + " " + userData.lName}'s Posts
       </h1>
       <section className="mt-5 h-auto ">
         <PostList postData={postData} setPostData={setPostData} />

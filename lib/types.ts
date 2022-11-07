@@ -23,7 +23,7 @@ export type Friend = {
   id?: number;
   friendId: number;
   friendFirstName: String;
-  friendLastName: String
+  friendLastName: String;
   owner?: User;
   ownerId: number;
 };
@@ -44,8 +44,7 @@ export type postsType = {
 };
 
 export type HomeType = {
-  posts: postType[];
-  user: User[];
+  user: User;
 };
 
 export type SendUser = {
