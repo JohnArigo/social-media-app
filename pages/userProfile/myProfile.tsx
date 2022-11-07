@@ -1,8 +1,9 @@
 import { Button, Modal, Textarea } from "@mantine/core";
 import { getSession, useSession } from "next-auth/react";
+import Link from "next/link";
 import { useState, useEffect } from "react";
 import PostList from "../../components/postList";
-import { postType, User, SendUser } from "../../lib/types";
+import { postType, User, SendUser, Friend } from "../../lib/types";
 
 export type UserArray = {
   user: User[];
@@ -39,7 +40,7 @@ export default function Home() {
     friends: [],
     posts: [],
   });
-
+  console.log(userData.friends);
   //api call to fetch user data from db
   useEffect(() => {
     fetch(`../api/findUser/${userID}`)
@@ -139,6 +140,24 @@ export default function Home() {
         <section className="mt-3 bg-white h-40 w-full shadow-sm flex flex-col items-start justify-start">
           <div className="self-end text-white">EASTER EGG</div>
           <h3 className="ml-5">Friends</h3>
+          <div>
+            {userData.friends.map((friend: Friend) => {
+              return (
+                <Link
+                  href={`/userProfile/${friend.friendId}${friend.friendFirstName}${friend.friendLastName}${friend.friendId}69`}
+                >
+                  <div className="h-24 w-28 flex flex-col justify-center items-center">
+                    <div className="rounded-full w-14 h-14 bg-blue-200 flex justify-center items-center">
+                      {friend.friendFirstName.charAt(0)}
+                    </div>
+                    <h1>
+                      {friend.friendFirstName + " " + friend.friendLastName}
+                    </h1>
+                  </div>
+                </Link>
+              );
+            })}
+          </div>
         </section>
         <section className="mt-3 bg-white h-40 w-full shadow-sm flex flex-col items-start justify-start">
           <div className="self-end text-gray-300" onClick={() => setFlex(true)}>

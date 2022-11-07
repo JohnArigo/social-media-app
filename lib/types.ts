@@ -21,8 +21,11 @@ export type FindUser = {
 
 export type Friend = {
   id?: number;
-  userFriend: User[];
   friendId: number;
+  friendFirstName: String;
+  friendLastName: String
+  owner?: User;
+  ownerId: number;
 };
 
 export type allFriends = {

@@ -38,6 +38,10 @@ model Profile {
 
 model Friend {
   id Int @id @default(autoincrement())
-  userFriend User? @relation(fields: [friendId], references: [id])
-  friendId Int 
+  friendId Int @unique
+  friendFirstName String
+  friendLastName String
+  owner User?  @relation(fields: [ownerId], references: [id])
+  ownerId Int 
+  
 }

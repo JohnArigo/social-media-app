@@ -1,10 +1,11 @@
+import { Button } from "@mantine/core";
 import { getSession, useSession } from "next-auth/react";
 import { useRouter } from "next/router";
 import { useState, useEffect } from "react";
 import PostList from "../../components/postList";
 
 import prisma from "../../lib/prisma";
-import { postType, User } from "../../lib/types";
+import { Friend, postType, User } from "../../lib/types";
 
 export async function getStaticPaths() {
   const pages = await prisma.user.findMany();
@@ -19,11 +20,6 @@ export async function getStaticPaths() {
   };
 }
 export async function getStaticProps(context: any) {
-  //   const myID = () => {
-  //     const { id } = query;
-  //     const myID = parseInt(id?.toString()!.slice(0, 1)!);
-  //     return myID;
-  //   };
   const userID = parseInt(context.params.id.slice(0, 1));
   const user = await prisma.user.findUnique({
     where: {
@@ -48,24 +44,38 @@ export type UserArray = {
   users?: User[];
 };
 
+async function newFriend(sendingPackage: any) {
+  const response = await fetch("../api/addFriend", {
+    method: "POST",
+    body: JSON.stringify(sendingPackage),
+  });
+  if (!response.ok) {
+    throw new Error(response.statusText);
+  }
+  return await response.json();
+}
+
 export default function Home({ user }: any) {
-  console.log(user);
   const { data: session } = useSession();
-  const userID = parseInt(session?.user?.name?.toString()!);
+  const userID = parseInt(session?.user?.name!.toString()!);
   const [userData, setUserData] = useState<User>(user);
-
-  //   useEffect(() => {
-  //     user.filter((user: User) => {
-  //       if (user.email === session?.user?.email!) {
-  //         setUserData(user);
-  //       }
-  //     });
-  //   }, [user]);
-
   const profile = userData;
-
   const [postData, setPostData] = useState<postType[]>(userData.posts!);
-
+  const [friend, setFriend] = useState<Friend>({
+    friendId: userData.id,
+    friendFirstName: userData.fName,
+    friendLastName: userData.lName,
+    ownerId: userID,
+  });
+  console.log(friend);
+  const onSubmit = async () => {
+    try {
+      await newFriend(friend);
+      console.log(friend);
+    } catch (error) {
+      console.log(error);
+    }
+  };
   return (
     <main className="w-screen h-auto overflow-y-auto">
       <section className="h-28 bg-red-300">This is the banner photo</section>
@@ -75,8 +85,17 @@ export default function Home({ user }: any) {
         </div>
         <div className="mt-10 ml-5">{profile.fName + " " + profile.lName}</div>
       </section>
+      <section className="mt-20 flex justify-around items-center">
+        <div
+          onClick={onSubmit}
+          className="cursor-pointer text-center rounded-xl w-32 bg-white"
+        >
+          + Add Friend
+        </div>
+        <div className="rounded-xl w-32 bg-white text-center">Message</div>
+      </section>
 
-      <section className="mt-32 h-40 bg-white w-full shadow-sm flex justify-start">
+      <section className="mt-12 h-40 bg-white w-full shadow-sm flex justify-start">
         <h3 className="ml-5">About Me</h3>
       </section>
       <section className="mt-3 bg-white h-40 w-full shadow-sm flex justify-start">

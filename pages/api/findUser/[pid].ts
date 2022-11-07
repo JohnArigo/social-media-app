@@ -16,11 +16,11 @@ export default async function handler(
       id: userID,
     },
     include: {
-      // friends: {
-      //   include: {
-      //     userFriend: true,
-      //   },
-      // },
+      friends: {
+        include: {
+          owner: true,
+        },
+      },
       posts: {
         include: {
           author: true,
