@@ -17,6 +17,9 @@ export async function getStaticProps(req: NextApiRequest) {
     include: {
       author: true,
     },
+    orderBy: {
+      id: "desc",
+    },
   });
   return {
     props: {

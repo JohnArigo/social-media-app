@@ -9,6 +9,17 @@ export type User = {
   flex?: string;
   posts?: postType[];
 };
+
+export type Message = {
+  id?: number;
+  toId: number;
+  toFName: string;
+  toLName: string;
+  toEmail: string;
+  message: string;
+  from?: User;
+  fromId: number;
+};
 export type FindUser = {
   id?: number;
   email?: string;

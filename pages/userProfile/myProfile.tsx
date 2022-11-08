@@ -9,7 +9,7 @@ export type UserArray = {
   user: User[];
   users?: User[];
 };
-
+//api POST handler
 async function postUpdatedUser(dataToSend: User) {
   const response = await fetch("../../api/updateUser", {
     method: "POST",
@@ -40,7 +40,7 @@ export default function Home() {
     friends: [],
     posts: [],
   });
-  console.log(userData.friends);
+
   //api call to fetch user data from db
   useEffect(() => {
     fetch(`../api/findUser/${userID}`)

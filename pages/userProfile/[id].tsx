@@ -1,11 +1,10 @@
-import { Button } from "@mantine/core";
+import { Button, Modal, Switch, Textarea, TextInput } from "@mantine/core";
 import { getSession, useSession } from "next-auth/react";
 import { useRouter } from "next/router";
 import { useState, useEffect } from "react";
 import PostList from "../../components/postList";
-
 import prisma from "../../lib/prisma";
-import { Friend, HomeType, postType, User } from "../../lib/types";
+import { Friend, HomeType, Message, postType, User } from "../../lib/types";
 
 export async function getStaticPaths() {
   const pages = await prisma.user.findMany();
@@ -43,8 +42,8 @@ export type UserArray = {
   user: User[];
   users?: User[];
 };
-
-async function newFriend(sendingPackage: any) {
+//add friend api
+async function newFriend(sendingPackage: Friend) {
   const response = await fetch("../api/addFriend", {
     method: "POST",
     body: JSON.stringify(sendingPackage),
@@ -54,7 +53,8 @@ async function newFriend(sendingPackage: any) {
   }
   return await response.json();
 }
-async function removeFriend(sendingPackage: any) {
+//remove friend api
+async function removeFriend(sendingPackage: Friend) {
   const response = await fetch("../api/removeFriend", {
     method: "POST",
     body: JSON.stringify(sendingPackage),
@@ -64,6 +64,18 @@ async function removeFriend(sendingPackage: any) {
   }
   return await response.json();
 }
+//send message api
+async function sendMessage(sendingPackage: Message) {
+  const response = await fetch("../api/sendMessage", {
+    method: "POST",
+    body: JSON.stringify(sendingPackage),
+  });
+  if (!response.ok) {
+    throw new Error(response.statusText);
+  }
+  return await response.json();
+}
+//type for user session
 export type currentUser = {
   friends: Friend[];
   id: number;
@@ -73,6 +85,7 @@ export type currentUser = {
 export default function Home({ user }: HomeType) {
   const { data: session } = useSession();
   const userID = parseInt(session?.user?.name!.toString()!);
+  //initial session user
   const initialFriend = [
     {
       friendFirstName: "First",
@@ -82,11 +95,13 @@ export default function Home({ user }: HomeType) {
       ownerId: 0,
     },
   ];
+  //session user state/data to pull
   const [currentUser, setCurrentUser] = useState<currentUser>({
     friends: initialFriend,
     id: userID,
     email: session?.user?.email!,
   });
+  //search current users friends to see if profile being viewed matches
   useEffect(() => {
     fetch(`../api/findUserFriends/${userID}`)
       .then((res) => res.json())
@@ -94,7 +109,6 @@ export default function Home({ user }: HomeType) {
         setCurrentUser(data);
       });
   }, []);
-
   //bool to see if friend => will return true
   const [isMyFriend, setIsMyFriend] = useState<boolean>(false);
   //userdata for other person that (sessio.user) is viewing
@@ -139,6 +153,41 @@ export default function Home({ user }: HomeType) {
       console.log(error);
     }
   };
+  //modal switch
+  const [opened, setOpened] = useState<boolean>(false);
+  //message data to be sent to api
+  const [messageData, setMessageData] = useState<Message>({
+    toEmail: userData.email,
+    toFName: userData.fName,
+    toLName: userData.lName,
+    toId: userData.id,
+    message: "",
+    fromId: userID,
+  });
+  //message data change handler
+  const handleMessageChange = (event: any) => {
+    const { name, value } = event?.target;
+    setMessageData((prevState) => {
+      return {
+        ...prevState,
+        [name]: value,
+      };
+    });
+  };
+  //send data to api
+  const handleMessageSubmit = async (e: any) => {
+    e.preventDefault();
+    try {
+      await sendMessage(messageData);
+      console.log("Succesfully sent message");
+      setOpened(false);
+      setMessageData((prevState) => {
+        return { ...prevState, message: "" };
+      });
+    } catch (error) {
+      console.log(error);
+    }
+  };
   return (
     <main className="w-screen h-auto overflow-y-auto">
       <section className="h-28 bg-red-300">This is the banner photo</section>
@@ -166,7 +215,34 @@ export default function Home({ user }: HomeType) {
             Add Friend
           </div>
         )}
-        <div className="rounded-xl w-32 bg-white text-center">Message</div>
+        <div
+          onClick={() => setOpened(true)}
+          className="rounded-xl w-32 bg-white text-center"
+        >
+          <Modal
+            opened={opened}
+            onClose={() => setOpened(false)}
+            title="Write your post!"
+          >
+            <form
+              onSubmit={handleMessageSubmit}
+              className="w-full h-full flex flex-col justify-center items-center"
+            >
+              <h1>Message to: {userData.fName + " " + userData.lName}</h1>
+              <Textarea
+                className="w-full"
+                label="Content"
+                name="message"
+                value={messageData.message}
+                onChange={handleMessageChange}
+                minRows={10}
+                maxRows={15}
+              />
+              <button>Post</button>
+            </form>
+          </Modal>
+          Message
+        </div>
       </section>
 
       <section className="mt-12 h-40 bg-white w-full shadow-sm flex justify-start">

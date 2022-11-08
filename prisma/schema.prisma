@@ -20,6 +20,7 @@ model User {
   flex String
   friends Friend[]
   posts Post[]
+  messages Message[]
 }
 
 model Post {
@@ -44,4 +45,15 @@ model Friend {
   owner User?  @relation(fields: [ownerId], references: [id])
   ownerId Int 
   
+}
+
+model Message {
+  id Int @id @default(autoincrement())
+  toId Int @unique
+  toFName String
+  toLName String
+  toEmail String
+  message String
+  from User? @relation(fields: [fromId], references: [id])
+  fromId Int 
 }
