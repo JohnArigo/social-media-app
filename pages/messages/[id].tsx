@@ -1,3 +1,4 @@
+import { Textarea, Button } from "@mantine/core";
 import { useSession } from "next-auth/react";
 import { useEffect, useState } from "react";
 import prisma from "../../lib/prisma";
@@ -54,8 +55,8 @@ export default function UserConversation({ user }: any) {
   });
 
   return (
-    <main>
-      <section className="flex flex-col items-center overflow-y-auto pb-20">
+    <main className="w-screen h-screen">
+      <section className="flex flex-col items-center overflow-y-auto">
         {messages.map((message) => {
           const messageStyle = () => {
             if (message.fromId === userId) {
@@ -72,14 +73,20 @@ export default function UserConversation({ user }: any) {
                   {message.toFName.charAt(0)}
                 </div>
               </div>
-              <div>
-                <div>{message.toFName}</div>
+              <div className="flex flex-col justify-center">
+                {message.fromId === userId ? null : (
+                  <div>{message.toFName}</div>
+                )}
                 <div>{message.message}</div>
               </div>
             </div>
           );
         })}
       </section>
+      <form className="h-40 flex justify-center items-center bg-red-500 pt-16 pb-32">
+        <Textarea />
+        <Button>Submit</Button>
+      </form>
     </main>
   );
 }
