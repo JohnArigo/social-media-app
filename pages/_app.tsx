@@ -8,6 +8,7 @@ import { useEffect, useState } from "react";
 import CreatePost from "../components/createPost";
 import prisma from "../lib/prisma";
 import { postType, User } from "../lib/types";
+import { Cloudinary } from "@cloudinary/url-gen";
 
 //initial user props
 export async function getServerSideProps() {
@@ -30,18 +31,32 @@ export async function getServerSideProps() {
   };
 }
 
+// declare global {
+//   interface Window {
+//       cloudinary: ;
+//   }
+// }
+
 export default function App({
   Component,
   pageProps,
 }: AppProps<{ session: Session; user: User[]; posts: postType[] }>) {
   const [opened, setOpened] = useState(false);
+  const cld = new Cloudinary({
+    cloud: {
+      cloudName: "demo",
+    },
+  });
 
   return (
     <SessionProvider session={pageProps.session}>
       <Modal
+        transition="fade"
+        transitionDuration={600}
+        transitionTimingFunction="ease"
         opened={opened}
         onClose={() => setOpened(false)}
-        title="Write your post!"
+        title={"Write your Post!"}
       >
         <CreatePost user={pageProps.user} />
       </Modal>

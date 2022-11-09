@@ -6,24 +6,9 @@ export default async function handler(
   req: NextApiRequest,
   res: NextApiResponse
 ) {
-  // if (req.method !== "GET") {
-  //   return res.status(405).json({ alert: "Method not allowed" });
-  // }
-  //   const { pid } = req.query;
-  //   const userID = parseInt(pid?.toString()!);
-  //   const user = await prisma.user.findUnique({
-  //     where: {
-  //       id: userID,
-  //     },
-  //     include: {
-  //       messages: true,
-  //     },
-  //   });
-
-  //   res.status(200).json(user);
-  //
-  //}
-
+  if (req.method !== "GET") {
+    return res.status(405).json({ alert: "Method not allowed" });
+  }
   const { pid } = req.query;
   const userID = parseInt(pid?.toString()!);
   const user = await prisma.message.findMany({

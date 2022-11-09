@@ -1,4 +1,5 @@
-import { Switch, Textarea, TextInput } from "@mantine/core";
+import { Switch, Textarea, TextInput, Notification } from "@mantine/core";
+import { IconCheck } from "@tabler/icons";
 import { getSession, useSession } from "next-auth/react";
 import { useEffect, useMemo, useState } from "react";
 import PostList from "../components/postList";
@@ -66,13 +67,14 @@ export default function CreatePost({ user }: UserArray) {
       };
     });
   };
-
+  const [pass, setPass] = useState(false);
   //handles submitting to api / clears forms
   const handleSubmit = async (e: any) => {
     e.preventDefault();
     try {
       await newPost(postData);
       console.log(postData);
+      setPass(true);
       setPostData({
         title: "",
         content: "",
@@ -84,38 +86,42 @@ export default function CreatePost({ user }: UserArray) {
     }
   };
 
-  return (
-    <main className="w-full h-96 ">
-      <form
-        onSubmit={handleSubmit}
-        className="w-full h-full flex flex-col justify-center items-center"
-      >
-        <Switch
-          size="md"
-          onLabel="Publish"
-          offLabel="Draft"
-          name="published"
-          checked={postData.published}
-          onChange={handleChange}
-        />
-        <TextInput
-          className="w-full"
-          label="Post Title"
-          name="title"
-          value={postData.title}
-          onChange={handleChange}
-        />
-        <Textarea
-          className="w-full"
-          label="Content"
-          name="content"
-          value={postData.content}
-          onChange={handleChange}
-          minRows={10}
-          maxRows={15}
-        />
-        <button>Post</button>
-      </form>
-    </main>
-  );
+  if (pass) {
+    return <main>Success!</main>;
+  } else {
+    return (
+      <main className="w-full h-96 ">
+        <form
+          onSubmit={handleSubmit}
+          className="w-full h-full flex flex-col justify-center items-center"
+        >
+          <Switch
+            size="md"
+            onLabel="Publish"
+            offLabel="Draft"
+            name="published"
+            checked={postData.published}
+            onChange={handleChange}
+          />
+          <TextInput
+            className="w-full"
+            label="Post Title"
+            name="title"
+            value={postData.title}
+            onChange={handleChange}
+          />
+          <Textarea
+            className="w-full"
+            label="Content"
+            name="content"
+            value={postData.content}
+            onChange={handleChange}
+            minRows={10}
+            maxRows={15}
+          />
+          <button>Post</button>
+        </form>
+      </main>
+    );
+  }
 }

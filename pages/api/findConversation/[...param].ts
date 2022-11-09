@@ -22,8 +22,13 @@ export default async function handler(
   const toId = parseInt(dbParams.charAt(1));
   const user = await prisma.message.findMany({
     where: {
-      fromId: userID || toId,
-      toId: toId || userID,
+      OR: [
+        { fromId: userID, toId: toId },
+        {
+          fromId: toId,
+          toId: userID,
+        },
+      ],
     },
   });
 

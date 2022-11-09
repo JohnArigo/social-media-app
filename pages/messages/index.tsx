@@ -1,5 +1,6 @@
 import { Textarea, TextInput } from "@mantine/core";
 import { getSession, useSession } from "next-auth/react";
+import Link from "next/link";
 import { useEffect, useMemo, useState } from "react";
 import { Message, postType, User } from "../../lib/types";
 
@@ -31,22 +32,26 @@ export default function Home() {
         {userMessages.map((message: Message) => {
           if (message.toId)
             return (
-              <div
-                className="bg-white mt-5 shadow-md rounded-lg flex items-center h-24 w-96 "
-                key={message.toId}
+              <Link
+                href={`./messages/${message.toId}${message.toFName}${message.toLName}`}
               >
-                <div className="w-28 flex justify-center items-center">
-                  <div className="rounded-full bg-gray-600 w-14 h-14 flex justify-center items-center">
-                    {message.toFName.charAt(0)}
+                <div
+                  className="bg-white mt-5 shadow-md rounded-lg flex items-center h-24 w-96 "
+                  key={message.toId}
+                >
+                  <div className="w-28 flex justify-center items-center">
+                    <div className="rounded-full bg-gray-600 w-14 h-14 flex justify-center items-center">
+                      {message.toFName.charAt(0)}
+                    </div>
+                  </div>
+                  <div className=" h-full flex flex-col justify-center">
+                    <h1 className="text-lg font-bold">
+                      {message.toFName + " " + message.toLName}
+                    </h1>
+                    <div className="text-sm">{message.message}</div>
                   </div>
                 </div>
-                <div className=" h-full flex flex-col justify-center">
-                  <h1 className="text-lg font-bold">
-                    {message.toFName + " " + message.toLName}
-                  </h1>
-                  <div className="text-sm">{message.message}</div>
-                </div>
-              </div>
+              </Link>
             );
         })}
       </section>

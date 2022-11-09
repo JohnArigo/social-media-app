@@ -1,4 +1,4 @@
-import { Button, Modal, Textarea } from "@mantine/core";
+import { Button, Modal, Textarea, Text, Collapse } from "@mantine/core";
 import { getSession, useSession } from "next-auth/react";
 import Link from "next/link";
 import { useState, useEffect } from "react";
@@ -84,6 +84,8 @@ export default function Home() {
   const [about, setAbout] = useState(false);
   const [flex, setFlex] = useState(false);
   const [userOpen, setUserOpen] = useState(false);
+  const [aboutText, setAboutText] = useState(false);
+  const [flexText, setFlexText] = useState(false);
 
   //contingency for bad data load
   if (userData.email === undefined) {
@@ -107,7 +109,7 @@ export default function Home() {
           </div>
         </section>
 
-        <section className="mt-32 h-40 bg-white w-full shadow-sm flex-col flex items-start justify-start">
+        <section className="mt-32 max-h-80 bg-white w-full shadow-sm flex-col flex items-start justify-start overflow-y-scroll">
           <div
             className="self-end text-gray-300"
             onClick={() => setAbout(true)}
@@ -115,6 +117,9 @@ export default function Home() {
             edit
           </div>
           <Modal
+            transition="fade"
+            transitionDuration={600}
+            transitionTimingFunction="ease"
             opened={about}
             onClose={() => setAbout(false)}
             title="Tell us about you!"
@@ -135,7 +140,19 @@ export default function Home() {
             </div>
           </Modal>
           <h3 className="ml-5">About Me</h3>
-          <h4>{userData.about}</h4>
+
+          <div>
+            <Collapse in={aboutText}>
+              {userData.about}
+              <div onClick={() => setAboutText(false)}>See less</div>
+            </Collapse>
+            {aboutText ? null : <Text lineClamp={3}>{userData.about}</Text>}
+            {userData.about!.length > 130 ? (
+              <div onClick={() => setAboutText(true)}>
+                {aboutText ? null : "See More"}
+              </div>
+            ) : null}
+          </div>
         </section>
         <section className="mt-3 bg-white h-40 w-full shadow-sm flex flex-col items-start justify-start">
           <div className="self-end text-white">EASTER EGG</div>
@@ -159,11 +176,14 @@ export default function Home() {
             })}
           </div>
         </section>
-        <section className="mt-3 bg-white h-40 w-full shadow-sm flex flex-col items-start justify-start">
+        <section className="mt-3 bg-white max-h-80 overflow-y-auto w-full shadow-sm flex flex-col items-start justify-start">
           <div className="self-end text-gray-300" onClick={() => setFlex(true)}>
             edit
           </div>
           <Modal
+            transition="fade"
+            transitionDuration={600}
+            transitionTimingFunction="ease"
             opened={flex}
             onClose={() => setFlex(false)}
             title="Tell us about you!"
@@ -184,7 +204,18 @@ export default function Home() {
             </div>
           </Modal>
           <h3 className="ml-5">Announcements</h3>
-          <h4>{userData.flex}</h4>
+          <div>
+            <Collapse in={flexText}>
+              {userData.flex}
+              <div onClick={() => setFlexText(false)}>See less</div>
+            </Collapse>
+            {flexText ? null : <Text lineClamp={3}>{userData.flex}</Text>}
+            {userData.flex!.length > 130 ? (
+              <div onClick={() => setFlexText(true)}>
+                {flexText ? null : "See More"}
+              </div>
+            ) : null}
+          </div>
         </section>
         <h1 className="flex items-center justify-center h-14">
           {userData.fName + " " + userData.lName}'s Posts

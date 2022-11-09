@@ -55,20 +55,19 @@ export default function UserConversation({ user }: any) {
   });
 
   return (
-    <main className="w-screen h-screen">
-      <section className="flex flex-col items-center overflow-y-auto">
+    <main className="w-screen h-screen flex flex-col items-center">
+      <section className="flex flex-col items-center overflow-y-auto mb-44">
         {messages.map((message) => {
           const messageStyle = () => {
             if (message.fromId === userId) {
-              return "rounded-lg flex flex-row-reverse items-center justify-start w-96 h-28 bg-green-200 mt-5";
+              return "rounded-lg flex flex-row-reverse items-center self-end w-auto h-48 bg-white mt-5 pl-5";
             } else {
-              return "rounded-lg flex items-center justify-start w-96 h-28 bg-green-200 mt-5";
+              return "rounded-lg flex items-center self-start w-auto h-48 bg-white mt-5 pr-5";
             }
           };
           return (
             <div className={messageStyle()}>
               <div className="w-20 ml-2">
-                {" "}
                 <div className="rounded-full w-14 h-14 bg-green-500 flex justify-center items-center">
                   {message.toFName.charAt(0)}
                 </div>
@@ -83,8 +82,8 @@ export default function UserConversation({ user }: any) {
           );
         })}
       </section>
-      <form className="h-40 flex justify-center items-center bg-red-500 pt-16 pb-32">
-        <Textarea />
+      <form className="rounded-lg self-center fixed bottom-20 w-96 h-20 flex justify-center items-center bg-gray-400">
+        <Textarea className="w-3/4 h-3/4" />
         <Button>Submit</Button>
       </form>
     </main>
