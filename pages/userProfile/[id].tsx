@@ -44,7 +44,7 @@ export type UserArray = {
 };
 //add friend api
 async function newFriend(sendingPackage: Friend) {
-  const response = await fetch("../api/addFriend", {
+  const response = await fetch("../api/friendCalls/addFriend", {
     method: "POST",
     body: JSON.stringify(sendingPackage),
   });
@@ -55,7 +55,7 @@ async function newFriend(sendingPackage: Friend) {
 }
 //remove friend api
 async function removeFriend(sendingPackage: Friend) {
-  const response = await fetch("../api/removeFriend", {
+  const response = await fetch("../api/friendCalls/removeFriend", {
     method: "POST",
     body: JSON.stringify(sendingPackage),
   });
@@ -188,6 +188,7 @@ export default function Home({ user }: HomeType) {
       console.log(error);
     }
   };
+  console.log(messageData);
   return (
     <main className="w-screen h-auto overflow-y-auto">
       <section className="h-28 bg-red-300">This is the banner photo</section>

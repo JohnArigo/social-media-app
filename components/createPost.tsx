@@ -6,7 +6,7 @@ import PostList from "../components/postList";
 import prisma from "../lib/prisma";
 import { postType, User, Friend } from "../lib/types";
 import { UserArray } from "../pages/userProfile/[id]";
-
+//POST to createNewPost API
 async function newPost(sendingPackage: postTypeSend) {
   const response = await fetch("../api/createNewPost", {
     method: "POST",
@@ -19,7 +19,7 @@ async function newPost(sendingPackage: postTypeSend) {
 
   return await response.json();
 }
-
+//post type
 export type postTypeSend = {
   title: string;
   content: string;
@@ -49,14 +49,14 @@ export default function CreatePost({ user }: UserArray) {
         setUserData(data);
       });
   }, []);
-
+  //data being sent to api
   const [postData, setPostData] = useState<postTypeSend>({
     title: "",
     content: "",
     published: true,
     authorId: userData.id,
   });
-
+  //handle change in form
   const handleChange = (event: any) => {
     const { name, value, type, checked } = event?.target;
     setPostData((prevState: postTypeSend) => {
@@ -67,6 +67,7 @@ export default function CreatePost({ user }: UserArray) {
     });
   };
 
+  //handles submitting to api / clears forms
   const handleSubmit = async (e: any) => {
     e.preventDefault();
     try {

@@ -49,7 +49,7 @@ model Friend {
 
 model Message {
   id Int @id @default(autoincrement())
-  toId Int @unique
+  toId Int 
   toFName String
   toLName String
   toEmail String

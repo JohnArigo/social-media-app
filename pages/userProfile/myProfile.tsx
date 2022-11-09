@@ -11,7 +11,7 @@ export type UserArray = {
 };
 //api POST handler
 async function postUpdatedUser(dataToSend: User) {
-  const response = await fetch("../../api/updateUser", {
+  const response = await fetch("../../api/userCalls/updateUser", {
     method: "POST",
     body: JSON.stringify(dataToSend),
   });

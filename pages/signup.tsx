@@ -12,7 +12,7 @@ export interface signUpType {
 }
 
 async function postNewUser(sendingPackage: signUpType) {
-  const response = await fetch("../api/createUser", {
+  const response = await fetch("../api/userCalls/createUser", {
     method: "POST",
     body: JSON.stringify(sendingPackage),
   });

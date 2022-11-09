@@ -19,7 +19,10 @@ export default function HeaderSession({ setOpened, user }: HeaderSessionType) {
       <div onClick={() => setOpened(true)}>
         <div>Post</div>
       </div>
-      <div>Messages</div>
+      <Link href={"/messages"}>
+        <div>Messages</div>
+      </Link>
+
       <Link href={`/userProfile/myProfile`}>
         <div>Profile</div>
       </Link>

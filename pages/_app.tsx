@@ -9,6 +9,7 @@ import CreatePost from "../components/createPost";
 import prisma from "../lib/prisma";
 import { postType, User } from "../lib/types";
 
+//initial user props
 export async function getServerSideProps() {
   const session = await getSession();
   const posts = await prisma.post.findMany({

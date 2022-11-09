@@ -6,7 +6,6 @@ import PostList from "../components/postList";
 import Stories from "../components/stories";
 import prisma from "../lib/prisma";
 import { postType, HomeType, User, Friend, postsType } from "../lib/types";
-//import { options } from "pages/api/auth/[...nextauth]";
 
 //pull all data posts
 export async function getStaticProps(req: NextApiRequest) {
