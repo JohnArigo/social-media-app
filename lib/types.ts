@@ -7,6 +7,7 @@ export type User = {
   friends: Friend[];
   about?: string;
   flex?: string;
+  image?: string;
   posts?: postType[];
 };
 

@@ -3,6 +3,7 @@ import { getSession, useSession } from "next-auth/react";
 import Link from "next/link";
 import { useState, useEffect } from "react";
 import PostList from "../../components/postList";
+import UploadImage from "../../components/uploadImage";
 import { postType, User, SendUser, Friend } from "../../lib/types";
 
 export type UserArray = {
@@ -77,7 +78,6 @@ export default function Home() {
     }
     setAbout(false);
     setFlex(false);
-    setUserOpen(false);
   };
 
   //modal openers
@@ -86,7 +86,7 @@ export default function Home() {
   const [userOpen, setUserOpen] = useState(false);
   const [aboutText, setAboutText] = useState(false);
   const [flexText, setFlexText] = useState(false);
-
+  console.log(userData);
   //contingency for bad data load
   if (userData.email === undefined) {
     return (
@@ -101,8 +101,21 @@ export default function Home() {
       <main className="w-screen h-auto overflow-y-auto">
         <section className="h-28 bg-red-300">This is the banner photo</section>
         <section className="w-full h-30 flex flex-row items-center  absolute z-10 top-14">
-          <div className="ml-5 w-28 h-28  flex justify-center items-center bg-green-500">
-            R
+          <div
+            onClick={() => setUserOpen(true)}
+            className="ml-5 w-28 h-28  flex justify-center items-center bg-green-500"
+          >
+            <img src={userData.image} />
+            <Modal
+              transition="fade"
+              transitionDuration={600}
+              transitionTimingFunction="ease"
+              opened={userOpen}
+              onClose={() => setUserOpen(false)}
+              title="Tell us about you!"
+            >
+              <UploadImage userId={userID} />
+            </Modal>
           </div>
           <div className="mt-10 ml-5">
             {userData.fName + " " + userData.lName}

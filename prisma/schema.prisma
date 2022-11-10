@@ -18,6 +18,7 @@ model User {
   password String
   about String
   flex String
+  image String?
   friends Friend[]
   posts Post[]
   messages Message[]

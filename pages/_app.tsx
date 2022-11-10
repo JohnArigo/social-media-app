@@ -31,22 +31,17 @@ export async function getServerSideProps() {
   };
 }
 
-// declare global {
-//   interface Window {
-//       cloudinary: ;
-//   }
-// }
+declare global {
+  interface Window {
+    cloudinary: any;
+  }
+}
 
 export default function App({
   Component,
   pageProps,
 }: AppProps<{ session: Session; user: User[]; posts: postType[] }>) {
   const [opened, setOpened] = useState(false);
-  const cld = new Cloudinary({
-    cloud: {
-      cloudName: "demo",
-    },
-  });
 
   return (
     <SessionProvider session={pageProps.session}>
