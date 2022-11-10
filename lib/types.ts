@@ -8,6 +8,7 @@ export type User = {
   about?: string;
   flex?: string;
   image?: string;
+  banner?: string;
   posts?: postType[];
 };
 
@@ -40,6 +41,11 @@ export type Friend = {
   ownerId: number;
 };
 
+export type Banner = {
+  id: number;
+  link: string;
+};
+
 export type allFriends = {
   allFriends: Friend[];
 };
@@ -65,4 +71,14 @@ export type SendUser = {
   lName: string;
   about: string;
   flex: string;
+};
+
+export type bannerData = {
+  id: number;
+  banner: string;
+};
+
+export type bannerNotification = {
+  message: string;
+  status: boolean;
 };

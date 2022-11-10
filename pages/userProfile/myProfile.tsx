@@ -3,6 +3,7 @@ import { getSession, useSession } from "next-auth/react";
 import Link from "next/link";
 import { useState, useEffect } from "react";
 import PostList from "../../components/postList";
+import UploadBanner from "../../components/uploadBanner";
 import UploadImage from "../../components/uploadImage";
 import { postType, User, SendUser, Friend } from "../../lib/types";
 
@@ -83,7 +84,8 @@ export default function Home() {
   //modal openers
   const [about, setAbout] = useState(false);
   const [flex, setFlex] = useState(false);
-  const [userOpen, setUserOpen] = useState(false);
+  const [profilePic, setProfilePic] = useState(false);
+  const [banner, setBanner] = useState(false);
   const [aboutText, setAboutText] = useState(false);
   const [flexText, setFlexText] = useState(false);
   console.log(userData);
@@ -99,10 +101,33 @@ export default function Home() {
   else
     return (
       <main className="w-screen h-auto overflow-y-auto">
-        <section className="h-28 bg-red-300">This is the banner photo</section>
+        {/* {Header Section} */}
+        <section
+          className="h-32 w-full bg-red-300 flex flex-col items-end"
+          onClick={() => setBanner(true)}
+        >
+          <h1
+            className="absolute text-sm bg-zinc-50 opacity-70"
+            onClick={() => setBanner(true)}
+          >
+            edit
+          </h1>
+          <Modal
+            overflow="inside"
+            transition="fade"
+            transitionDuration={600}
+            transitionTimingFunction="ease"
+            opened={banner}
+            onClose={() => setBanner(false)}
+          >
+            <UploadBanner userID={userID} />
+          </Modal>
+          <img className="h-32 w-full bg-red-300" src={userData.banner} />
+        </section>
+        {/* {Profile Image and Name} */}
         <section className="w-full h-30 flex flex-row items-center  absolute z-10 top-14">
           <div
-            onClick={() => setUserOpen(true)}
+            onClick={() => setProfilePic(true)}
             className="ml-5 w-28 h-28  flex justify-center items-center bg-green-500"
           >
             <img src={userData.image} />
@@ -110,19 +135,18 @@ export default function Home() {
               transition="fade"
               transitionDuration={600}
               transitionTimingFunction="ease"
-              opened={userOpen}
-              onClose={() => setUserOpen(false)}
-              title="Tell us about you!"
+              opened={profilePic}
+              onClose={() => setProfilePic(false)}
             >
-              <UploadImage userId={userID} />
+              <UploadImage userID={userID} />
             </Modal>
           </div>
-          <div className="mt-10 ml-5">
+          <div className="mt-14 ml-5">
             {userData.fName + " " + userData.lName}
           </div>
         </section>
-
-        <section className="mt-32 max-h-80 bg-white w-full shadow-sm flex-col flex items-start justify-start overflow-y-scroll">
+        {/* {About me} */}
+        <section className="mt-32 pb-16 max-h-80 bg-white w-full shadow-sm flex-col flex items-start justify-start overflow-y-scroll">
           <div
             className="self-end text-gray-300"
             onClick={() => setAbout(true)}
@@ -167,6 +191,7 @@ export default function Home() {
             ) : null}
           </div>
         </section>
+        {/* {Friend list NEED TO MAP AND OPEN PAGE TO SEE ALL FRIENDS} */}
         <section className="mt-3 bg-white h-40 w-full shadow-sm flex flex-col items-start justify-start">
           <div className="self-end text-white">EASTER EGG</div>
           <h3 className="ml-5">Friends</h3>
@@ -189,7 +214,8 @@ export default function Home() {
             })}
           </div>
         </section>
-        <section className="mt-3 bg-white max-h-80 overflow-y-auto w-full shadow-sm flex flex-col items-start justify-start">
+        {/* {Flex announcements} */}
+        <section className="mt-3 pb-16 bg-white max-h-80 overflow-y-auto w-full shadow-sm flex flex-col items-start justify-start">
           <div className="self-end text-gray-300" onClick={() => setFlex(true)}>
             edit
           </div>
@@ -230,6 +256,7 @@ export default function Home() {
             ) : null}
           </div>
         </section>
+        {/* {Posts} */}
         <h1 className="flex items-center justify-center h-14">
           {userData.fName + " " + userData.lName}'s Posts
         </h1>

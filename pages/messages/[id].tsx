@@ -66,7 +66,7 @@ export default function UserConversation({ user }: any) {
             }
           };
           return (
-            <div className={messageStyle()}>
+            <div className={messageStyle()} key={message.id}>
               <div className="w-20 ml-2">
                 <div className="rounded-full w-14 h-14 bg-green-500 flex justify-center items-center">
                   {message.toFName.charAt(0)}

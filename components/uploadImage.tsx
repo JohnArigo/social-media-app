@@ -1,8 +1,10 @@
 import React, { useEffect, useState } from "react";
 import Head from "next/head";
+import Script from "next/script";
+import { Button } from "@mantine/core";
 
 async function postImage(dataToSend: any) {
-  const response = await fetch("../../api/postImage", {
+  const response = await fetch("../../api/photos/postImage", {
     method: "POST",
     body: JSON.stringify(dataToSend),
   });
@@ -14,13 +16,12 @@ async function postImage(dataToSend: any) {
   return await response.json();
 }
 //FIX TYPE
-const UploadImage = ({ userId }: any) => {
-  console.log(userId);
+const UploadImage = ({ userID }: any) => {
+  console.log(userID);
   const [image, setImage] = useState({
-    id: userId,
+    id: userID,
     image: "initial",
   });
-  console.log(image);
   const openWidget = async () => {
     // create the widget
     if (typeof window !== undefined) {
@@ -62,7 +63,7 @@ const UploadImage = ({ userId }: any) => {
   };
 
   return (
-    <>
+    <main className="h-96 flex flex-col">
       <Head>
         <script
           src="https://widget.Cloudinary.com/v2.0/global/all.js"
@@ -71,11 +72,15 @@ const UploadImage = ({ userId }: any) => {
       </Head>
 
       <button type="button" id="leftbutton" onClick={openWidget}>
-        Upload new profile photo
+        NEW PHOTO
       </button>
-      <img src={image.image} />
-      <button onClick={handleSubmit}>Upload</button>
-    </>
+      {image.image === "initial" ? null : <img src={image.image} />}
+      {image.image === "initial" ? null : (
+        <Button className="bg-blue-500" onClick={handleSubmit}>
+          Upload
+        </Button>
+      )}
+    </main>
   );
 };
 

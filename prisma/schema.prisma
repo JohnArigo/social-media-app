@@ -19,6 +19,7 @@ model User {
   about String
   flex String
   image String?
+  banner String?
   friends Friend[]
   posts Post[]
   messages Message[]
@@ -57,4 +58,9 @@ model Message {
   message String
   from User? @relation(fields: [fromId], references: [id])
   fromId Int 
+}
+
+model Banner {
+  id Int @id @default(autoincrement())
+  link String
 }
