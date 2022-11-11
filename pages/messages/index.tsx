@@ -14,6 +14,7 @@ export default function Home() {
       message: "Initial",
       toEmail: "FakeEmail@fake.com",
       toFName: "Joe",
+      toImage: "",
       toId: 0,
       toLName: "Doe",
     },
@@ -27,7 +28,7 @@ export default function Home() {
 
   return (
     <main className="w-screen h-screen">
-      <h1 className="text-center text-2xl font-bold">Messages</h1>
+      <h1 className="text-center text-2xl font-bold text-info">Messages</h1>
       <section className="flex flex-col items-center overflow-y-auto pb-20">
         {userMessages.map((message: Message) => {
           if (message.toId)
@@ -36,7 +37,7 @@ export default function Home() {
                 href={`./messages/${message.toId}${message.toFName}${message.toLName}`}
               >
                 <div
-                  className="bg-white mt-5 shadow-md rounded-lg flex items-center h-24 w-96 "
+                  className="bg-base-content text-info-content mt-5 shadow-md rounded-lg flex items-center h-24 w-96 "
                   key={message.toId}
                 >
                   <div className="w-28 flex justify-center items-center">

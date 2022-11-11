@@ -30,6 +30,7 @@
     "@tabler/icons": "^1.109.0",
     "cloudinary": "^1.32.0",
     "cloudinary-react": "^1.8.1",
+    "daisyui": "^2.39.0",
     "dayjs": "^1.11.6",
     "dotenv": "^16.0.3",
     "embla-carousel-react": "^7.0.3",

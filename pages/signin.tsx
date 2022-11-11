@@ -39,7 +39,7 @@ export default function SignIn() {
   };
   if (!session) {
     return (
-      <main className="w-screen h-screen flex justify-center items-center">
+      <main className="text-info w-screen h-screen flex justify-center items-center">
         <form
           onSubmit={handleSubmit}
           className="h-full w-full flex flex-col justify-center"
@@ -73,7 +73,7 @@ export default function SignIn() {
     );
   } else
     return (
-      <main className="flex flex-col justify-center items-center w-screen h-screen">
+      <main className=" text-info flex flex-col justify-center items-center w-screen h-screen">
         <div className="text-center">
           You are currently logged in using email:
         </div>

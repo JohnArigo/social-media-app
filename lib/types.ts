@@ -15,6 +15,7 @@ export type User = {
 export type Message = {
   id?: number;
   toId: number;
+  toImage: string | null;
   toFName: string;
   toLName: string;
   toEmail: string;
@@ -37,6 +38,7 @@ export type Friend = {
   friendId: number;
   friendFirstName: String;
   friendLastName: String;
+  image?: string;
   owner?: User;
   ownerId: number;
 };
@@ -81,4 +83,16 @@ export type bannerData = {
 export type bannerNotification = {
   message: string;
   status: boolean;
+};
+
+export type UserArray = {
+  user: User[];
+  users?: User[];
+};
+
+export type currentUser = {
+  friends: Friend[];
+  id: number;
+  email: string;
+  image: string;
 };

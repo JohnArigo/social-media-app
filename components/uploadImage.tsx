@@ -1,6 +1,5 @@
 import React, { useEffect, useState } from "react";
 import Head from "next/head";
-import Script from "next/script";
 import { Button } from "@mantine/core";
 
 async function postImage(dataToSend: any) {
@@ -16,12 +15,21 @@ async function postImage(dataToSend: any) {
   return await response.json();
 }
 //FIX TYPE
+
 const UploadImage = ({ userID }: any) => {
-  console.log(userID);
+  const [user, setUser] = useState<string>();
+
+  const [userStatus, setUserStatus] = useState(true);
+  useEffect(() => {
+    fetch(`../../api/findUserImage/${userID}`)
+      .then((res) => res.json())
+      .then((data) => setUser(data.image));
+  }, []);
   const [image, setImage] = useState({
     id: userID,
     image: "initial",
   });
+  console.log(user);
   const openWidget = async () => {
     // create the widget
     if (typeof window !== undefined) {
@@ -48,6 +56,7 @@ const UploadImage = ({ userID }: any) => {
         }
       );
       widget.open(); // open up the widget after creation
+      setUserStatus(false);
     } else {
       return null;
     }
@@ -71,9 +80,15 @@ const UploadImage = ({ userID }: any) => {
         ></script>
       </Head>
 
-      <button type="button" id="leftbutton" onClick={openWidget}>
+      <button
+        className="btn btn-primary"
+        type="button"
+        id="leftbutton"
+        onClick={openWidget}
+      >
         NEW PHOTO
       </button>
+      {userStatus ? <img src={user} /> : null}
       {image.image === "initial" ? null : <img src={image.image} />}
       {image.image === "initial" ? null : (
         <Button className="bg-blue-500" onClick={handleSubmit}>

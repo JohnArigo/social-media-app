@@ -55,7 +55,7 @@ export default function App({
       >
         <CreatePost user={pageProps.user} />
       </Modal>
-      <Component {...pageProps} />
+      <Component className="bg-base-200" {...pageProps} />
       <Header setOpened={setOpened} user={pageProps.user} />
     </SessionProvider>
   );

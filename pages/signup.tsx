@@ -55,7 +55,7 @@ export default function SignUp() {
   };
 
   return (
-    <main className="w-screen h-screen flex justify-center items-center">
+    <main className="text-info w-screen h-screen flex justify-center items-center">
       <form
         onSubmit={handleSubmit}
         className="h-full w-full flex flex-col justify-center"

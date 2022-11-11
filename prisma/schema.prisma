@@ -41,6 +41,7 @@ model Profile {
 
 model Friend {
   id Int @id @default(autoincrement())
+  image String?
   friendId Int @unique
   friendFirstName String
   friendLastName String
@@ -52,6 +53,7 @@ model Friend {
 model Message {
   id Int @id @default(autoincrement())
   toId Int 
+  toImage String?
   toFName String
   toLName String
   toEmail String

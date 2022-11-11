@@ -1,5 +1,4 @@
 import type { NextApiRequest, NextApiResponse } from "next";
-
 import { useSession } from "next-auth/react";
 import prisma from "../../../lib/prisma";
 
@@ -17,9 +16,6 @@ export default async function handler(
       id: userID,
     },
     select: {
-      friends: true,
-      id: true,
-      email: true,
       image: true,
     },
   });

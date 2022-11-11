@@ -73,6 +73,7 @@ const options: NextAuthOptions = {
       if (token) {
         token.email = session.user?.email;
         token.name = session.user?.name;
+        token.picture = session.user?.image;
       }
       return session;
     },
@@ -80,6 +81,7 @@ const options: NextAuthOptions = {
       if (user) {
         token.email = user.email;
         token.name = user.id;
+        token.picture = user.image;
       }
       return token;
     },

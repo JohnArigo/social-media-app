@@ -64,7 +64,7 @@ export default function Home({ posts }: postsType) {
   }, [userData]);
 
   return (
-    <main className="w-screen h-screen bg-gray-200">
+    <main className="w-screen h-screen">
       <Stories allFriends={friendData} />
       <PostList postData={postData} setPostData={setPostData} />
     </main>

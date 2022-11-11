@@ -9,14 +9,13 @@ export type postDataType = {
 };
 
 export default function PostList({ postData, setPostData }: postDataType) {
-  //   console.log(postData);
   return (
-    <section className="shadow-sm pb-24 text-black h-full w-full flex flex-row flex-wrap justify-center items-start overflow-y-scroll">
+    <section className="shadow-sm pb-24  h-full w-full flex flex-row flex-wrap justify-center items-start overflow-y-scroll">
       {postData.map((post: postType, index: number) => {
         if (post.published) {
           return (
             <div
-              className="w-full h-80 bg-white rounded-xl mt-5 flex flex-col"
+              className="w-full h-80 bg-base-content text-info-content rounded-xl mt-5 flex flex-col"
               key={post.title + post.authorId + index}
             >
               <div
@@ -40,8 +39,11 @@ export default function PostList({ postData, setPostData }: postDataType) {
               >
                 <div className="flex flex-row mt-3 ml-2 h-1/6 items-center">
                   <div className="w-1/4 ">
-                    <div className="bg-green-600 rounded-full h-16 w-16 flex justify-center items-center">
-                      Image
+                    <div className=" rounded-full h-16 w-16 flex justify-center items-center">
+                      <img
+                        className=" rounded-full h-16 w-16"
+                        src={post.author.image}
+                      />
                     </div>
                   </div>
                   <div>{post.author.fName + " " + post.author.lName}</div>

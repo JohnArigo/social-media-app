@@ -6,7 +6,7 @@ import { Message, User } from "../../lib/types";
 
 export async function getStaticPaths() {
   const messages = await prisma.message.findMany();
-
+  //fix type?
   const paths = messages.map((message: Message) => {
     return { params: { id: message.toId + message.toFName + message.toLName } };
   });
@@ -44,6 +44,7 @@ export default function UserConversation({ user }: any) {
       message: "Initial",
       toEmail: "FakeEmail@fake.com",
       toFName: "Joe",
+      toImage: "",
       toId: 0,
       toLName: "Doe",
     },
@@ -52,24 +53,28 @@ export default function UserConversation({ user }: any) {
     fetch(`../api/findConversation/${userId}/${toId}`)
       .then((res) => res.json())
       .then((data) => setMessages(data));
-  });
+  }, []);
 
   return (
     <main className="w-screen h-screen flex flex-col items-center">
-      <section className="flex flex-col items-center overflow-y-auto mb-44">
+      <section className="flex flex-col items-center overflow-y-auto mb-44 ">
         {messages.map((message) => {
           const messageStyle = () => {
             if (message.fromId === userId) {
-              return "rounded-lg flex flex-row-reverse items-center self-end w-auto h-48 bg-white mt-5 pl-5";
+              return "rounded-lg flex flex-row-reverse items-center self-end w-auto h-48 bg-base-content text-info-content mt-5 pl-5";
             } else {
-              return "rounded-lg flex items-center self-start w-auto h-48 bg-white mt-5 pr-5";
+              return "rounded-lg flex items-center self-start w-auto h-48 bg-base-content text-info-content mt-5 pr-5";
             }
           };
+
           return (
             <div className={messageStyle()} key={message.id}>
               <div className="w-20 ml-2">
                 <div className="rounded-full w-14 h-14 bg-green-500 flex justify-center items-center">
-                  {message.toFName.charAt(0)}
+                  <img
+                    className="rounded-full w-14 h-14"
+                    src={message?.toImage!}
+                  />
                 </div>
               </div>
               <div className="flex flex-col justify-center">

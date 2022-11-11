@@ -100,7 +100,7 @@ export default function Home() {
   //render
   else
     return (
-      <main className="w-screen h-auto overflow-y-auto">
+      <main className="bg-base-200 w-screen h-auto overflow-y-auto">
         {/* {Header Section} */}
         <section
           className="h-32 w-full bg-red-300 flex flex-col items-end"
@@ -125,7 +125,7 @@ export default function Home() {
           <img className="h-32 w-full bg-red-300" src={userData.banner} />
         </section>
         {/* {Profile Image and Name} */}
-        <section className="w-full h-30 flex flex-row items-center  absolute z-10 top-14">
+        <section className="bg-transparent w-full h-30 flex flex-row items-center  absolute z-10 top-14">
           <div
             onClick={() => setProfilePic(true)}
             className="ml-5 w-28 h-28  flex justify-center items-center bg-green-500"
@@ -141,12 +141,12 @@ export default function Home() {
               <UploadImage userID={userID} />
             </Modal>
           </div>
-          <div className="mt-14 ml-5">
+          <div className="text-info mt-14 ml-5">
             {userData.fName + " " + userData.lName}
           </div>
         </section>
         {/* {About me} */}
-        <section className="mt-32 pb-16 max-h-80 bg-white w-full shadow-sm flex-col flex items-start justify-start overflow-y-scroll">
+        <section className="bg-base-content text-info-content mt-32 pb-16 max-h-80  w-full shadow-sm flex-col flex items-start justify-start overflow-y-scroll">
           <div
             className="self-end text-gray-300"
             onClick={() => setAbout(true)}
@@ -185,25 +185,26 @@ export default function Home() {
             </Collapse>
             {aboutText ? null : <Text lineClamp={3}>{userData.about}</Text>}
             {userData.about!.length > 130 ? (
-              <div onClick={() => setAboutText(true)}>
+              <div className="text-accent" onClick={() => setAboutText(true)}>
                 {aboutText ? null : "See More"}
               </div>
             ) : null}
           </div>
         </section>
         {/* {Friend list NEED TO MAP AND OPEN PAGE TO SEE ALL FRIENDS} */}
-        <section className="mt-3 bg-white h-40 w-full shadow-sm flex flex-col items-start justify-start">
-          <div className="self-end text-white">EASTER EGG</div>
-          <h3 className="ml-5">Friends</h3>
+        <section className="mt-3 bg-base-content text-info-content h-40 w-full shadow-sm flex flex-col items-start justify-start">
+          <div className="self-end text-base-content">EASTER EGG</div>
+          <h3 className="ml-5">Following</h3>
           <div>
             {userData.friends.map((friend: Friend) => {
+              console.log(friend);
               return (
                 <Link
                   href={`/userProfile/${friend.friendId}${friend.friendFirstName}${friend.friendLastName}${friend.friendId}69`}
                 >
                   <div className="h-24 w-28 flex flex-col justify-center items-center">
-                    <div className="rounded-full w-14 h-14 bg-blue-200 flex justify-center items-center">
-                      {friend.friendFirstName.charAt(0)}
+                    <div className="rounded-full w-14 h-14  flex justify-center items-center">
+                      <img src={friend.image} />
                     </div>
                     <h1>
                       {friend.friendFirstName + " " + friend.friendLastName}
@@ -215,7 +216,7 @@ export default function Home() {
           </div>
         </section>
         {/* {Flex announcements} */}
-        <section className="mt-3 pb-16 bg-white max-h-80 overflow-y-auto w-full shadow-sm flex flex-col items-start justify-start">
+        <section className="mt-3 pb-16 bg-base-content text-info-content max-h-80 overflow-y-auto w-full shadow-sm flex flex-col items-start justify-start">
           <div className="self-end text-gray-300" onClick={() => setFlex(true)}>
             edit
           </div>
@@ -250,14 +251,14 @@ export default function Home() {
             </Collapse>
             {flexText ? null : <Text lineClamp={3}>{userData.flex}</Text>}
             {userData.flex!.length > 130 ? (
-              <div onClick={() => setFlexText(true)}>
+              <div className="text-accent" onClick={() => setFlexText(true)}>
                 {flexText ? null : "See More"}
               </div>
             ) : null}
           </div>
         </section>
         {/* {Posts} */}
-        <h1 className="flex items-center justify-center h-14">
+        <h1 className="text-info flex items-center justify-center h-14">
           {userData.fName + " " + userData.lName}'s Posts
         </h1>
         <section className="mt-5 h-auto">
