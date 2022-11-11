@@ -22,6 +22,9 @@ export async function getStaticProps(context: any) {
   const user = await prisma.user.findUnique({
     select: {
       id: true,
+      email: true,
+      fName: true,
+      lName: true,
     },
     where: {
       id: userID,
@@ -32,6 +35,17 @@ export async function getStaticProps(context: any) {
       user: user,
     },
   };
+}
+
+async function sendMessage(sendingPackage: Message) {
+  const response = await fetch("../api/sendMessage", {
+    method: "POST",
+    body: JSON.stringify(sendingPackage),
+  });
+  if (!response.ok) {
+    throw new Error(response.statusText);
+  }
+  return await response.json();
 }
 
 export default function UserConversation({ user }: any) {
@@ -49,12 +63,54 @@ export default function UserConversation({ user }: any) {
       toLName: "Doe",
     },
   ]);
+
   useEffect(() => {
     fetch(`../api/findConversation/${userId}/${toId}`)
       .then((res) => res.json())
       .then((data) => setMessages(data));
   }, []);
 
+  const [messageData, setMessageData] = useState<Message>({
+    toEmail: user.email,
+    toFName: user.fName,
+    toLName: user.lName,
+    toImage: "",
+    toId: user.id,
+    message: "",
+    fromId: userId,
+  });
+
+  useEffect(() => {
+    fetch(`../../api/findUserImage/${userId}`)
+      .then((res) => res.json())
+      .then((data) =>
+        setMessageData((prevState) => {
+          return { ...prevState, toImage: data.image };
+        })
+      );
+  }, []);
+
+  const handleChange = (event: any) => {
+    setMessageData((prevState) => {
+      return { ...prevState, message: event?.target.value };
+    });
+  };
+
+  const handleMessageSubmit = async (e: any) => {
+    e.preventDefault();
+    try {
+      await sendMessage(messageData);
+      console.log("Succesfully sent message");
+      setMessageData((prevState) => {
+        return { ...prevState, message: "" };
+      });
+      setMessages((prevState) => {
+        return [...prevState, messageData];
+      });
+    } catch (error) {
+      console.log(error);
+    }
+  };
   return (
     <main className="w-screen h-screen flex flex-col items-center">
       <section className="flex flex-col items-center overflow-y-auto mb-44 ">
@@ -88,8 +144,12 @@ export default function UserConversation({ user }: any) {
         })}
       </section>
       <form className="rounded-lg self-center fixed bottom-20 w-96 h-20 flex justify-center items-center bg-gray-400">
-        <Textarea className="w-3/4 h-3/4" />
-        <Button>Submit</Button>
+        <Textarea
+          onChange={handleChange}
+          value={messageData.message}
+          className="w-3/4 h-3/4"
+        />
+        <Button onClick={handleMessageSubmit}>Submit</Button>
       </form>
     </main>
   );
