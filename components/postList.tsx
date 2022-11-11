@@ -10,12 +10,12 @@ export type postDataType = {
 
 export default function PostList({ postData, setPostData }: postDataType) {
   return (
-    <section className="shadow-sm pb-24  h-full w-full flex flex-row flex-wrap justify-center items-start overflow-y-scroll">
+    <section className="text-info-content shadow-sm pb-24 h-full w-full flex flex-row flex-wrap justify-center items-start overflow-y-scroll">
       {postData.map((post: postType, index: number) => {
         if (post.published) {
           return (
             <div
-              className="w-full h-80 bg-base-content text-info-content rounded-xl mt-5 flex flex-col"
+              className="w-full h-80 bg-base-content rounded-xl mt-5 flex flex-col"
               key={post.title + post.authorId + index}
             >
               <div
@@ -50,8 +50,10 @@ export default function PostList({ postData, setPostData }: postDataType) {
                 </div>
               </Link>
 
-              <div className=" mt-5 w-full text-xl">{post.title}</div>
-              <div className="max-h-2/3 overflow-y-auto">{post.content}</div>
+              <div className="ml-2 mt-5 w-full text-xl">{post.title}</div>
+              <div className="ml-2 max-h-2/3 overflow-y-auto">
+                {post.content}
+              </div>
             </div>
           );
         }

@@ -5,6 +5,7 @@ export type User = {
   lName: string;
   password?: string;
   friends: Friend[];
+  theme?: string;
   about?: string;
   flex?: string;
   image?: string;
@@ -33,8 +34,15 @@ export type FindUser = {
   posts?: postType[];
 };
 
+export type ThemeSend = {
+  id?: number;
+  email?: string;
+  theme: string;
+};
+
 export type Friend = {
   id?: number;
+  friendInfo?: User;
   friendId: number;
   friendFirstName: String;
   friendLastName: String;

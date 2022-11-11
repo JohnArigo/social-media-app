@@ -18,7 +18,24 @@ export default async function handler(
     include: {
       friends: {
         include: {
-          owner: true,
+          friendInfo: {
+            select: {
+              image: true,
+              fName: true,
+              lName: true,
+              email: true,
+              id: true,
+            },
+          },
+          owner: {
+            select: {
+              image: true,
+              fName: true,
+              lName: true,
+              email: true,
+              id: true,
+            },
+          },
         },
       },
       posts: {

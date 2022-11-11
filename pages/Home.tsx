@@ -54,7 +54,7 @@ export default function Home({ posts }: postsType) {
       });
   }, []);
   //to pass to story componenet *data source*
-  const [friendData, setFriendData] = useState<Friend[]>(userData.friends);
+  const [friendData, setFriendData] = useState<Friend[]>(userData.friends!);
 
   //set post data only if data from session is valid
   useEffect(() => {

@@ -49,6 +49,7 @@ async function sendMessage(sendingPackage: Message) {
 }
 
 export default function UserConversation({ user }: any) {
+  //NEED USE REF TO SCROLL TO BOTTOM
   const toId: number = user.id;
   const { data: session } = useSession();
   const userId: number = parseInt(session?.user?.name?.toString()!);
@@ -104,6 +105,7 @@ export default function UserConversation({ user }: any) {
       setMessageData((prevState) => {
         return { ...prevState, message: "" };
       });
+      //USE REF TO BOTTOM
       setMessages((prevState) => {
         return [...prevState, messageData];
       });
@@ -112,7 +114,7 @@ export default function UserConversation({ user }: any) {
     }
   };
   return (
-    <main className="w-screen h-screen flex flex-col items-center">
+    <main className="w-screen h-screen flex flex-col items-center text-info-content">
       <section className="flex flex-col items-center overflow-y-auto mb-44 ">
         {messages.map((message) => {
           const messageStyle = () => {

@@ -8,6 +8,7 @@ import {
   Text,
 } from "@mantine/core";
 import { getSession, useSession } from "next-auth/react";
+import Link from "next/link";
 import { useRouter } from "next/router";
 import { useState, useEffect } from "react";
 import PostList from "../../components/postList";
@@ -43,6 +44,19 @@ export async function getStaticProps(context: any) {
       posts: {
         include: {
           author: true,
+        },
+      },
+      friends: {
+        include: {
+          friendInfo: {
+            select: {
+              image: true,
+              fName: true,
+              lName: true,
+              email: true,
+              id: true,
+            },
+          },
         },
       },
     },
@@ -92,6 +106,7 @@ export default function Home({ user }: HomeType) {
   const { data: session } = useSession();
   const userID = parseInt(session?.user?.name!.toString()!);
   const userImage = session?.user?.image!;
+  console.log(user);
   //initial session user
   const initialFriend = [
     {
@@ -213,7 +228,7 @@ export default function Home({ user }: HomeType) {
   const [aboutText, setAboutText] = useState(false);
   const [flexText, setFlexText] = useState(false);
   return (
-    <main className="bg-base-200 w-screen h-auto overflow-y-auto">
+    <main className="bg-base-200 w-screen h-auto overflow-y-auto text-info-content">
       {/* {Header Section} */}
       <section className="h-32 bg-red-300">
         <img className="h-32 w-full bg-red-300" src={userData.banner} />
@@ -223,7 +238,7 @@ export default function Home({ user }: HomeType) {
         <div className="ml-5 w-28 h-28  flex justify-center items-center bg-white">
           <img src={userData.image} />
         </div>
-        <div className="mt-16 ml-5 text-info">
+        <div className="mt-16 ml-5 text-info text-xl">
           {userData.fName + " " + userData.lName}
         </div>
       </section>
@@ -245,7 +260,7 @@ export default function Home({ user }: HomeType) {
         )}
         <div
           onClick={() => setOpened(true)}
-          className="rounded-xl w-32 bg-white text-center"
+          className="rounded-xl w-32 bg-secondary text-center"
         >
           <Modal
             opened={opened}
@@ -274,7 +289,7 @@ export default function Home({ user }: HomeType) {
       </section>
       {/* {About me} */}
       <section className="mt-24 bg-base-content text-info-content pb-16 max-h-80  w-full shadow-sm flex-col flex items-start justify-start overflow-y-scroll">
-        <h3 className="ml-5">About Me</h3>
+        <h3 className="ml-5 mt-5">About Me</h3>
         <div>
           <Collapse in={aboutText}>
             {userData.about}
@@ -289,12 +304,30 @@ export default function Home({ user }: HomeType) {
         </div>
       </section>
       {/* {Friend list NEED TO MAP AND OPEN PAGE TO SEE ALL FRIENDS} */}
-      <section className="mt-3 bg-base-content text-info-content h-40 w-full shadow-sm flex justify-start">
+      <section className="mt-3 bg-base-content  h-40 w-full shadow-sm flex flex-col items-start justify-start">
+        <div className="self-end text-base-content">EASTER EGG</div>
         <h3 className="ml-5">Following</h3>
+        <div>
+          {userData.friends.map((friendInfo: Friend) => {
+            const friend = friendInfo.friendInfo;
+            return (
+              <Link
+                href={`/userProfile/${friend?.id}${friend?.fName}${friend?.lName}${friend?.id}69`}
+              >
+                <div className="h-24 w-28 flex flex-col justify-center items-center">
+                  <div className="rounded-full w-14 h-14  flex justify-center items-center">
+                    <img src={friend?.image} />
+                  </div>
+                  <h1>{friend?.fName + " " + friend?.lName}</h1>
+                </div>
+              </Link>
+            );
+          })}
+        </div>
       </section>
       {/* {Flex announcements} */}
       <section className="mt-3 pb-16 bg-base-content text-info-content max-h-80 overflow-y-auto w-full shadow-sm flex flex-col items-start justify-start">
-        <h3 className="ml-5">Announcements</h3>
+        <h3 className="ml-5 mt-5">Announcements</h3>
         <Collapse in={flexText}>
           {userData.flex}
           <div onClick={() => setFlexText(false)}>See less</div>

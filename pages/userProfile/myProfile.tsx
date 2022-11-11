@@ -42,7 +42,13 @@ export default function Home() {
     friends: [],
     posts: [],
   });
-
+  useEffect(() => {
+    fetch(`../api/findUser/${userID}`)
+      .then((res) => res.json())
+      .then((data) => {
+        setUserData(data);
+      });
+  }, []);
   //api call to fetch user data from db
   useEffect(() => {
     fetch(`../api/findUser/${userID}`)
@@ -100,7 +106,7 @@ export default function Home() {
   //render
   else
     return (
-      <main className="bg-base-200 w-screen h-auto overflow-y-auto">
+      <main className="bg-base-200 w-screen h-auto overflow-y-auto text-info-content">
         {/* {Header Section} */}
         <section
           className="h-32 w-full bg-red-300 flex flex-col items-end"
@@ -141,12 +147,12 @@ export default function Home() {
               <UploadImage userID={userID} />
             </Modal>
           </div>
-          <div className="text-info mt-14 ml-5">
+          <div className="text-info mt-14 ml-5 text-xl">
             {userData.fName + " " + userData.lName}
           </div>
         </section>
         {/* {About me} */}
-        <section className="bg-base-content text-info-content mt-32 pb-16 max-h-80  w-full shadow-sm flex-col flex items-start justify-start overflow-y-scroll">
+        <section className="bg-base-content  mt-32 pb-16 max-h-80  w-full shadow-sm flex-col flex items-start justify-start overflow-y-scroll">
           <div
             className="self-end text-gray-300"
             onClick={() => setAbout(true)}
@@ -192,23 +198,21 @@ export default function Home() {
           </div>
         </section>
         {/* {Friend list NEED TO MAP AND OPEN PAGE TO SEE ALL FRIENDS} */}
-        <section className="mt-3 bg-base-content text-info-content h-40 w-full shadow-sm flex flex-col items-start justify-start">
+        <section className="mt-3 bg-base-content  h-40 w-full shadow-sm flex flex-col items-start justify-start">
           <div className="self-end text-base-content">EASTER EGG</div>
           <h3 className="ml-5">Following</h3>
           <div>
-            {userData.friends.map((friend: Friend) => {
-              console.log(friend);
+            {userData.friends.map((friendInfo: Friend) => {
+              const friend = friendInfo.friendInfo;
               return (
                 <Link
-                  href={`/userProfile/${friend.friendId}${friend.friendFirstName}${friend.friendLastName}${friend.friendId}69`}
+                  href={`/userProfile/${friend?.id}${friend?.fName}${friend?.lName}${friend?.id}69`}
                 >
                   <div className="h-24 w-28 flex flex-col justify-center items-center">
                     <div className="rounded-full w-14 h-14  flex justify-center items-center">
-                      <img src={friend.image} />
+                      <img src={friend?.image} />
                     </div>
-                    <h1>
-                      {friend.friendFirstName + " " + friend.friendLastName}
-                    </h1>
+                    <h1>{friend?.fName + " " + friend?.lName}</h1>
                   </div>
                 </Link>
               );
@@ -216,7 +220,7 @@ export default function Home() {
           </div>
         </section>
         {/* {Flex announcements} */}
-        <section className="mt-3 pb-16 bg-base-content text-info-content max-h-80 overflow-y-auto w-full shadow-sm flex flex-col items-start justify-start">
+        <section className="mt-3 pb-16 bg-base-content  max-h-80 overflow-y-auto w-full shadow-sm flex flex-col items-start justify-start">
           <div className="self-end text-gray-300" onClick={() => setFlex(true)}>
             edit
           </div>

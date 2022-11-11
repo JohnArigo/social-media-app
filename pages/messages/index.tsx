@@ -27,8 +27,10 @@ export default function Home() {
   }, []);
 
   return (
-    <main className="w-screen h-screen">
-      <h1 className="text-center text-2xl font-bold text-info">Messages</h1>
+    <main className="w-screen h-screen text-info-content">
+      <h1 className="text-center text-2xl font-bold text-info mt-10">
+        Messages
+      </h1>
       <section className="flex flex-col items-center overflow-y-auto pb-20">
         {userMessages.map((message: Message) => {
           if (message.toId)
