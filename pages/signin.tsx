@@ -1,8 +1,11 @@
 import { signIn, useSession } from "next-auth/react";
-import { useState, FormEventHandler } from "react";
+import { useState, FormEventHandler, useEffect } from "react";
 import { PasswordInput, TextInput } from "@mantine/core";
 import { IconEyeCheck, IconEyeOff } from "@tabler/icons";
 import Link from "next/link";
+import { themeChange } from "theme-change";
+import tailwindConfig from "../tailwind.config";
+import { User } from "../lib/types";
 
 export interface credentialType {
   email: string;
@@ -11,6 +14,7 @@ export interface credentialType {
 
 export default function SignIn() {
   const { data: session } = useSession();
+  const userID = parseInt(session?.user?.name?.toString()!);
   //console.log(user);
   const [accountInfo, setAccountInfo] = useState<credentialType>({
     email: "",
@@ -34,9 +38,20 @@ export default function SignIn() {
       password: accountInfo?.password,
       redirect: false,
     });
-
-    console.log(res);
   };
+
+  const themes = tailwindConfig.daisyui.themes;
+  useEffect(() => {
+    themeChange(false);
+  }, []);
+
+  const [user, setUser] = useState<User>();
+  useEffect(() => {
+    fetch(`../api/findUser/${userID}`)
+      .then((res) => res.json())
+      .then((data) => setUser(data));
+  }, [session]);
+
   if (!session) {
     return (
       <main className="text-info w-screen h-screen flex justify-center items-center">
@@ -85,6 +100,9 @@ export default function SignIn() {
           </Link>{" "}
           and try again
         </div>
+        <select data-choose-theme className="bottom-0">
+          <option className="text-primary" value={user?.theme}></option>
+        </select>
       </main>
     );
 }

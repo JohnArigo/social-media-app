@@ -84,9 +84,7 @@ export default function Index() {
             })
           }
         >
-          <option className="text-primary" value={user?.theme}>
-            My Theme
-          </option>
+          <option className="text-primary" value={user?.theme}></option>
           {styleThemes.map((theme: any) => {
             return (
               <option className="text-primary" value={theme}>

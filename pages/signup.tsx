@@ -1,15 +1,7 @@
 import { PasswordInput, TextInput } from "@mantine/core";
 import { IconEyeCheck, IconEyeOff } from "@tabler/icons";
 import { useState } from "react";
-
-export interface signUpType {
-  fName: string;
-  lName: string;
-  email: string;
-  password: string;
-  about: string;
-  flex: string;
-}
+import { signUpType } from "../lib/types";
 
 async function postNewUser(sendingPackage: signUpType) {
   const response = await fetch("../api/userCalls/createUser", {
@@ -32,6 +24,7 @@ export default function SignUp() {
     password: "",
     about: "Initial",
     flex: "Initial",
+    theme: "dark",
   });
 
   const handleChange = (event: any) => {

@@ -1,11 +1,13 @@
 import { getSession, useSession } from "next-auth/react";
 import { NextApiHandler, NextApiRequest } from "next/types";
 import { useEffect, useState } from "react";
+import { themeChange } from "theme-change";
 
 import PostList from "../components/postList";
 import Stories from "../components/stories";
 import prisma from "../lib/prisma";
 import { postType, HomeType, User, Friend, postsType } from "../lib/types";
+import tailwindConfig from "../tailwind.config";
 
 //pull all data posts
 export async function getStaticProps(req: NextApiRequest) {

@@ -1,3 +1,5 @@
+import { RootConfig } from "../components/WeatherComponent/CurrenWeatherConfig";
+
 export type User = {
   id: number;
   email: string;
@@ -103,4 +105,30 @@ export type currentUser = {
   id: number;
   email: string;
   image: string;
+};
+
+export interface signUpType {
+  fName: string;
+  lName: string;
+  email: string;
+  password: string;
+  about: string;
+  flex: string;
+  theme: string;
+}
+
+export type geoLocationType = {
+  city: string;
+  country: string;
+  hostname: string;
+  ip: string;
+  loc: string;
+  org: string;
+  postal: string;
+  region: string;
+  timezone: string;
+};
+export type ExploreType = {
+  geoLocation: geoLocationType;
+  weather: RootConfig;
 };
