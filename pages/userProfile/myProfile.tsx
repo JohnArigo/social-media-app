@@ -36,7 +36,6 @@ export default function Home() {
     email: session?.user?.email!,
     fName: "First",
     lName: "last",
-    password: "",
     about: "Initial",
     flex: "Initial",
     friends: [],
@@ -60,7 +59,7 @@ export default function Home() {
 
   //post data to pass into postList component
   const [postData, setPostData] = useState<postType[]>(userData.posts!);
-
+  console.log(postData);
   //set post data only if data from session is valid
   //once user data is fetched, set post state to passdown onto post history
   useEffect(() => {

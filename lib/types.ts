@@ -49,6 +49,7 @@ export type Friend = {
   friendFirstName: String;
   friendLastName: String;
   image?: string;
+  posts?: postType[];
   owner?: User;
   ownerId: number;
 };
@@ -131,4 +132,27 @@ export type geoLocationType = {
 export type ExploreType = {
   geoLocation: geoLocationType;
   weather: RootConfig;
+  news: ArticleRoot;
 };
+
+export interface ArticleRoot {
+  status: string;
+  totalResults: number;
+  articles: Article[];
+}
+
+export interface Article {
+  source: Source;
+  author?: string;
+  title: string;
+  description?: string;
+  url: string;
+  urlToImage?: string;
+  publishedAt: string;
+  content?: string;
+}
+
+export interface Source {
+  id?: string;
+  name: string;
+}

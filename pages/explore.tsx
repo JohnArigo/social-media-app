@@ -1,14 +1,16 @@
+import Link from "next/link";
 import { useEffect, useState } from "react";
+import News from "../components/news";
 import Current from "../components/WeatherComponent/Current";
 import { RootConfig } from "../components/WeatherComponent/CurrenWeatherConfig";
-import { ExploreType } from "../lib/types";
+import { ExploreType, geoLocationType } from "../lib/types";
 
 export async function getStaticProps() {
   //fetch geo data
   const request = await fetch(
     `https://ipinfo.io/json?token=${process.env.GEO_KEY}`
   );
-  const jsonResponse = await request.json();
+  const jsonResponse: geoLocationType = await request.json();
 
   //fetch weather data
   const requestWeather = await fetch(
@@ -16,21 +18,31 @@ export async function getStaticProps() {
   );
   const weatherResponse = await requestWeather.json();
 
+  const newsRequest = await fetch(
+    `https://newsapi.org/v2/top-headlines?country=${
+      jsonResponse.country
+    }&apiKey=${[process.env.NEWS_KEY]}`
+  );
+  const newsResponse = await newsRequest.json();
+
   return {
     props: {
+      news: newsResponse,
       weather: weatherResponse,
       geoLocation: jsonResponse,
     },
   };
 }
 
-export default function Explore({ geoLocation, weather }: ExploreType) {
+export default function Explore({ geoLocation, weather, news }: ExploreType) {
   const [geoData, setGeoData] = useState(geoLocation);
   const [currentWeather, setCurrentWeather] = useState<RootConfig>(weather);
 
   return (
-    <main>
+    <main className="mb-24">
       <Current currentWeather={currentWeather} />
+      <h1 className="text-center mt-14 text-info text-xl">Top Headlines</h1>
+      <News news={news} />
     </main>
   );
 }

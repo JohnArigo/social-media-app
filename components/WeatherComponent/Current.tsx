@@ -1,4 +1,3 @@
-import { useEffect, useState } from "react";
 import { RootConfig } from "./CurrenWeatherConfig";
 import humidity from "./humidity.png";
 import wind from "../../components/WeatherComponent/wind.png";
@@ -14,15 +13,17 @@ export default function Current({ currentWeather }: WeatherConfiguration) {
   const weatherDescription = currentWeather?.weather[0].id;
   const DateSelected = new Date();
   return (
-    <body role="container" className="mt-10 flex flex-col text-gray-50">
+    <main role="container" className="mt-10 flex flex-col text-gray-50">
       <div className="w-full text-center text-xl text-info">
         {currentWeather?.name === undefined
           ? "Enter Zipcode"
           : currentWeather?.name}
       </div>
-      <body className={WeatherBackground({ DateSelected, weatherDescription })}>
-        <main className="flex flex-row justify-between ml-1 w-7/12 h-full items-end ">
-          <section className="flex flex-col mt-4">
+      <section
+        className={WeatherBackground({ DateSelected, weatherDescription })}
+      >
+        <section className="flex flex-row justify-between ml-1 w-7/12 h-full items-end ">
+          <aside className="flex flex-col mt-4">
             <div className="flex flex-col">
               <div className="text-sm">
                 {currentWeather?.weather[0].description}
@@ -37,7 +38,7 @@ export default function Current({ currentWeather }: WeatherConfiguration) {
                 H: {Math.round(currentWeather?.main.temp_max!)}F
               </div>
             </div>
-          </section>
+          </aside>
           <section className="flex flex-row h-full items-end mb-3">
             <div className="mr-3  flex flex-row items-center">
               <div className="mr-1">
@@ -56,11 +57,11 @@ export default function Current({ currentWeather }: WeatherConfiguration) {
               </div>
             </div>
           </section>
-        </main>
+        </section>
         <section className="w-24 h-24 flex flex-row justify-end">
           <Image src={FindWeatherIcon({ DateSelected, weatherDescription })!} />
         </section>
-      </body>
-    </body>
+      </section>
+    </main>
   );
 }

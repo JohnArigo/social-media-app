@@ -15,7 +15,19 @@ export default async function handler(
     where: {
       id: userID,
     },
-    include: {
+    select: {
+      id: true,
+      image: true,
+      email: true,
+      fName: true,
+      lName: true,
+      banner: true,
+      about: true,
+      flex: true,
+      theme: true,
+      posts: {
+        include: { author: true },
+      },
       friends: {
         include: {
           friendInfo: {
@@ -24,6 +36,11 @@ export default async function handler(
               fName: true,
               lName: true,
               email: true,
+              posts: {
+                include: {
+                  author: true,
+                },
+              },
               id: true,
             },
           },
@@ -38,11 +55,41 @@ export default async function handler(
           },
         },
       },
-      posts: {
-        include: {
-          author: true,
-        },
-      },
+      // include: {
+      //   friends: {
+      //     include: {
+      //       friendInfo: {
+      //         select: {
+      //           image: true,
+      //           fName: true,
+      //           lName: true,
+      //           email: true,
+      //           posts: {
+      //             include: {
+      //               author: true,
+      //             },
+      //           },
+      //           id: true,
+      //         },
+      //       },
+      //       owner: {
+      //         select: {
+      //           image: true,
+      //           fName: true,
+      //           lName: true,
+      //           email: true,
+      //           id: true,
+      //         },
+      //       },
+      //     },
+      //   },
+
+      //   posts: {
+      //     include: {
+      //       author: true,
+      //     },
+      //   },
+      // },
     },
   });
 

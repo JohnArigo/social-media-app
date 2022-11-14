@@ -11,7 +11,6 @@ import tailwindConfig from "../tailwind.config";
 //pull all data posts
 export async function getStaticProps(req: NextApiRequest) {
   //get session for all users in server
-  const session = await getSession({ req });
   //find all posts
   const posts = await prisma.post.findMany({
     include: {
@@ -30,8 +29,6 @@ export async function getStaticProps(req: NextApiRequest) {
 }
 
 export default function Home({ posts }: postsType) {
-  //all post data
-  const [postData, setPostData] = useState<postType[]>(posts);
   //pull session for ID
   const { data: session } = useSession();
   //find userID for API call
@@ -55,15 +52,19 @@ export default function Home({ posts }: postsType) {
       });
   }, []);
   //to pass to story componenet *data source*
-  const [friendData, setFriendData] = useState<Friend[]>(userData.friends!);
+  const [friendData, setFriendData] = useState<Friend[]>();
 
-  //set post data only if data from session is valid
   useEffect(() => {
-    if (userData.fName === undefined) {
-      setFriendData(userData.friends!);
-    }
-  }, [userData]);
+    fetch(`../api/findUserFriends/${userID}`)
+      .then((res) => res.json())
+      .then((data) => {
+        setFriendData(data.friends);
+      });
+  }, []);
 
+  const [postData, setPostData] = useState<postType[]>(posts);
+
+  console.log(userData);
   return (
     <main className="w-screen h-screen">
       {/* <Stories allFriends={friendData} /> */}

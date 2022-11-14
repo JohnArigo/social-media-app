@@ -18,8 +18,10 @@ export default function HeaderSession({ setOpened, user }: HeaderSessionType) {
       <Link href="/home">
         <div>Home</div>
       </Link>
+      <Link href="/explore">
+        <div>Explore</div>
+      </Link>
 
-      <div>Explore</div>
       <div onClick={() => setOpened(true)}>
         <div>Post</div>
       </div>
