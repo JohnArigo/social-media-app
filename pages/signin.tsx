@@ -6,6 +6,7 @@ import Link from "next/link";
 import { themeChange } from "theme-change";
 import tailwindConfig from "../tailwind.config";
 import { User } from "../lib/types";
+import { useRouter } from "next/router";
 
 export interface credentialType {
   email: string;
@@ -30,7 +31,7 @@ export default function SignIn() {
       };
     });
   };
-
+  const router = useRouter();
   const handleSubmit: FormEventHandler<HTMLFormElement> = async (e) => {
     e.preventDefault();
     const res = await signIn("credentials", {
@@ -38,19 +39,13 @@ export default function SignIn() {
       password: accountInfo?.password,
       redirect: false,
     });
+
+    if (res?.status === 200) {
+      router.push(`./home`);
+    }
   };
 
-  const themes = tailwindConfig.daisyui.themes;
-  useEffect(() => {
-    themeChange(false);
-  }, []);
-
   const [user, setUser] = useState<User>();
-  useEffect(() => {
-    fetch(`../api/findUser/${userID}`)
-      .then((res) => res.json())
-      .then((data) => setUser(data));
-  }, [session]);
 
   if (!session) {
     return (
@@ -97,12 +92,9 @@ export default function SignIn() {
           If this is an error please{" "}
           <Link href="api/auth/signout">
             <b>SIGN-OUT</b>
-          </Link>{" "}
+          </Link>
           and try again
         </div>
-        <select data-choose-theme className="bottom-0">
-          <option className="text-primary" value={user?.theme}></option>
-        </select>
       </main>
     );
 }

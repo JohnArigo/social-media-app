@@ -7,7 +7,6 @@ import { Message, postType, User } from "../../lib/types";
 export default function Home() {
   const { data: session } = useSession();
   const userID = parseInt(session?.user?.name?.toString()!);
-  console.log(userID);
   const [userMessages, setUserMessages] = useState<Message[]>([
     {
       fromId: userID,
@@ -43,15 +42,15 @@ export default function Home() {
                   key={message.toId}
                 >
                   <div className="w-28 flex justify-center items-center">
-                    <div className="rounded-full bg-gray-600 w-14 h-14 flex justify-center items-center">
-                      {message.toFName.charAt(0)}
+                    <div className="rounded-full w-14 h-14 flex justify-center items-center">
+                      <img className="rounded-full" src={message.toImage!} />
                     </div>
                   </div>
                   <div className=" h-full flex flex-col justify-center">
                     <h1 className="text-lg font-bold">
                       {message.toFName + " " + message.toLName}
                     </h1>
-                    <div className="text-sm">{message.message}</div>
+                    <div className="text-sm">Open Conversation</div>
                   </div>
                 </div>
               </Link>

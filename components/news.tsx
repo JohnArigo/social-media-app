@@ -13,7 +13,7 @@ export default function News({ news }: newsType) {
         return (
           <Link href={article.url}>
             <div className="flex flex-col items-center justify-center w-full h-auto bg-base-content text-info-content pb-10 mt-5 rounded-lg">
-              <h2>{article.title}</h2>
+              <h2 className="mt-3 text-center mb-3 text-md">{article.title}</h2>
               <img src={article.urlToImage} />
             </div>
           </Link>

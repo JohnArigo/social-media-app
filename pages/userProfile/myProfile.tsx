@@ -133,13 +133,13 @@ export default function Home() {
           >
             <UploadBanner userID={userID} />
           </Modal>
-          <img className="h-32 w-full bg-red-300" src={userData.banner} />
+          <img className="h-32 w-full " src={userData.banner} />
         </section>
         {/* {Profile Image and Name} */}
         <section className="bg-transparent w-full h-30 flex flex-row items-center  absolute z-10 top-14">
           <div
             onClick={() => setProfilePic(true)}
-            className="ml-5 w-28 h-28  flex justify-center items-center bg-green-500"
+            className="ml-5 w-28 h-28  flex justify-center items-center "
           >
             <img src={userData.image} />
             <Modal

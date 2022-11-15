@@ -113,9 +113,10 @@ export default function UserConversation({ user }: any) {
       console.log(error);
     }
   };
+
   return (
     <main className="w-screen h-screen flex flex-col items-center text-info-content">
-      <section className="flex flex-col items-center overflow-y-auto mb-44 ">
+      <section className="flex flex-col items-center overflow-y-auto mb-48 ">
         {messages.map((message) => {
           const messageStyle = () => {
             if (message.fromId === userId) {
@@ -145,7 +146,7 @@ export default function UserConversation({ user }: any) {
           );
         })}
       </section>
-      <form className="rounded-lg self-center fixed bottom-20 w-96 h-20 flex justify-center items-center bg-gray-400">
+      <form className="rounded-lg self-center fixed bottom-20 mb-2 w-96 h-20 flex justify-center items-center bg-primary">
         <Textarea
           onChange={handleChange}
           value={messageData.message}

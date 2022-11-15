@@ -1,6 +1,7 @@
 import { Modal, PasswordInput, TextInput } from "@mantine/core";
 import { IconEyeCheck, IconEyeOff } from "@tabler/icons";
 import { redirect } from "next/dist/server/api-utils";
+import Router, { useRouter } from "next/router";
 import { useState } from "react";
 import { signUpType } from "../lib/types";
 
@@ -36,7 +37,7 @@ export default function SignUp() {
       };
     });
   };
-
+  const router = useRouter();
   const [open, setOpen] = useState(false);
   const handleSubmit = async (e: any) => {
     e.preventDefault();
@@ -47,7 +48,12 @@ export default function SignUp() {
       console.log(error);
     }
   };
-  console.log(accountInfo);
+
+  const handleClose = () => {
+    setOpen(false);
+    router.push(`./signin`);
+  };
+
   return (
     <main className="text-info w-screen h-screen flex justify-center items-center">
       <Modal
@@ -55,9 +61,9 @@ export default function SignUp() {
         transitionDuration={600}
         transitionTimingFunction="ease"
         opened={open}
-        onClose={() => setOpen(false)}
+        onClose={handleClose}
       >
-        SUCCESS! account created Please cliick sign in and enter credentials
+        SUCCESS! account created. Please sign in
       </Modal>
       <form
         onSubmit={handleSubmit}
