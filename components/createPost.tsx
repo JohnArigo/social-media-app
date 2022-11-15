@@ -2,11 +2,7 @@ import { Switch, Textarea, TextInput, Notification } from "@mantine/core";
 import { IconCheck } from "@tabler/icons";
 import { getSession, useSession } from "next-auth/react";
 import { useEffect, useMemo, useState } from "react";
-import PostList from "../components/postList";
-
-import prisma from "../lib/prisma";
-import { postType, User, Friend } from "../lib/types";
-import { UserArray } from "../pages/userProfile/[id]";
+import { postType, User, Friend, UserArray } from "../lib/types";
 //POST to createNewPost API
 async function newPost(sendingPackage: postTypeSend) {
   const response = await fetch("../api/createNewPost", {
