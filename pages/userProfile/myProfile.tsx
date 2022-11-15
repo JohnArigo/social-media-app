@@ -85,6 +85,12 @@ export default function Home() {
     setAbout(false);
     setFlex(false);
   };
+  //filters friends to only display 3
+  const filterFriends = () => {
+    if (userData.friends.length > 4) {
+      return userData.friends.splice(3);
+    } else return userData.friends;
+  };
 
   //modal openers
   const [about, setAbout] = useState(false);
@@ -93,7 +99,7 @@ export default function Home() {
   const [banner, setBanner] = useState(false);
   const [aboutText, setAboutText] = useState(false);
   const [flexText, setFlexText] = useState(false);
-  console.log(userData);
+
   //contingency for bad data load
   if (userData.email === undefined) {
     return (
@@ -196,12 +202,12 @@ export default function Home() {
             ) : null}
           </div>
         </section>
-        {/* {Friend list NEED TO MAP AND OPEN PAGE TO SEE ALL FRIENDS} */}
+        {/* {Friend list NEED TO OPEN PAGE TO SEE ALL FRIENDS} */}
         <section className="mt-3 bg-base-content  h-40 w-full shadow-sm flex flex-col items-start justify-start">
           <div className="self-end text-base-content">EASTER EGG</div>
           <h3 className="ml-5">Following</h3>
-          <div>
-            {userData.friends.map((friendInfo: Friend) => {
+          <div className="flex justify-start items-center">
+            {filterFriends().map((friendInfo: Friend) => {
               const friend = friendInfo.friendInfo;
               return (
                 <Link

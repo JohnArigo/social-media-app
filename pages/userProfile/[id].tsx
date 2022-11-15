@@ -255,6 +255,12 @@ export default function Home({ user }: any) {
   //modal openers
   const [aboutText, setAboutText] = useState(false);
   const [flexText, setFlexText] = useState(false);
+
+  const filterFriends = () => {
+    if (userData.friends.length > 4) {
+      return userData.friends.splice(3);
+    } else return userData.friends;
+  };
   return (
     <main className="bg-base-200 w-screen h-auto overflow-y-auto text-info-content">
       {/* {Header Section} */}
@@ -332,13 +338,15 @@ export default function Home({ user }: any) {
         </div>
       </section>
       {/* {Friend list NEED TO MAP AND OPEN PAGE TO SEE ALL FRIENDS} */}
-      <section className="mt-3 bg-base-content  h-40 w-full shadow-sm flex flex-col items-start justify-start">
+      <section className="mt-3 bg-base-content h-40 w-full shadow-sm flex flex-col items-start justify-start">
         <div className="self-end text-base-content">EASTER EGG</div>
         <h3 className="ml-5">Following</h3>
-        <div>
-          {userData.friends.map((friendInfo: Friend) => {
+        <Text
+          lineClamp={1}
+          className="flex flex-wrap flex-row w-96 h-full justify-start items-center"
+        >
+          {filterFriends().map((friendInfo: Friend) => {
             const friend = friendInfo.friendInfo;
-
             const handleClick = () => {
               router.push(
                 `../userProfile/${friend?.id}${friend?.fName}${friend?.lName}${friend?.id}69`
@@ -347,7 +355,7 @@ export default function Home({ user }: any) {
             return (
               <div
                 onClick={handleClick}
-                className="h-24 w-28 flex flex-col justify-center items-center"
+                className="h-24 w-28 flex flex-col justify-center items-center "
               >
                 <div className="rounded-full w-14 h-14  flex justify-center items-center">
                   <img src={friend?.image} />
@@ -356,7 +364,7 @@ export default function Home({ user }: any) {
               </div>
             );
           })}
-        </div>
+        </Text>
       </section>
       {/* {Flex announcements} */}
       <section className="mt-3 pb-16 bg-base-content text-info-content max-h-80 overflow-y-auto w-full shadow-sm flex flex-col items-start justify-start">
