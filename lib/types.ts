@@ -46,12 +46,14 @@ export type Friend = {
   id?: number;
   friendInfo?: User;
   friendId: number;
+  email?: string;
   friendFirstName: String;
   friendLastName: String;
   image?: string;
   posts?: postType[];
   owner?: User;
   ownerId: number;
+  relationshipId: string
 };
 
 export type Banner = {
@@ -111,7 +113,7 @@ export type currentUser = {
 export interface signUpType {
   fName: string;
   lName: string;
-  email: string;
+  email?: string;
   password: string;
   about: string;
   flex: string;

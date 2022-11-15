@@ -7,10 +7,10 @@ export default async function (req: NextApiRequest, res: NextApiResponse) {
   if (req.method !== "POST") {
     return res.status(405).json({ alert: "Method not allowed" });
   }
-  const userData = JSON.parse(req.body);
+  const userData: Friend = JSON.parse(req.body);
   const savedUser = await prisma.friend.delete({
     where: {
-      friendId: userData.friendId,
+      relationshipId: userData.relationshipId
     },
   });
 

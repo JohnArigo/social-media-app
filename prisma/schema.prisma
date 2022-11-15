@@ -22,7 +22,7 @@ model User {
   banner String?
   theme String?
   friends Friend[] @relation("friends")
-  friendInfo Friend? @relation("friendInfo")
+  friendInfo Friend [] @relation("friendInfo")
   posts Post[]
   messages Message[]
 }
@@ -41,12 +41,12 @@ model Profile {
   page_name String
 }
 
-
 model Friend {
   id Int @id @default(autoincrement())
   image String?
+  relationshipId String? @unique
   friendInfo User? @relation("friendInfo", fields: [friendId], references: [id])
-  friendId Int @unique
+  friendId Int
   friendFirstName String
   friendLastName String
   owner User?  @relation("friends", fields: [ownerId], references: [id])

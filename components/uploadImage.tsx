@@ -91,7 +91,7 @@ const UploadImage = ({ userID }: any) => {
       {userStatus ? <img src={user} /> : null}
       {image.image === "initial" ? null : <img src={image.image} />}
       {image.image === "initial" ? null : (
-        <Button className="bg-blue-500" onClick={handleSubmit}>
+        <Button className="btn btn-primary" onClick={handleSubmit}>
           Upload
         </Button>
       )}

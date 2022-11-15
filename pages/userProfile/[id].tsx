@@ -9,7 +9,7 @@ import {
 } from "@mantine/core";
 import { getSession, useSession } from "next-auth/react";
 import Link from "next/link";
-import { useRouter } from "next/router";
+import Router, { useRouter } from "next/router";
 import { useState, useEffect } from "react";
 import PostList from "../../components/postList";
 import prisma from "../../lib/prisma";
@@ -64,6 +64,7 @@ export async function getStaticProps(context: any) {
   return {
     props: {
       user: user,
+      revalidate: 10,
     },
   };
 }
@@ -102,11 +103,11 @@ async function sendMessage(sendingPackage: Message) {
   return await response.json();
 }
 
-export default function Home({ user }: HomeType) {
+export default function Home({ user }: any) {
   const { data: session } = useSession();
   const userID = parseInt(session?.user?.name!.toString()!);
   const userImage = session?.user?.image!;
-  console.log(user);
+
   //initial session user
   const initialFriend = [
     {
@@ -115,8 +116,18 @@ export default function Home({ user }: HomeType) {
       friendLastName: "Last",
       id: 0,
       ownerId: 0,
+      relationshipId: "",
     },
   ];
+
+  const initialUser: User = {
+    id: 0,
+    fName: "first",
+    lName: "last",
+    email: "",
+    posts: [],
+    friends: [],
+  };
   //session user state/data to pull
   const [currentUser, setCurrentUser] = useState<currentUser>({
     friends: initialFriend,
@@ -137,6 +148,14 @@ export default function Home({ user }: HomeType) {
   //userdata for other person that (sessio.user) is viewing
   const [userData, setUserData] = useState<User>(user);
   //finding to see if user is a friend
+  const router = useRouter();
+  const profileId = router?.query?.id?.slice(0, 1);
+  console.log(profileId);
+  useEffect(() => {
+    fetch(`../api/findUser/${profileId}`)
+      .then((res) => res.json())
+      .then((data) => setUserData(data));
+  }, [profileId]);
   useEffect(() => {
     currentUser.friends.map((friend: Friend) => {
       if (friend.friendId !== 0) {
@@ -156,7 +175,17 @@ export default function Home({ user }: HomeType) {
     friendFirstName: userData.fName,
     friendLastName: userData.lName,
     ownerId: userID,
+    relationshipId: (
+      userData.id +
+      userID +
+      userData.email +
+      userData.fName +
+      userData.lName +
+      userID
+    ).toString(),
   });
+
+  console.log(friend);
   //submit add friend to add friend api
   const addFriend = async () => {
     try {
@@ -198,7 +227,6 @@ export default function Home({ user }: HomeType) {
     });
   }, [currentUser]);
 
-  console.log(messageData);
   //message data change handler
   const handleMessageChange = (event: any) => {
     const { name, value } = event?.target;
@@ -310,17 +338,22 @@ export default function Home({ user }: HomeType) {
         <div>
           {userData.friends.map((friendInfo: Friend) => {
             const friend = friendInfo.friendInfo;
+
+            const handleClick = () => {
+              router.push(
+                `../userProfile/${friend?.id}${friend?.fName}${friend?.lName}${friend?.id}69`
+              );
+            };
             return (
-              <Link
-                href={`/userProfile/${friend?.id}${friend?.fName}${friend?.lName}${friend?.id}69`}
+              <div
+                onClick={handleClick}
+                className="h-24 w-28 flex flex-col justify-center items-center"
               >
-                <div className="h-24 w-28 flex flex-col justify-center items-center">
-                  <div className="rounded-full w-14 h-14  flex justify-center items-center">
-                    <img src={friend?.image} />
-                  </div>
-                  <h1>{friend?.fName + " " + friend?.lName}</h1>
+                <div className="rounded-full w-14 h-14  flex justify-center items-center">
+                  <img src={friend?.image} />
                 </div>
-              </Link>
+                <h1>{friend?.fName + " " + friend?.lName}</h1>
+              </div>
             );
           })}
         </div>
