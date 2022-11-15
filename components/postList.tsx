@@ -18,7 +18,8 @@ export default function PostList({ postData, setPostData }: postDataType) {
               className="w-96 h-96 bg-base-content rounded-xl mt-5 flex flex-col"
               key={post.title + post.authorId + index}
             >
-              <div
+              <div className="self-end mr-1 text-xs text-base-content">Egg</div>
+              {/* <div
                 className="self-end mr-1 text-xs text-gray-300"
                 onClick={() =>
                   setPostData((prevState: any) => {
@@ -27,7 +28,7 @@ export default function PostList({ postData, setPostData }: postDataType) {
                 }
               >
                 hide
-              </div>
+              </div> */}
               <Link
                 href={`/userProfile/${
                   post.authorId +

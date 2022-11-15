@@ -67,7 +67,7 @@ export default function Home({ posts }: postsType) {
   console.log(userData);
   return (
     <main className="w-screen h-screen">
-      {/* <Stories allFriends={friendData} /> */}
+      <h1 className="text-info text-2xl text-center">User Posts</h1>
       <PostList postData={postData} setPostData={setPostData} />
     </main>
   );
