@@ -1,9 +1,7 @@
 import { getSession, useSession } from "next-auth/react";
 import { NextApiHandler, NextApiRequest } from "next/types";
 import { useEffect, useState } from "react";
-
 import PostList from "../components/postList";
-import Stories from "../components/stories";
 import prisma from "../lib/prisma";
 import { postType, HomeType, User, Friend, postsType } from "../lib/types";
 
@@ -65,7 +63,6 @@ export default function Home({ posts }: postsType) {
 
   return (
     <main className="w-screen h-screen">
-      <Stories allFriends={friendData} />
       <PostList postData={postData} setPostData={setPostData} />
     </main>
   );
