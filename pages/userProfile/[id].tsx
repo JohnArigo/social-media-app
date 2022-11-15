@@ -356,6 +356,7 @@ export default function Home({ user }: any) {
               <div
                 onClick={handleClick}
                 className="h-24 w-28 flex flex-col justify-center items-center "
+                key={friend?.id}
               >
                 <div className="rounded-full w-14 h-14  flex justify-center items-center">
                   <img src={friend?.image} />
@@ -382,7 +383,7 @@ export default function Home({ user }: any) {
       </section>
       {/* {Posts} */}
       <h1 className="flex items-center justify-center h-14 text-info">
-        {userData.fName + " " + userData.lName}'s Posts
+        {userData.fName + " " + userData.lName}s Posts
       </h1>
       <section className="mt-5 h-auto ">
         <PostList postData={postData} setPostData={setPostData} />

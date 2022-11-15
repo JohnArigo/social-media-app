@@ -1,6 +1,7 @@
 import React, { useEffect, useState } from "react";
 import Head from "next/head";
 import { Button } from "@mantine/core";
+import Script from "next/script";
 
 async function postImage(dataToSend: any) {
   const response = await fetch("../../api/photos/postImage", {
@@ -73,12 +74,11 @@ const UploadImage = ({ userID }: any) => {
 
   return (
     <main className="h-96 flex flex-col">
-      <Head>
-        <script
-          src="https://widget.Cloudinary.com/v2.0/global/all.js"
-          type="text/javascript"
-        ></script>
-      </Head>
+      <Script
+        src="https://widget.Cloudinary.com/v2.0/global/all.js"
+        type="text/javascript"
+        async
+      ></Script>
 
       <button
         className="btn btn-primary"

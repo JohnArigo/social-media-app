@@ -50,7 +50,7 @@ export default function Home({ posts }: postsType) {
       .then((data) => {
         setUserData(data);
       });
-  }, []);
+  }, [userID]);
   //to pass to story componenet *data source*
   const [friendData, setFriendData] = useState<Friend[]>();
 
@@ -60,7 +60,7 @@ export default function Home({ posts }: postsType) {
       .then((data) => {
         setFriendData(data.friends);
       });
-  }, []);
+  }, [userData]);
 
   const [postData, setPostData] = useState<postType[]>(posts);
 

@@ -212,6 +212,7 @@ export default function Home() {
               return (
                 <Link
                   href={`/userProfile/${friend?.id}${friend?.fName}${friend?.lName}${friend?.id}69`}
+                  key={friend?.id}
                 >
                   <div className="h-24 w-28 flex flex-col justify-center items-center">
                     <div className="rounded-full w-14 h-14  flex justify-center items-center">
@@ -268,7 +269,7 @@ export default function Home() {
         </section>
         {/* {Posts} */}
         <h1 className="text-info flex items-center justify-center h-14">
-          {userData.fName + " " + userData.lName}'s Posts
+          {userData.fName + " " + userData.lName}s Posts
         </h1>
         <section className="mt-5 h-auto">
           <PostList postData={postData} setPostData={setPostData} />

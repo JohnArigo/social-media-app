@@ -17,7 +17,7 @@ export default function Stories({ allFriends }: allFriends) {
   return (
     <section className=" overflow-x-scroll  h-24 flex-nowrap sticky w-screen bg-accent text-info-content flex items-center justify-center shadow-md">
       {allFriends?.map((friend: Friend) => {
-        return <div>These are my friends</div>;
+        return <div key={friend.id}>These are my friends</div>;
       })}
     </section>
   );
