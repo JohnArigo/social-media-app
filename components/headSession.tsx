@@ -70,7 +70,7 @@ export default function HeaderSession({
           role="link-holder"
           className="flex justify-between items-center w-1/3 h-full"
         >
-          <Link href="/home">
+          <Link href="/feed">
             <div className="cursor-pointer">Home</div>
           </Link>
 
