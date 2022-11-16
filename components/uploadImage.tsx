@@ -64,10 +64,11 @@ const UploadImage = ({ userID }: any) => {
     }
   };
   const router = useRouter();
+
   const handleSubmit = async () => {
     try {
       await postImage(image);
-      router.push(`../userProfile/success`);
+      typeof window! == "undefined" && router.push(`../userProfile/success`);
     } catch (error) {
       console.log(error);
     }
