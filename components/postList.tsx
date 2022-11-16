@@ -33,8 +33,8 @@ export default function PostList({ postData, setPostData }: postDataType) {
               <Link
                 href={`/userProfile/${
                   post.authorId +
-                  post.author.fName +
-                  post.author.lName +
+                  post?.author?.fName! +
+                  post?.author?.lName! +
                   post.authorId +
                   69
                 }`}
@@ -44,11 +44,11 @@ export default function PostList({ postData, setPostData }: postDataType) {
                     <div className=" rounded-full h-16 w-16 flex justify-center items-center cursor-pointer">
                       <img
                         className=" rounded-full h-16 w-16 "
-                        src={post.author.image}
+                        src={post?.author?.image}
                       />
                     </div>
                   </div>
-                  <div>{post.author.fName + " " + post.author.lName}</div>
+                  <div>{post?.author?.fName + " " + post?.author?.lName}</div>
                 </div>
               </Link>
 

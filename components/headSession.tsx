@@ -57,7 +57,7 @@ export default function HeaderSession({
           {openSearch ? (
             <div className="flex items-center">
               <input
-                className="bg-white mr-2 rounded-lg"
+                className="bg-white h-8 w-40 mr-5 rounded-lg"
                 placeholder="search site content"
               />
               <IconSearch size={15} />

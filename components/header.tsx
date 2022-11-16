@@ -28,7 +28,6 @@ export default function Header({ setOpened, user }: any) {
     return () => window.removeEventListener("resize", handleResize);
   }, []);
 
-  console.log(portSize);
   if (status === "authenticated") {
     return (
       <HeaderSession setOpened={setOpened} user={user} portSize={portSize} />

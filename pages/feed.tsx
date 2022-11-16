@@ -3,21 +3,25 @@ import { useEffect, useState } from "react";
 import PostList from "../components/postList";
 import prisma from "../lib/prisma";
 import { postType, User, Friend, postsType } from "../lib/types";
-
-export default function Home() {
-  const [postData, setPostData] = useState<postType[]>([
-    {
-      title: "",
-      content: "",
-      published: true,
-      authorId: 0,
+export async function getServerSideProps() {
+  const posts = await prisma.post.findMany({
+    include: {
+      author: true,
     },
-  ]);
-  useEffect(() => {
-    fetch(`./api/getAllPosts`)
-      .then((res) => res.json())
-      .then((data) => setPostData(data));
-  }, []);
+    orderBy: {
+      id: "desc",
+    },
+  });
+  return {
+    props: {
+      posts: posts,
+    },
+  };
+}
+
+export default function Feed({ posts }: postsType) {
+  const [postData, setPostData] = useState<postType[]>(posts);
+
   //pull session for ID
   const { data: session } = useSession();
   //find userID for API call

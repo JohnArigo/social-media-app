@@ -68,7 +68,7 @@ export type postType = {
   title: string;
   content: string;
   published: boolean;
-  author: User;
+  author?: User;
   authorId: number;
 };
 
