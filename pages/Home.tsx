@@ -12,12 +12,8 @@ import {
   postsType,
   portType,
 } from "../lib/types";
-import tailwindConfig from "../tailwind.config";
 
-//pull all data posts
-export async function getStaticProps(req: NextApiRequest) {
-  //get session for all users in server
-  //find all posts
+export async function getServerSideProps() {
   const posts = await prisma.post.findMany({
     include: {
       author: true,
@@ -30,7 +26,6 @@ export async function getStaticProps(req: NextApiRequest) {
     props: {
       posts: posts,
     },
-    revalidate: 10,
   };
 }
 
