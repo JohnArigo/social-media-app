@@ -16,7 +16,7 @@ export default function PostList({ postData, setPostData }: postDataType) {
         if (post.published) {
           return (
             <div
-              className="w-96 h-96 sm:w-1/2 lg:w-1/3 bg-base-content rounded-xl mt-5 flex flex-col"
+              className="w-96 h-96 sm:w-1/2  lg:w-5/12 bg-base-content rounded-xl mt-5 flex flex-col"
               key={post.title + post.authorId + index}
             >
               <div className="self-end mr-1 text-xs text-base-content">Egg</div>

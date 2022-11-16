@@ -96,20 +96,20 @@ export default function Home() {
     width: 0,
     height: 0,
   });
-  if (typeof window !== "undefined") {
-    const handleResize = () => {
+
+  const handleResize = () => {
+    if (typeof window !== "undefined") {
       setPortSize({
         height: window?.innerHeight,
         width: window?.innerWidth,
       });
-    };
-    useEffect(() => {
-      handleResize();
-      window?.addEventListener("resize", handleResize);
-      return () => window.removeEventListener("resize", handleResize);
-    }, []);
-  }
-
+    }
+  };
+  useEffect(() => {
+    handleResize();
+    window?.addEventListener("resize", handleResize);
+    return () => window.removeEventListener("resize", handleResize);
+  }, []);
   //modal openers
   const [about, setAbout] = useState(false);
   const [flex, setFlex] = useState(false);

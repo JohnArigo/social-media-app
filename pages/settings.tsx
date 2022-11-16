@@ -28,7 +28,7 @@ async function sendTheme(sendingPackage: ThemeSend) {
   return await response.json();
 }
 
-export default function settings() {
+export default function Setting() {
   const themes = tailwindConfig.daisyui.themes;
   console.log(themes);
   useEffect(() => {

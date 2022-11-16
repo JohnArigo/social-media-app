@@ -13,19 +13,20 @@ export default function Header({ setOpened, user }: any) {
     width: 0,
     height: 0,
   });
-  if (typeof window !== "undefined") {
-    const handleResize = () => {
+
+  const handleResize = () => {
+    if (typeof window !== "undefined") {
       setPortSize({
         height: window?.innerHeight,
         width: window?.innerWidth,
       });
-    };
-    useEffect(() => {
-      handleResize();
-      window?.addEventListener("resize", handleResize);
-      return () => window.removeEventListener("resize", handleResize);
-    }, []);
-  }
+    }
+  };
+  useEffect(() => {
+    handleResize();
+    window?.addEventListener("resize", handleResize);
+    return () => window.removeEventListener("resize", handleResize);
+  }, []);
 
   console.log(portSize);
   if (status === "authenticated") {
