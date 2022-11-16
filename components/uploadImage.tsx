@@ -2,6 +2,7 @@ import React, { useEffect, useState } from "react";
 import Head from "next/head";
 import { Button } from "@mantine/core";
 import Script from "next/script";
+import { useRouter } from "next/router";
 
 async function postImage(dataToSend: any) {
   const response = await fetch("../../api/photos/postImage", {
@@ -62,11 +63,11 @@ const UploadImage = ({ userID }: any) => {
       return null;
     }
   };
-
+  const router = useRouter();
   const handleSubmit = async () => {
     try {
       await postImage(image);
-      console.log("succes");
+      router.push(`../userProfile/success`);
     } catch (error) {
       console.log(error);
     }

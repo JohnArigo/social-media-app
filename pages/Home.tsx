@@ -4,7 +4,14 @@ import { useEffect, useState } from "react";
 import { themeChange } from "theme-change";
 import PostList from "../components/postList";
 import prisma from "../lib/prisma";
-import { postType, HomeType, User, Friend, postsType } from "../lib/types";
+import {
+  postType,
+  HomeType,
+  User,
+  Friend,
+  postsType,
+  portType,
+} from "../lib/types";
 import tailwindConfig from "../tailwind.config";
 
 //pull all data posts
@@ -63,9 +70,8 @@ export default function Home({ posts }: postsType) {
 
   const [postData, setPostData] = useState<postType[]>(posts);
 
-  console.log(userData);
   return (
-    <main className="w-screen h-screen">
+    <main className="w-screen h-screen md:mt-24">
       <h1 className="text-info text-2xl text-center">User Posts</h1>
       <PostList postData={postData} setPostData={setPostData} />
     </main>

@@ -1,5 +1,6 @@
 import Link from "next/link";
-import { postType } from "../lib/types";
+import { useState, useEffect } from "react";
+import { portType, postType } from "../lib/types";
 
 export type postDataType = {
   postData: postType[];
@@ -11,11 +12,11 @@ export type postDataType = {
 export default function PostList({ postData, setPostData }: postDataType) {
   return (
     <section className="text-info-content shadow-sm pb-24 h-full w-full flex flex-col justify-start items-center overflow-y-scroll">
-      {postData.map((post: postType, index: number) => {
+      {postData?.map((post: postType, index: number) => {
         if (post.published) {
           return (
             <div
-              className="w-96 h-96 bg-base-content rounded-xl mt-5 flex flex-col"
+              className="w-96 h-96 sm:w-1/2 lg:w-1/3 bg-base-content rounded-xl mt-5 flex flex-col"
               key={post.title + post.authorId + index}
             >
               <div className="self-end mr-1 text-xs text-base-content">Egg</div>
@@ -40,9 +41,9 @@ export default function PostList({ postData, setPostData }: postDataType) {
               >
                 <div className="flex flex-row mt-3 ml-2 h-1/6 items-center">
                   <div className="w-1/4 ">
-                    <div className=" rounded-full h-16 w-16 flex justify-center items-center">
+                    <div className=" rounded-full h-16 w-16 flex justify-center items-center cursor-pointer">
                       <img
-                        className=" rounded-full h-16 w-16"
+                        className=" rounded-full h-16 w-16 "
                         src={post.author.image}
                       />
                     </div>

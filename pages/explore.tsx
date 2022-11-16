@@ -39,7 +39,7 @@ export default function Explore({ geoLocation, weather, news }: ExploreType) {
   const [currentWeather, setCurrentWeather] = useState<RootConfig>(weather);
 
   return (
-    <main className="mb-24">
+    <main className="mb-24 sm: mt-24">
       <Current currentWeather={currentWeather} />
       <h1 className="text-center mt-14 text-info text-xl">Top Headlines</h1>
       <News news={news} />

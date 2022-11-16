@@ -80,6 +80,7 @@ export default function UserConversation({ user }: any) {
     message: "",
     fromId: userId,
   });
+  const [otherUserImage, setOtherUserImage] = useState<string>();
 
   useEffect(() => {
     fetch(`../../api/findUserImage/${userId}`)
@@ -89,6 +90,12 @@ export default function UserConversation({ user }: any) {
           return { ...prevState, toImage: data.image };
         })
       );
+  }, []);
+
+  useEffect(() => {
+    fetch(`../../api/findUserImage/${messageData.toId}`)
+      .then((res) => res.json())
+      .then((data) => setOtherUserImage(data.image));
   }, []);
 
   const handleChange = (event: any) => {
@@ -115,14 +122,14 @@ export default function UserConversation({ user }: any) {
   };
 
   return (
-    <main className="w-screen h-screen flex flex-col items-center text-info-content">
-      <section className="flex flex-col items-center overflow-y-auto mb-48 ">
+    <main className="w-screen h-screen flex flex-col items-center text-info-content md:mt-24">
+      <section className="flex flex-col h-full justify-end overflow-y-auto mb-48 sm:mb-72">
         {messages.map((message) => {
           const messageStyle = () => {
             if (message.fromId === userId) {
-              return "rounded-lg flex flex-row-reverse items-center self-end w-auto h-48 bg-base-content text-info-content mt-5 pl-5";
+              return "rounded-lg w-full flex flex-row-reverse items-center self-endmax-h-48 bg-base-content text-info-content mt-5 pl-5";
             } else {
-              return "rounded-lg flex items-center self-start w-auto h-48 bg-base-content text-info-content mt-5 pr-5";
+              return "rounded-lg w-full flex items-center self-start max-h-48 bg-base-content text-info-content mt-5 pr-5";
             }
           };
 
@@ -130,10 +137,17 @@ export default function UserConversation({ user }: any) {
             <div className={messageStyle()} key={message.id}>
               <div className="w-20 ml-2">
                 <div className="rounded-full w-14 h-14 bg-green-500 flex justify-center items-center">
-                  <img
-                    className="rounded-full w-14 h-14"
-                    src={message?.toImage!}
-                  />
+                  {message.fromId === userId ? (
+                    <img
+                      className="rounded-full w-14 h-14"
+                      src={message?.toImage!}
+                    />
+                  ) : (
+                    <img
+                      className="rounded-full w-14 h-14"
+                      src={otherUserImage}
+                    />
+                  )}
                 </div>
               </div>
               <div className="flex flex-col justify-center">

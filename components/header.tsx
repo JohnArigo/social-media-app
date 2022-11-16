@@ -3,24 +3,35 @@ import HeaderSession from "./headSession";
 import HeaderNoSession from "./headNoSession";
 import prisma from "../lib/prisma";
 import { NextApiRequest } from "next";
-import { User } from "../lib/types";
+import { portType, User } from "../lib/types";
 import { useState, useEffect } from "react";
-
-// export async function getServerSideProps() {
-//   const response = await fetch("../api/getUserInfo");
-//   const userInfo = await response.json();
-//   return {
-//     props: {
-//       user: userInfo,
-//     },
-//   };
-// }
 
 export default function Header({ setOpened, user }: any) {
   const { data: session, status } = useSession();
 
+  const [portSize, setPortSize] = useState<portType>({
+    width: 0,
+    height: 0,
+  });
+  if (typeof window !== "undefined") {
+    const handleResize = () => {
+      setPortSize({
+        height: window?.innerHeight,
+        width: window?.innerWidth,
+      });
+    };
+    useEffect(() => {
+      handleResize();
+      window?.addEventListener("resize", handleResize);
+      return () => window.removeEventListener("resize", handleResize);
+    }, []);
+  }
+
+  console.log(portSize);
   if (status === "authenticated") {
-    return <HeaderSession setOpened={setOpened} user={user} />;
+    return (
+      <HeaderSession setOpened={setOpened} user={user} portSize={portSize} />
+    );
   } else {
     return <HeaderNoSession />;
   }

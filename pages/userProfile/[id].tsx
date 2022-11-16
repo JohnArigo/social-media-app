@@ -18,6 +18,7 @@ import {
   Friend,
   HomeType,
   Message,
+  portType,
   postType,
   User,
 } from "../../lib/types";
@@ -261,6 +262,169 @@ export default function Home({ user }: any) {
       return userData.friends.splice(3);
     } else return userData.friends;
   };
+  const [portSize, setPortSize] = useState<portType>({
+    width: 0,
+    height: 0,
+  });
+  if (typeof window !== "undefined") {
+    const handleResize = () => {
+      setPortSize({
+        height: window?.innerHeight,
+        width: window?.innerWidth,
+      });
+    };
+    useEffect(() => {
+      handleResize();
+      window?.addEventListener("resize", handleResize);
+      return () => window.removeEventListener("resize", handleResize);
+    }, []);
+  }
+
+  if (userData.email === undefined) {
+    return (
+      <main>
+        <h1>Unable to load page, please try again later</h1>
+      </main>
+    );
+  }
+
+  if (portSize?.width! > 860) {
+    return (
+      <main className="bg-base-200 w-screen h-auto overflow-y-auto text-info-content flex justify-center mt-24">
+        <section className="w-1/2 flex flex-col items-start mb-24">
+          {" "}
+          {/* {Header Section} */}
+          <section className="h-36 w-full bg-red-300">
+            <img className="bg-red-300 h-full w-full" src={userData.banner} />
+          </section>
+          {/* {Profile Image and Name} */}
+          <section className="bg-transparent w-full h-30 flex flex-row items-center ml-7 absolute z-10 top-44">
+            <div className="ml-5 w-28 h-28  flex justify-center items-center bg-white">
+              <img src={userData.image} />
+            </div>
+            <div className="mt-16 ml-5 text-info text-xl">
+              {userData.fName + " " + userData.lName}
+            </div>
+          </section>
+          <section className="mt-20 w-full flex justify-around items-center">
+            {isMyFriend ? (
+              <div
+                onClick={deleteFriend}
+                className="bg-primary cursor-pointer text-center rounded-xl w-32 "
+              >
+                Following
+              </div>
+            ) : (
+              <div
+                onClick={addFriend}
+                className="cursor-pointer text-center rounded-xl w-32 bg-white"
+              >
+                Follow
+              </div>
+            )}
+            <div
+              onClick={() => setOpened(true)}
+              className="rounded-xl w-32 bg-secondary cursor-pointer text-center"
+            >
+              <Modal
+                opened={opened}
+                onClose={() => setOpened(false)}
+                title="Write your post!"
+              >
+                <form
+                  onSubmit={handleMessageSubmit}
+                  className="w-full h-full flex flex-col justify-center items-center"
+                >
+                  <h1>Message to: {userData.fName + " " + userData.lName}</h1>
+                  <Textarea
+                    className="w-full"
+                    label="Content"
+                    name="message"
+                    value={messageData.message}
+                    onChange={handleMessageChange}
+                    minRows={10}
+                    maxRows={15}
+                  />
+                  <button>Post</button>
+                </form>
+              </Modal>
+              Message
+            </div>
+          </section>
+          {/* {About me} */}
+          <section className="mt-24 bg-base-content text-info-content pb-16 max-h-80  w-full shadow-sm flex-col flex items-start justify-start overflow-y-auto">
+            <h3 className="ml-5 mt-5">About Me</h3>
+            <div>
+              <Collapse in={aboutText}>
+                {userData.about}
+                <div onClick={() => setAboutText(false)}>See less</div>
+              </Collapse>
+              {aboutText ? null : <Text lineClamp={3}>{userData.about}</Text>}
+              {userData.about!.length > 130 ? (
+                <div className="text-accent" onClick={() => setAboutText(true)}>
+                  {aboutText ? null : "See More"}
+                </div>
+              ) : null}
+            </div>
+          </section>
+          {/* {Friend list NEED TO MAP AND OPEN PAGE TO SEE ALL FRIENDS} */}
+          <section className="mt-3 bg-base-content h-40 w-full shadow-sm flex flex-col items-start justify-start">
+            <div className="self-end text-base-content">EASTER EGG</div>
+            <h3 className="ml-5">Following</h3>
+            <Text
+              lineClamp={1}
+              className="flex flex-wrap flex-row w-96 h-full justify-start items-center"
+            >
+              {filterFriends().map((friendInfo: Friend) => {
+                const friend = friendInfo.friendInfo;
+                const handleClick = () => {
+                  router.push(
+                    `../userProfile/${friend?.id}${friend?.fName}${friend?.lName}${friend?.id}69`
+                  );
+                };
+                return (
+                  <div
+                    onClick={handleClick}
+                    className="h-24 w-28 flex flex-col justify-center items-center cursor-pointer"
+                    key={friend?.id}
+                  >
+                    <div className="rounded-full w-14 h-14  flex justify-center items-center">
+                      <img src={friend?.image} />
+                    </div>
+                    <h1>{friend?.fName + " " + friend?.lName}</h1>
+                  </div>
+                );
+              })}
+            </Text>
+          </section>
+          {/* {Flex announcements} */}
+          <section className="mt-3 pb-16 bg-base-content text-info-content max-h-80 overflow-y-auto w-full shadow-sm flex flex-col items-start justify-start">
+            <h3 className="ml-5 mt-5">Announcements</h3>
+            <Collapse in={flexText}>
+              {userData.flex}
+              <div onClick={() => setFlexText(false)}>See less</div>
+            </Collapse>
+            {flexText ? null : <Text lineClamp={3}>{userData.flex}</Text>}
+            {userData.flex!.length > 130 ? (
+              <div onClick={() => setFlexText(true)}>
+                {flexText ? null : "See More"}
+              </div>
+            ) : null}
+          </section>
+        </section>
+
+        <section className="w-full h-screen flex flex-col justify-start ">
+          <h1 className="text-info w-full text-center mt-5">
+            {userData.fName + " " + userData.lName}s Posts
+          </h1>
+
+          <PostList postData={postData} setPostData={setPostData} />
+        </section>
+        {/* {Posts} */}
+      </main>
+    );
+  }
+
   return (
     <main className="bg-base-200 w-screen h-auto overflow-y-auto text-info-content">
       {/* {Header Section} */}
@@ -381,6 +545,7 @@ export default function Home({ user }: any) {
           </div>
         ) : null}
       </section>
+
       {/* {Posts} */}
       <h1 className="flex items-center justify-center h-14 text-info">
         {userData.fName + " " + userData.lName}s Posts

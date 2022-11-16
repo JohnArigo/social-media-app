@@ -5,7 +5,7 @@ import { useState, useEffect } from "react";
 import PostList from "../../components/postList";
 import UploadBanner from "../../components/uploadBanner";
 import UploadImage from "../../components/uploadImage";
-import { postType, User, SendUser, Friend } from "../../lib/types";
+import { postType, User, SendUser, Friend, portType } from "../../lib/types";
 
 export type UserArray = {
   user: User[];
@@ -92,6 +92,24 @@ export default function Home() {
     } else return userData.friends;
   };
 
+  const [portSize, setPortSize] = useState<portType>({
+    width: 0,
+    height: 0,
+  });
+  if (typeof window !== "undefined") {
+    const handleResize = () => {
+      setPortSize({
+        height: window?.innerHeight,
+        width: window?.innerWidth,
+      });
+    };
+    useEffect(() => {
+      handleResize();
+      window?.addEventListener("resize", handleResize);
+      return () => window.removeEventListener("resize", handleResize);
+    }, []);
+  }
+
   //modal openers
   const [about, setAbout] = useState(false);
   const [flex, setFlex] = useState(false);
@@ -108,8 +126,185 @@ export default function Home() {
       </main>
     );
   }
+
+  if (portSize?.width! > 860) {
+    return (
+      <main className="bg-base-200 w-screen h-auto overflow-y-auto text-info-content flex justify-center mt-24">
+        {/* {Header Section} */}
+        <section className="w-1/2 flex flex-col items-start">
+          {" "}
+          <section
+            className="w-full h-36 bg-red-300 flex flex-col items-end"
+            onClick={() => setBanner(true)}
+          >
+            <h1
+              className="absolute text-sm bg-zinc-50 opacity-70"
+              onClick={() => setBanner(true)}
+            >
+              edit
+            </h1>
+            <Modal
+              overflow="inside"
+              transition="fade"
+              transitionDuration={600}
+              transitionTimingFunction="ease"
+              opened={banner}
+              onClose={() => setBanner(false)}
+            >
+              <UploadBanner userID={userID} />
+            </Modal>
+            <img className="sm:h-full w-full " src={userData.banner} />
+          </section>
+          {/* {Profile Image and Name} */}
+          <section className="bg-transparent w-full h-30 flex flex-row items-center ml-7 absolute z-10 top-44">
+            <div
+              onClick={() => setProfilePic(true)}
+              className="bg-white w-28 h-28  flex justify-center items-center "
+            >
+              <img src={userData.image} />
+              <Modal
+                transition="fade"
+                transitionDuration={600}
+                transitionTimingFunction="ease"
+                opened={profilePic}
+                onClose={() => setProfilePic(false)}
+              >
+                <UploadImage userID={userID} />
+              </Modal>
+            </div>
+            <div className="text-info mt-14 ml-5 text-xl">
+              {userData.fName + " " + userData.lName}
+            </div>
+          </section>
+          {/* {About me} */}
+          <section className="bg-base-content w-full mt-32 pb-16 max-h-80 shadow-sm flex-col flex items-start justify-start overflow-y-auto">
+            <div
+              className="self-end text-gray-300"
+              onClick={() => setAbout(true)}
+            >
+              edit
+            </div>
+            <Modal
+              transition="fade"
+              transitionDuration={600}
+              transitionTimingFunction="ease"
+              opened={about}
+              onClose={() => setAbout(false)}
+              title="Tell us about you!"
+            >
+              <Textarea
+                className="w-full"
+                label="About"
+                name="about"
+                value={userData.about}
+                onChange={handleChange}
+                minRows={15}
+                maxRows={20}
+              />
+              <div className="w-full flex justify-center mt-5">
+                <Button onClick={handleSubmit} className="bg-blue-200">
+                  Submit
+                </Button>
+              </div>
+            </Modal>
+            <h3 className="ml-5">About Me</h3>
+
+            <div>
+              <Collapse in={aboutText}>
+                {userData.about}
+                <div onClick={() => setAboutText(false)}>See less</div>
+              </Collapse>
+              {aboutText ? null : <Text lineClamp={3}>{userData.about}</Text>}
+              {userData.about!.length > 130 ? (
+                <div className="text-accent" onClick={() => setAboutText(true)}>
+                  {aboutText ? null : "See More"}
+                </div>
+              ) : null}
+            </div>
+          </section>
+          {/* {Friend list NEED TO OPEN PAGE TO SEE ALL FRIENDS} */}
+          <section className="mt-3 bg-base-content h-40 w-full shadow-sm flex flex-col items-start justify-start">
+            <div className="self-end text-base-content">EASTER EGG</div>
+            <h3 className="ml-5">Following</h3>
+            <div className="flex justify-start items-center">
+              {filterFriends().map((friendInfo: Friend) => {
+                const friend = friendInfo.friendInfo;
+                return (
+                  <Link
+                    href={`/userProfile/${friend?.id}${friend?.fName}${friend?.lName}${friend?.id}69`}
+                    key={friend?.id}
+                  >
+                    <div className="h-24 w-28 flex flex-col justify-center items-center">
+                      <div className="rounded-full w-14 h-14  flex justify-center items-center">
+                        <img src={friend?.image} />
+                      </div>
+                      <h1>{friend?.fName + " " + friend?.lName}</h1>
+                    </div>
+                  </Link>
+                );
+              })}
+            </div>
+          </section>
+          {/* {Flex announcements} */}
+          <section className="mt-3 pb-16 bg-base-content w-full max-h-80 overflow-y-auto shadow-sm flex flex-col items-start justify-start">
+            <div
+              className="self-end text-gray-300"
+              onClick={() => setFlex(true)}
+            >
+              edit
+            </div>
+            <Modal
+              transition="fade"
+              transitionDuration={600}
+              transitionTimingFunction="ease"
+              opened={flex}
+              onClose={() => setFlex(false)}
+              title="Tell us about you!"
+            >
+              <Textarea
+                className="w-full"
+                label="Announcements"
+                name="flex"
+                value={userData.flex}
+                onChange={handleChange}
+                minRows={15}
+                maxRows={18}
+              />
+              <div className="w-full flex justify-center mt-5">
+                <Button onClick={handleSubmit} className="bg-blue-200">
+                  Submit
+                </Button>
+              </div>
+            </Modal>
+            <h3 className="ml-5">Announcements</h3>
+            <div>
+              <Collapse in={flexText}>
+                {userData.flex}
+                <div onClick={() => setFlexText(false)}>See less</div>
+              </Collapse>
+              {flexText ? null : <Text lineClamp={3}>{userData.flex}</Text>}
+              {userData.flex!.length > 130 ? (
+                <div className="text-accent" onClick={() => setFlexText(true)}>
+                  {flexText ? null : "See More"}
+                </div>
+              ) : null}
+            </div>
+          </section>
+        </section>
+
+        {/* {Posts} */}
+        <section className="w-full h-screen flex flex-col justify-start ">
+          {" "}
+          <h1 className="text-info w-full text-center mt-5">
+            {userData.fName + " " + userData.lName}s Posts
+          </h1>
+          <PostList postData={postData} setPostData={setPostData} />
+        </section>
+      </main>
+    );
+  }
   //render
-  else
+  else {
     return (
       <main className="bg-base-200 w-screen h-auto overflow-y-auto text-info-content">
         {/* {Header Section} */}
@@ -276,4 +471,5 @@ export default function Home() {
         </section>
       </main>
     );
+  }
 }

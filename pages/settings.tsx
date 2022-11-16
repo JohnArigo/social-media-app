@@ -28,7 +28,7 @@ async function sendTheme(sendingPackage: ThemeSend) {
   return await response.json();
 }
 
-export default function Index() {
+export default function settings() {
   const themes = tailwindConfig.daisyui.themes;
   console.log(themes);
   useEffect(() => {
@@ -72,7 +72,7 @@ export default function Index() {
     }
   };
   return (
-    <main>
+    <main className="mt-24">
       <section>Select layout : </section>
       <form onSubmit={handleSubmit}>
         <select

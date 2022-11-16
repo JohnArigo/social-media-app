@@ -53,7 +53,7 @@ export type Friend = {
   posts?: postType[];
   owner?: User;
   ownerId: number;
-  relationshipId: string
+  relationshipId: string;
 };
 
 export type Banner = {
@@ -158,3 +158,8 @@ export interface Source {
   id?: string;
   name: string;
 }
+
+export type portType = {
+  height: number | undefined;
+  width: number | undefined;
+};

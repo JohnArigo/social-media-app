@@ -7,7 +7,7 @@ import { Modal } from "@mantine/core";
 import { useEffect, useState } from "react";
 import CreatePost from "../components/createPost";
 import prisma from "../lib/prisma";
-import { postType, User } from "../lib/types";
+import { portType, postType, User } from "../lib/types";
 import tailwindConfig from "../tailwind.config";
 import { themeChange } from "theme-change";
 //initial user props
@@ -45,6 +45,7 @@ export default function App({
 
   return (
     <SessionProvider session={pageProps.session}>
+      <Header setOpened={setOpened} user={pageProps.user} />
       <Modal
         transition="fade"
         transitionDuration={600}
@@ -56,8 +57,6 @@ export default function App({
         <CreatePost user={pageProps.user} />
       </Modal>
       <Component className="bg-base-200" {...pageProps} />
-
-      <Header setOpened={setOpened} user={pageProps.user} />
     </SessionProvider>
   );
 }

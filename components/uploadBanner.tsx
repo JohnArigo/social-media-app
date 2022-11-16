@@ -3,6 +3,7 @@ import Head from "next/head";
 import { Button, Modal } from "@mantine/core";
 import prisma from "../lib/prisma";
 import { Banner, bannerData, bannerNotification } from "../lib/types";
+import { useRouter } from "next/router";
 
 async function postBanner(bannerData: bannerData) {
   const response = await fetch("../../api/photos/postBanner", {
@@ -44,6 +45,7 @@ const UploadBanner = ({ userID }: any) => {
     banner: "",
   });
   //send data to API
+  const router = useRouter();
   const handleSelect = async () => {
     try {
       await postBanner(bannerDataSend);
@@ -54,6 +56,7 @@ const UploadBanner = ({ userID }: any) => {
           status: true,
         };
       });
+      router.push(`../userProfile/success`);
     } catch (error) {
       setNotification((prevState) => {
         return {
@@ -79,7 +82,7 @@ const UploadBanner = ({ userID }: any) => {
         {banners.map((banner: Banner, index: number) => {
           return (
             <div key={banner.id} onClick={() => handleClick(banner.link)}>
-              <img className="h-32 w-full mt-5 " src={banner.link} />
+              <img className="h-32 w-full sm:h-full mt-5 " src={banner.link} />
               <Modal
                 transition="fade"
                 transitionDuration={600}

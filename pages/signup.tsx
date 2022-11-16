@@ -2,8 +2,8 @@ import { Modal, PasswordInput, TextInput } from "@mantine/core";
 import { IconEyeCheck, IconEyeOff } from "@tabler/icons";
 import { redirect } from "next/dist/server/api-utils";
 import Router, { useRouter } from "next/router";
-import { useState } from "react";
-import { signUpType } from "../lib/types";
+import { useEffect, useState } from "react";
+import { portType, signUpType } from "../lib/types";
 
 async function postNewUser(sendingPackage: signUpType) {
   const response = await fetch("../api/userCalls/createUser", {
@@ -67,7 +67,7 @@ export default function SignUp() {
       </Modal>
       <form
         onSubmit={handleSubmit}
-        className="h-full w-full flex flex-col justify-center"
+        className="h-full w-full sm:w-2/6 lg:w-3/12 flex flex-col justify-center"
       >
         <label>First Name</label>
         <TextInput
@@ -109,7 +109,7 @@ export default function SignUp() {
           required
           withAsterisk
         />
-        <button className="mt-10">Sign up</button>
+        <button className="mt-10 btn btn-primary">Sign up</button>
       </form>
     </main>
   );

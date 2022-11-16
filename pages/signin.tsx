@@ -5,7 +5,7 @@ import { IconEyeCheck, IconEyeOff } from "@tabler/icons";
 import Link from "next/link";
 import { themeChange } from "theme-change";
 import tailwindConfig from "../tailwind.config";
-import { User } from "../lib/types";
+import { portType, User } from "../lib/types";
 import { useRouter } from "next/router";
 
 export interface credentialType {
@@ -45,14 +45,12 @@ export default function SignIn() {
     }
   };
 
-  const [user, setUser] = useState<User>();
-
   if (!session) {
     return (
       <main className="text-info w-screen h-screen flex justify-center items-center">
         <form
           onSubmit={handleSubmit}
-          className="h-full w-full flex flex-col justify-center"
+          className="h-full w-full sm:w-2/6 lg:w-3/12 flex flex-col justify-center"
         >
           <label>Email Address</label>
           <TextInput
