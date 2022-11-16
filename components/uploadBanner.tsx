@@ -56,7 +56,7 @@ const UploadBanner = ({ userID }: any) => {
           status: true,
         };
       });
-      typeof window! == "undefined" && router.push(`../userProfile/success`);
+      router.push(`../userProfile/success`);
     } catch (error) {
       setNotification((prevState) => {
         return {
