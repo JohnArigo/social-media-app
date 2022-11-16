@@ -75,7 +75,7 @@ export default function SignIn() {
             required
             withAsterisk
           />
-          <button className="mt-10">Sign in</button>
+          <button className="mt-10 btn btn-primary">Sign in</button>
         </form>
       </main>
     );

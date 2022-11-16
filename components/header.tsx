@@ -34,6 +34,6 @@ export default function Header({ setOpened, user }: any) {
       <HeaderSession setOpened={setOpened} user={user} portSize={portSize} />
     );
   } else {
-    return <HeaderNoSession />;
+    return <HeaderNoSession portSize={portSize} />;
   }
 }

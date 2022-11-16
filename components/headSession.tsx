@@ -1,11 +1,18 @@
 import { Menu } from "@mantine/core";
-import { IconSettings, IconUser, IconLogout } from "@tabler/icons";
+import {
+  IconSettings,
+  IconUser,
+  IconLogout,
+  IconSearch,
+  IconExplicitOff,
+} from "@tabler/icons";
 import { useSession } from "next-auth/react";
 import Link from "next/link";
 import { useState, useEffect } from "react";
 import { portType, User } from "../lib/types";
 import { NextLink } from "@mantine/next";
 import Image from "next/image";
+import Head from "next/head";
 
 export type HeaderSessionType = {
   setOpened: any;
@@ -28,11 +35,36 @@ export default function HeaderSession({
         setUserImage(data.image);
       });
   }, []);
+
+  const [openSearch, setOpenSearch] = useState(false);
   if (portSize?.width! > 860) {
     return (
       <main className="z-20 top-0 fixed w-full h-20 bg-accent text-neutral flex flex-row justify-around items-center">
-        <section className="w-1/6 h-full flex items-center" role="search">
-          <input />
+        <section className="w-1/6  h-full flex items-center" role="search">
+          <Head>
+            <link
+              href="https://fonts.googleapis.com/css2?family=Noto+Sans+Mono:wght@300;600;700&family=Pacifico&display=swap"
+              rel="stylesheet"
+            />
+          </Head>
+          {openSearch ? null : (
+            <Link href={`../`}>
+              <h1 className="text-lg font-pacifico font-extrabold cursor-pointer flex">
+                Social Media App
+              </h1>
+            </Link>
+          )}
+          {openSearch ? (
+            <div className="flex items-center">
+              <input
+                className="bg-white mr-2 rounded-lg"
+                placeholder="search site content"
+              />
+              <IconSearch size={15} />
+            </div>
+          ) : (
+            <IconSearch size={20} onClick={() => setOpenSearch(true)} />
+          )}
         </section>
         <section
           role="link-holder"

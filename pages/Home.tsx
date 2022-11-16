@@ -30,6 +30,7 @@ export async function getServerSideProps() {
 }
 
 export default function Home({ posts }: postsType) {
+  const [postData, setPostData] = useState<postType[]>(posts);
   //pull session for ID
   const { data: session } = useSession();
   //find userID for API call
@@ -62,8 +63,6 @@ export default function Home({ posts }: postsType) {
         setFriendData(data.friends);
       });
   }, [userData]);
-
-  const [postData, setPostData] = useState<postType[]>(posts);
 
   return (
     <main className="w-screen h-screen md:mt-24">
