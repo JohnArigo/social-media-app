@@ -1,4 +1,4 @@
-import { Menu } from "@mantine/core";
+import { Menu, Modal } from "@mantine/core";
 import {
   IconSettings,
   IconUser,
@@ -160,16 +160,23 @@ export default function HeaderSession({
           <Menu.Dropdown className="z-50">
             <Menu.Label>Go to...</Menu.Label>
             <Menu.Item
+              icon={<IconSearch size={14} />}
+              component={NextLink}
+              href={"../search"}
+            >
+              Search
+            </Menu.Item>
+            <Menu.Item
               icon={<IconSettings size={14} />}
               component={NextLink}
-              href={"/settings"}
+              href={"../settings"}
             >
               Settings
             </Menu.Item>
             <Menu.Item
               icon={<IconUser size={14} />}
               component={NextLink}
-              href={`/userProfile/myProfile`}
+              href={`../userProfile/myProfile`}
             >
               Profile
             </Menu.Item>
