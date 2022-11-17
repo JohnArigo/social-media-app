@@ -6,7 +6,11 @@ import { NextApiRequest } from "next";
 import { portType, User } from "../lib/types";
 import { useState, useEffect } from "react";
 
-export default function Header({ setOpened, user }: any) {
+export default function Header({
+  setOpened,
+  searchValue,
+  setSearchValue,
+}: any) {
   const { data: session, status } = useSession();
 
   const [portSize, setPortSize] = useState<portType>({
@@ -29,9 +33,7 @@ export default function Header({ setOpened, user }: any) {
   }, []);
 
   if (status === "authenticated") {
-    return (
-      <HeaderSession setOpened={setOpened} user={user} portSize={portSize} />
-    );
+    return <HeaderSession setOpened={setOpened} portSize={portSize} />;
   } else {
     return <HeaderNoSession portSize={portSize} />;
   }

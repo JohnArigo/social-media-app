@@ -16,12 +16,12 @@ import Head from "next/head";
 
 export type HeaderSessionType = {
   setOpened: any;
-  user: User[];
+
   portSize: portType;
 };
 export default function HeaderSession({
   setOpened,
-  user,
+
   portSize,
 }: HeaderSessionType) {
   const { data: session } = useSession();
@@ -126,7 +126,7 @@ export default function HeaderSession({
   } else {
     return (
       <main className=" bottom-0 fixed w-full h-20 bg-accent text-neutral flex flex-row justify-around items-center">
-        <Link href="/home">
+        <Link href="/feed">
           <div>Home</div>
         </Link>
         <Link href="/explore">

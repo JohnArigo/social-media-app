@@ -8,8 +8,7 @@ import { useEffect, useState } from "react";
 import CreatePost from "../components/createPost";
 import prisma from "../lib/prisma";
 import { portType, postType, User } from "../lib/types";
-import tailwindConfig from "../tailwind.config";
-import { themeChange } from "theme-change";
+
 //initial user props
 export async function getServerSideProps() {
   const session = await getSession();
@@ -42,10 +41,14 @@ export default function App({
   pageProps,
 }: AppProps<{ session: Session; user: User[]; posts: postType[] }>) {
   const [opened, setOpened] = useState(false);
-
+  const [searchValue, setSearchValue] = useState<string>("");
   return (
     <SessionProvider session={pageProps.session}>
-      <Header setOpened={setOpened} user={pageProps.user} />
+      <Header
+        setOpened={setOpened}
+        test={searchValue}
+        setTest={setSearchValue}
+      />
       <Modal
         transition="fade"
         transitionDuration={600}
@@ -56,7 +59,7 @@ export default function App({
       >
         <CreatePost user={pageProps.user} />
       </Modal>
-      <Component className="bg-base-200" {...pageProps} />
+      <Component test={searchValue?.toString()} {...pageProps} />
     </SessionProvider>
   );
 }

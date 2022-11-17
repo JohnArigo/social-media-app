@@ -41,7 +41,7 @@ export default function SignIn() {
     });
 
     if (res?.status === 200) {
-      router.push(`./home`);
+      router.push(`./feed`);
     }
   };
 

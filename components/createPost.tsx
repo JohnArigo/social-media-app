@@ -1,6 +1,7 @@
 import { Switch, Textarea, TextInput, Notification } from "@mantine/core";
 import { IconCheck } from "@tabler/icons";
 import { getSession, useSession } from "next-auth/react";
+import { useRouter } from "next/router";
 import { useEffect, useMemo, useState } from "react";
 import { postType, User, Friend, UserArray } from "../lib/types";
 //POST to createNewPost API
@@ -25,6 +26,8 @@ export type postTypeSend = {
 };
 
 export default function CreatePost({ user }: UserArray) {
+  const router = useRouter();
+
   const { data: session } = useSession();
   //find userID for API call
   const userID = parseInt(session?.user?.name?.toString()!);
@@ -77,6 +80,7 @@ export default function CreatePost({ user }: UserArray) {
         published: false,
         authorId: userData.id,
       });
+      router.push(`../success`);
     } catch (error) {
       console.log(error);
     }
