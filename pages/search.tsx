@@ -113,7 +113,10 @@ export default function Search({ test, search }: any) {
                   <Link
                     href={`../userProfile/${user.id}${user.fName}${user.lName}${user.id}69`}
                   >
-                    <div className="cursor-pointer flex items-center mt-5 h-20 bg-base-content w-96 rounded-lg ">
+                    <div
+                      key={user.id}
+                      className="cursor-pointer flex items-center mt-5 h-20 bg-base-content w-96 rounded-lg "
+                    >
                       <img
                         className="w-14 h-14 rounded-full mr-5 ml-5"
                         src={user.image}
@@ -172,7 +175,10 @@ export default function Search({ test, search }: any) {
                   <Link
                     href={`../userProfile/${user.id}${user.fName}${user.lName}${user.id}69`}
                   >
-                    <div className="cursor-pointer flex items-center mt-5 h-20 bg-base-content w-96 rounded-lg ">
+                    <div
+                      className="cursor-pointer flex items-center mt-5 h-20 bg-base-content w-96 rounded-lg "
+                      key={user.id}
+                    >
                       <img
                         className="w-14 h-14 rounded-full mr-5 ml-5"
                         src={user.image}
