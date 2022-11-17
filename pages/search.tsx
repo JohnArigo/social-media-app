@@ -64,7 +64,7 @@ export default function Search({ test, search }: any) {
     return () => window.removeEventListener("resize", handleResize);
   }, []);
 
-  if (portSize?.width! > 860) {
+  if (portSize?.width! > 640) {
     return (
       <main className="mt-24 h-screen w-screen flex">
         <section className="h-full w-1/4 ml-5">
@@ -128,7 +128,7 @@ export default function Search({ test, search }: any) {
           </section>
         ) : null}
         {searchType === "posts" ? (
-          <section className="h-full">
+          <section className="h-full w-full">
             <h1 className="text-center text-info">Post Results:</h1>
             {postData?.length! <= 0 ? (
               <h1>

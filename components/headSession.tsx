@@ -47,7 +47,7 @@ export default function HeaderSession({
     setOpenSearch(false);
     router.push("../search");
   };
-  if (portSize?.width! > 860) {
+  if (portSize?.width! > 760) {
     return (
       <main className="z-50 top-0 fixed w-full h-20 bg-accent text-neutral flex flex-row justify-around items-center">
         <section className="w-1/6  h-full flex items-center" role="search">
