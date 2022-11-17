@@ -66,7 +66,7 @@ export default function Search({ test, search }: any) {
 
   if (portSize?.width! > 860) {
     return (
-      <main className="mt-24 h-screen w-screen">
+      <main className="mt-24 h-screen w-screen flex">
         <section className="h-full w-1/4 ml-5">
           <div className="flex mt-5 items-center">
             <input
