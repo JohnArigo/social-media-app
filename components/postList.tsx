@@ -11,7 +11,7 @@ export type postDataType = {
 
 export default function PostList({ postData, setPostData }: postDataType) {
   return (
-    <section className="text-info-content shadow-sm pb-24 h-full w-full flex flex-col justify-start items-center overflow-y-scroll">
+    <section className="text-info-content shadow-sm pb-24 h-full w-full flex flex-col justify-start items-center overflow-y-auto">
       {postData?.map((post: postType, index: number) => {
         if (post.published) {
           return (

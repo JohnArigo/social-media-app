@@ -44,6 +44,7 @@ export default function HeaderSession({
   const [openSearch, setOpenSearch] = useState(false);
   const handleSearch = () => {
     setSearch(true);
+    setOpenSearch(false);
     router.push("../search");
   };
   if (portSize?.width! > 860) {
@@ -58,7 +59,7 @@ export default function HeaderSession({
           </Head>
           {openSearch ? null : (
             <Link href={`../`}>
-              <h1 className="text-md font-pacifico font-extrabold cursor-pointer flex">
+              <h1 className="mr-5 text-md font-pacifico font-extrabold cursor-pointer flex">
                 Social Media App
               </h1>
             </Link>
