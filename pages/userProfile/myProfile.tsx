@@ -87,8 +87,8 @@ export default function Home() {
   };
   //filters friends to only display 3
   const filterFriends = () => {
-    if (userData.friends.length > 4) {
-      return userData.friends.splice(3);
+    if (userData?.friends?.length! > 4) {
+      return userData?.friends?.splice(3)!;
     } else return userData.friends;
   };
 
@@ -227,7 +227,7 @@ export default function Home() {
             <div className="self-end text-base-content">EASTER EGG</div>
             <h3 className="ml-5">Following</h3>
             <div className="flex justify-start items-center">
-              {filterFriends().map((friendInfo: Friend) => {
+              {filterFriends()?.map((friendInfo: Friend) => {
                 const friend = friendInfo.friendInfo;
                 return (
                   <Link
@@ -402,7 +402,7 @@ export default function Home() {
           <div className="self-end text-base-content">EASTER EGG</div>
           <h3 className="ml-5">Following</h3>
           <div className="flex justify-start items-center">
-            {filterFriends().map((friendInfo: Friend) => {
+            {filterFriends()?.map((friendInfo: Friend) => {
               const friend = friendInfo.friendInfo;
               return (
                 <Link

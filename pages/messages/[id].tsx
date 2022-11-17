@@ -122,8 +122,8 @@ export default function UserConversation({ user }: any) {
   };
 
   return (
-    <main className="w-screen h-screen flex flex-col items-center text-info-content md:mt-24">
-      <section className="flex flex-col h-full justify-end overflow-y-auto mb-48 sm:mb-72">
+    <main className="w-screen h-screen flex flex-col text-info-content pb-1 items-center md:mt-24 overflow-y-hidden overflow-x-hidden">
+      <section className="flex flex-col h-5/6 w-96 overflow-y-auto">
         {messages.map((message) => {
           const messageStyle = () => {
             if (message.fromId === userId) {
@@ -136,7 +136,7 @@ export default function UserConversation({ user }: any) {
           return (
             <div className={messageStyle()} key={message.id}>
               <div className="w-20 ml-2">
-                <div className="rounded-full w-14 h-14 bg-green-500 flex justify-center items-center">
+                <div className="rounded-full w-14 h-14 bg-white flex justify-center items-center">
                   {message.fromId === userId ? (
                     <img
                       className="rounded-full w-14 h-14"
@@ -160,11 +160,11 @@ export default function UserConversation({ user }: any) {
           );
         })}
       </section>
-      <form className="rounded-lg self-center fixed bottom-20 mb-2 w-96 h-20 flex justify-center items-center bg-primary">
+      <form className="rounded-lg w-96 h-20 mb-20 flex justify-center items-center bg-primary">
         <Textarea
           onChange={handleChange}
           value={messageData.message}
-          className="w-3/4 h-3/4"
+          className="w-72 h-12 mb-3 z-0"
         />
         <Button onClick={handleMessageSubmit}>Submit</Button>
       </form>

@@ -6,7 +6,7 @@ export type User = {
   fName: string;
   lName: string;
   password?: string;
-  friends: Friend[];
+  friends?: Friend[];
   theme?: string;
   about?: string;
   flex?: string;

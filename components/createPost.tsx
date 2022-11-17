@@ -25,7 +25,7 @@ export type postTypeSend = {
   authorId: number;
 };
 
-export default function CreatePost({ user }: UserArray) {
+export default function CreatePost() {
   const router = useRouter();
 
   const { data: session } = useSession();

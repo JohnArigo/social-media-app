@@ -9,27 +9,6 @@ import CreatePost from "../components/createPost";
 import prisma from "../lib/prisma";
 import { portType, postType, User } from "../lib/types";
 
-//initial user props
-export async function getServerSideProps() {
-  const session = await getSession();
-  const posts = await prisma.post.findMany({
-    include: {
-      author: true,
-    },
-  });
-  const user = await prisma.user.findUnique({
-    where: {
-      email: session?.user?.email!,
-    },
-  });
-  return {
-    props: {
-      posts: posts,
-      user: user,
-    },
-  };
-}
-
 declare global {
   interface Window {
     cloudinary: any;
@@ -39,15 +18,17 @@ declare global {
 export default function App({
   Component,
   pageProps,
-}: AppProps<{ session: Session; user: User[]; posts: postType[] }>) {
+}: AppProps<{ session: Session }>) {
   const [opened, setOpened] = useState(false);
   const [searchValue, setSearchValue] = useState<string>("");
+  const [search, setSearch] = useState<boolean>(false);
   return (
     <SessionProvider session={pageProps.session}>
       <Header
         setOpened={setOpened}
-        test={searchValue}
-        setTest={setSearchValue}
+        searchValue={searchValue}
+        setSearchValue={setSearchValue}
+        setSearch={setSearch}
       />
       <Modal
         transition="fade"
@@ -57,9 +38,9 @@ export default function App({
         onClose={() => setOpened(false)}
         title={"Write your Post!"}
       >
-        <CreatePost user={pageProps.user} />
+        <CreatePost />
       </Modal>
-      <Component test={searchValue?.toString()} {...pageProps} />
+      <Component test={searchValue} search={search} {...pageProps} />
     </SessionProvider>
   );
 }

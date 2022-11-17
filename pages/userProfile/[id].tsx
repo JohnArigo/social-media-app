@@ -258,8 +258,8 @@ export default function Home({ user }: any) {
   const [flexText, setFlexText] = useState(false);
 
   const filterFriends = () => {
-    if (userData.friends.length > 4) {
-      return userData.friends.splice(3);
+    if (userData?.friends?.length! > 4) {
+      return userData?.friends?.splice(3)!;
     } else return userData.friends;
   };
   const [portSize, setPortSize] = useState<portType>({
@@ -375,7 +375,7 @@ export default function Home({ user }: any) {
               lineClamp={1}
               className="flex flex-wrap flex-row w-96 h-full justify-start items-center"
             >
-              {filterFriends().map((friendInfo: Friend) => {
+              {filterFriends()?.map((friendInfo: Friend) => {
                 const friend = friendInfo.friendInfo;
                 const handleClick = () => {
                   router.push(
@@ -509,7 +509,7 @@ export default function Home({ user }: any) {
           lineClamp={1}
           className="flex flex-wrap flex-row w-96 h-full justify-start items-center"
         >
-          {filterFriends().map((friendInfo: Friend) => {
+          {filterFriends()?.map((friendInfo: Friend) => {
             const friend = friendInfo.friendInfo;
             const handleClick = () => {
               router.push(

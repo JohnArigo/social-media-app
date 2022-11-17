@@ -6,11 +6,18 @@ import { NextApiRequest } from "next";
 import { portType, User } from "../lib/types";
 import { useState, useEffect } from "react";
 
+export type HeaderType = {
+  setOpened: React.Dispatch<React.SetStateAction<boolean>>;
+  searchValue: string;
+  setSearchValue: React.Dispatch<React.SetStateAction<string>>;
+  setSearch: React.Dispatch<React.SetStateAction<boolean>>;
+};
 export default function Header({
   setOpened,
   searchValue,
   setSearchValue,
-}: any) {
+  setSearch,
+}: HeaderType) {
   const { data: session, status } = useSession();
 
   const [portSize, setPortSize] = useState<portType>({
@@ -33,7 +40,15 @@ export default function Header({
   }, []);
 
   if (status === "authenticated") {
-    return <HeaderSession setOpened={setOpened} portSize={portSize} />;
+    return (
+      <HeaderSession
+        setOpened={setOpened}
+        portSize={portSize}
+        searchValue={searchValue}
+        setSearchValue={setSearchValue}
+        setSearch={setSearch}
+      />
+    );
   } else {
     return <HeaderNoSession portSize={portSize} />;
   }

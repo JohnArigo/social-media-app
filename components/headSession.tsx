@@ -13,16 +13,21 @@ import { portType, User } from "../lib/types";
 import { NextLink } from "@mantine/next";
 import Image from "next/image";
 import Head from "next/head";
+import { useRouter } from "next/router";
 
 export type HeaderSessionType = {
   setOpened: any;
-
+  searchValue: string;
+  setSearchValue: React.Dispatch<React.SetStateAction<string>>;
   portSize: portType;
+  setSearch: React.Dispatch<React.SetStateAction<boolean>>;
 };
 export default function HeaderSession({
   setOpened,
-
+  searchValue,
+  setSearchValue,
   portSize,
+  setSearch,
 }: HeaderSessionType) {
   const { data: session } = useSession();
   const userID = parseInt(session?.user?.name?.toString()!);
@@ -35,11 +40,15 @@ export default function HeaderSession({
         setUserImage(data.image);
       });
   }, []);
-
+  const router = useRouter();
   const [openSearch, setOpenSearch] = useState(false);
+  const handleSearch = () => {
+    setSearch(true);
+    router.push("../search");
+  };
   if (portSize?.width! > 860) {
     return (
-      <main className="z-20 top-0 fixed w-full h-20 bg-accent text-neutral flex flex-row justify-around items-center">
+      <main className="z-50 top-0 fixed w-full h-20 bg-accent text-neutral flex flex-row justify-around items-center">
         <section className="w-1/6  h-full flex items-center" role="search">
           <Head>
             <link
@@ -49,7 +58,7 @@ export default function HeaderSession({
           </Head>
           {openSearch ? null : (
             <Link href={`../`}>
-              <h1 className="text-lg font-pacifico font-extrabold cursor-pointer flex">
+              <h1 className="text-md font-pacifico font-extrabold cursor-pointer flex">
                 Social Media App
               </h1>
             </Link>
@@ -58,9 +67,11 @@ export default function HeaderSession({
             <div className="flex items-center">
               <input
                 className="bg-white h-8 w-40 mr-5 rounded-lg"
+                value={searchValue}
+                onChange={(event) => setSearchValue(event?.target.value)}
                 placeholder="search site content"
               />
-              <IconSearch size={15} />
+              <IconSearch size={15} onClick={handleSearch} />
             </div>
           ) : (
             <IconSearch size={20} onClick={() => setOpenSearch(true)} />
@@ -139,11 +150,13 @@ export default function HeaderSession({
         <Link href={"/messages"}>
           <div>Messages</div>
         </Link>
+
         <Menu position="top" transition="rotate-left">
           <Menu.Target>
             <div>User</div>
           </Menu.Target>
-          <Menu.Dropdown>
+
+          <Menu.Dropdown className="z-50">
             <Menu.Label>Go to...</Menu.Label>
             <Menu.Item
               icon={<IconSettings size={14} />}

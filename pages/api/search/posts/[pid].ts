@@ -14,6 +14,9 @@ export default async function (req: NextApiRequest, res: NextApiResponse) {
         { content: { contains: userInput } },
       ],
     },
+    include: {
+      author: true,
+    },
   });
 
   res.json(posts);
