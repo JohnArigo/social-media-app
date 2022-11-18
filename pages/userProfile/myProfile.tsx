@@ -159,9 +159,15 @@ export default function Home() {
           <section className="bg-transparent w-full h-30 flex flex-row items-center ml-7 absolute z-10 top-44">
             <div
               onClick={() => setProfilePic(true)}
-              className="bg-white w-28 h-28  flex justify-center items-center "
+              className="bg-white w-28 h-28 flex justify-center items-center "
             >
-              <img src={userData.image} />
+              {userData.image === null || userData.image === undefined ? (
+                <p className="text-center text-black">
+                  Click here to upload image
+                </p>
+              ) : (
+                <img src={userData.image} />
+              )}
               <Modal
                 transition="fade"
                 transitionDuration={600}
@@ -334,9 +340,15 @@ export default function Home() {
         <section className="bg-transparent w-full h-30 flex flex-row items-center  absolute z-10 top-14">
           <div
             onClick={() => setProfilePic(true)}
-            className="ml-5 w-28 h-28  flex justify-center items-center "
+            className="ml-5 bg-white w-28 h-28  flex justify-center items-center "
           >
-            <img src={userData.image} />
+            {userData.image === null || userData.image === undefined ? (
+              <p className="text-center text-black">
+                Click here to upload image
+              </p>
+            ) : (
+              <img src={userData.image} />
+            )}
             <Modal
               transition="fade"
               transitionDuration={600}
@@ -352,7 +364,7 @@ export default function Home() {
           </div>
         </section>
         {/* {About me} */}
-        <section className="bg-base-content  mt-32 pb-16 max-h-80  w-full shadow-sm flex-col flex items-start justify-start overflow-y-scroll">
+        <section className="bg-base-content  mt-32 pb-16 max-h-80  w-full shadow-sm flex-col flex items-start justify-start overflow-y-auto">
           <div
             className="self-end text-gray-300"
             onClick={() => setAbout(true)}

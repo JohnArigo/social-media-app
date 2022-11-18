@@ -24,8 +24,10 @@ export type postTypeSend = {
   published: boolean;
   authorId: number;
 };
-
-export default function CreatePost() {
+export type CreatePostType = {
+  setOpened: React.Dispatch<React.SetStateAction<boolean>>;
+};
+export default function CreatePost({ setOpened }: CreatePostType) {
   const router = useRouter();
 
   const { data: session } = useSession();
@@ -74,6 +76,7 @@ export default function CreatePost() {
       await newPost(postData);
       console.log(postData);
       setPass(true);
+      setOpened(false);
       setPostData({
         title: "",
         content: "",
