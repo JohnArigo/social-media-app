@@ -38,7 +38,7 @@ export default function App({
         onClose={() => setOpened(false)}
         title={"Write your Post!"}
       >
-        <CreatePost />
+        <CreatePost setOpened={setOpened} />
       </Modal>
       <Component test={searchValue} search={search} {...pageProps} />
     </SessionProvider>
