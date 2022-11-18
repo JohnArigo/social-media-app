@@ -168,7 +168,7 @@ export default function Home({ user }: any) {
   }, [currentUser]);
 
   //userPosts to map
-  const [postData, setPostData] = useState<postType[]>(userData.posts!);
+  const [postData, setPostData] = useState<postType[]>(userData?.posts!);
   //data to send when adding
   const [friend, setFriend] = useState<Friend>({
     image: userData.image,
