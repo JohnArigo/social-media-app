@@ -35,6 +35,7 @@ export async function getStaticPaths() {
     fallback: true,
   };
 }
+
 export async function getStaticProps(context: any) {
   const userID = parseInt(context.params.id.slice(0, 1));
   const user = await prisma.user.findUnique({
@@ -108,7 +109,6 @@ export default function Home({ user }: any) {
   const { data: session } = useSession();
   const userID = parseInt(session?.user?.name!.toString()!);
   const userImage = session?.user?.image!;
-
   //initial session user
   const initialFriend = [
     {
