@@ -8,12 +8,12 @@ module.exports = {
   ],
   theme: {
     extend: {
-      fontFamily: {
-        pacifico: ["Regular", "cursive"],
-      },
       backgroundImage: {
         splash: "url('../images/splashBg.jpg')",
       },
+    },
+    fontFamily: {
+      pacifico: ["Regular", "cursive"],
     },
   },
 

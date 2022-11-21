@@ -6,7 +6,9 @@ import Typewriter from "typewriter-effect";
 import cloudinary from "../images/cloudinary.png";
 import planetScale from "../images/planetscale.png";
 import vercel from "../images/vercel.svg";
+import dayCloud from "../components/WeatherComponent/dayCloud.png";
 import Image from "next/image";
+import { IconSearch, IconFilter, IconMessage, IconUser } from "@tabler/icons";
 
 export default function Index() {
   const [portSize, setPortSize] = useState<portType>({
@@ -161,45 +163,83 @@ export default function Index() {
         </Transition>
       </section>
 
-      <section className="w-full h-3/4 bg-red-100 flex">
+      <section className="w-full h-5/6 bg-red-100 flex justify-center">
         <Transition
-          className="h-3/4 w-full flex justify-around"
+          className="h-3/4 w-full flex flex-wrap items-end justify-center"
           show={transitionTwo}
           appear={true}
         >
-          <Transition.Child
-            className="w-1/4 h-full flex justify-center items-center"
-            enter="duration-1000 delay-20"
-            enterFrom="-translate-y-10 opacity-0"
-            enterTo="translate-y-0 opacity-100"
-            leave="transition-opacity duration-150"
-            leaveFrom="translate-y-0 opacity-100"
-            leaveTo="translate-y-0 opacity-100"
-          >
-            <h1 className="">Upload Profile ID using cloudinary service</h1>
-          </Transition.Child>
-          <Transition.Child
-            className="w-1/4 h-full flex justify-center items-center"
-            enter="duration-1000 delay-90"
-            enterFrom="-translate-y-10 opacity-0"
-            enterTo="translate-y-0 opacity-100"
-            leave="transition-opacity duration-150"
-            leaveFrom="translate-y-0 opacity-100"
-            leaveTo="translate-y-0 opacity-100"
-          >
-            <h1 className="">Damn Bruh</h1>
-          </Transition.Child>
-          <Transition.Child
-            className="w-1/4 h-full flex justify-center items-center"
-            enter="duration-1000 delay-160"
-            enterFrom="-translate-y-10 opacity-0"
-            enterTo="translate-y-0 opacity-100"
-            leave="transition-opacity duration-150"
-            leaveFrom="translate-y-0 opacity-100"
-            leaveTo="translate-y-0 opacity-100"
-          >
-            <h1 className="">Damn Bruh</h1>
-          </Transition.Child>
+          <div className="w-full flex justify-center mt-10">
+            <Transition.Child
+              className="w-1/2 h-full flex justify-center items-center"
+              enter="duration-1000 delay-20"
+              enterFrom="-translate-y-10 opacity-0"
+              enterTo="translate-y-0 opacity-100"
+              leave="transition-opacity duration-150"
+              leaveFrom="translate-y-0 opacity-100"
+              leaveTo="translate-y-0 opacity-100"
+            >
+              <div className="w-1/2 flex flex-col items-center">
+                <Image height={50} width={50} src={dayCloud} />
+                <h1 className="text-center">
+                  Check current headlines and weather using Explore
+                </h1>
+              </div>
+            </Transition.Child>
+            <Transition.Child
+              className="w-1/2 h-full flex justify-center items-center"
+              enter="duration-1000 delay-90"
+              enterFrom="-translate-y-10 opacity-0"
+              enterTo="translate-y-0 opacity-100"
+              leave="transition-opacity duration-150"
+              leaveFrom="translate-y-0 opacity-100"
+              leaveTo="translate-y-0 opacity-100"
+            >
+              <div className="w-1/2 flex flex-col items-center">
+                <IconMessage size={50} />
+                <h1 className="text-center">
+                  Say hello by creating a post or direct message other users by
+                  accessing their profiles
+                </h1>
+              </div>
+            </Transition.Child>
+          </div>
+          <div className="w-full flex justify-center mt-5">
+            <Transition.Child
+              className="w-1/2 h-full flex justify-center items-center"
+              enter="duration-1000 delay-160"
+              enterFrom="-translate-y-10 opacity-0"
+              enterTo="translate-y-0 opacity-100"
+              leave="transition-opacity duration-150"
+              leaveFrom="translate-y-0 opacity-100"
+              leaveTo="translate-y-0 opacity-100"
+            >
+              <div className="w-1/2 flex flex-col items-center">
+                <IconSearch size={50} />
+                <h1 className="text-center">
+                  Search for news articles, posts and people using the search
+                  function
+                </h1>
+              </div>
+            </Transition.Child>
+            <Transition.Child
+              className="w-1/2 h-full flex justify-center items-center"
+              enter="duration-1000 delay-160"
+              enterFrom="-translate-y-10 opacity-0"
+              enterTo="translate-y-0 opacity-100"
+              leave="transition-opacity duration-150"
+              leaveFrom="translate-y-0 opacity-100"
+              leaveTo="translate-y-0 opacity-100"
+            >
+              <div className="w-1/2 flex flex-col items-center">
+                <IconUser size={50} />
+                <h1 className="text-center">
+                  Customize your profile by uploading your profile image and
+                  writing a little bit about yourself
+                </h1>
+              </div>
+            </Transition.Child>
+          </div>
         </Transition>
       </section>
       <section className="w-full h-full bg-yellow-300"></section>
