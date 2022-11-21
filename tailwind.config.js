@@ -7,11 +7,6 @@ module.exports = {
     "./components/**/*.{js,ts,jsx,tsx}",
   ],
   theme: {
-    extend: {
-      backgroundImage: {
-        splash: "url('../images/splashBg.jpg')",
-      },
-    },
     fontFamily: {
       pacifico: ["Regular", "cursive"],
     },

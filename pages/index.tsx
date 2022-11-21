@@ -66,7 +66,7 @@ export default function Index() {
         <section role="filler" className="h-16"></section>
       ) : null}
 
-      <section className="w-full h-5/6 bg-splash bg-cover flex flex-col items-end justify-end">
+      <section className="w-full bg-[url('../images/splashBg.jpg')] h-5/6 bg-cover flex flex-col items-end justify-end">
         <div className="bg-white w-full h-1/3 sm:w-96 sm:h-96 md:mb-10 md:mr-2 flex flex-col justify-center rounded-sm">
           <h1 className="text-accent italic text-4xl mt-5 flex self-center">
             <Typewriter
