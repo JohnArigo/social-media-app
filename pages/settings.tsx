@@ -72,7 +72,7 @@ export default function Setting() {
     }
   };
   return (
-    <main className="mt-24">
+    <main className="mt-20">
       <section>Select layout : </section>
       <form onSubmit={handleSubmit}>
         <select

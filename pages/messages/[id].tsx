@@ -122,7 +122,7 @@ export default function UserConversation({ user }: any) {
   };
 
   return (
-    <main className="w-screen h-screen flex flex-col text-info-content pb-1 items-center md:mt-24 overflow-y-hidden overflow-x-hidden">
+    <main className="w-screen h-screen flex flex-col text-info-content pb-1 items-center md:mt-20 overflow-y-hidden overflow-x-hidden">
       <section className="flex flex-col h-5/6 w-96 overflow-y-auto">
         {messages.map((message) => {
           const messageStyle = () => {

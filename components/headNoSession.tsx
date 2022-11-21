@@ -5,7 +5,7 @@ export type noSessionHeader = {
   portSize: portType;
 };
 export default function HeaderNoSession({ portSize }: noSessionHeader) {
-  if (portSize?.width! > 860) {
+  if (portSize?.width! > 760) {
     return (
       <main className="top-0 fixed w-full h-20 bg-accent text-neutral flex flex-row justify-between items-center">
         <Head>
@@ -36,7 +36,7 @@ export default function HeaderNoSession({ portSize }: noSessionHeader) {
     );
   } else {
     return (
-      <main className="bottom-0 fixed w-full h-20 bg-accent text-neutral flex flex-row justify-around items-center">
+      <main className="bottom-0 fixed w-full h-16 bg-accent text-neutral flex flex-row justify-around items-center">
         <Link href="/signup">
           <div>Sign up</div>
         </Link>

@@ -66,7 +66,7 @@ export default function Search({ test, search }: any) {
 
   if (portSize?.width! > 640) {
     return (
-      <main className="mt-24 h-screen w-screen flex">
+      <main className="mt-20 h-screen w-screen flex">
         <section className="h-full w-1/4 ml-5">
           <div className="flex mt-5 items-center">
             <input
@@ -158,7 +158,7 @@ export default function Search({ test, search }: any) {
     );
   } else {
     return (
-      <main className="mb-24 h-screen w-screen flex">
+      <main className="mb-20 h-screen w-screen flex">
         {searchType === "name" ? (
           <section className="h-full overflow-y-auto">
             <h1 className="text-center text-info">User Search Results:</h1>

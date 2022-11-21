@@ -26,7 +26,7 @@ export default function Home() {
   }, []);
 
   return (
-    <main className="w-screen h-screen text-info-content md:mt-24">
+    <main className="w-screen h-screen text-info-content md:mt-20">
       <h1 className="text-center text-2xl font-bold text-info mt-10">
         Messages
       </h1>

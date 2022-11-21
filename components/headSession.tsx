@@ -49,7 +49,7 @@ export default function HeaderSession({
   };
   if (portSize?.width! > 760) {
     return (
-      <main className="z-50 top-0 fixed w-full h-20 bg-accent text-neutral flex flex-row justify-around items-center">
+      <main className="z-50 top-0 fixed w-full h-16 bg-accent text-neutral flex flex-row justify-around items-center">
         <section className="w-1/6  h-full flex items-center" role="search">
           <Head>
             <link
@@ -103,7 +103,10 @@ export default function HeaderSession({
         >
           <Menu>
             <Menu.Target>
-              <img className="ml-3 h-10 w-10 rounded-full" src={userImage} />
+              <img
+                className="ml-3 h-10 w-10 rounded-full bg-white"
+                src={userImage}
+              />
             </Menu.Target>
             <Menu.Dropdown>
               <Menu.Item
@@ -137,7 +140,7 @@ export default function HeaderSession({
     );
   } else {
     return (
-      <main className=" bottom-0 fixed w-full h-20 bg-accent text-neutral flex flex-row justify-around items-center">
+      <main className=" bottom-0 fixed w-full h-16 bg-accent text-neutral flex flex-row justify-around items-center">
         <Link href="/feed">
           <div>Home</div>
         </Link>

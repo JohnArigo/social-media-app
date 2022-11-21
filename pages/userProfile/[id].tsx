@@ -290,7 +290,7 @@ export default function Home({ user }: any) {
 
   if (portSize?.width! > 760) {
     return (
-      <main className="bg-base-200 w-screen h-auto overflow-y-auto text-info-content flex justify-center mt-24">
+      <main className="bg-base-200 w-screen h-auto overflow-y-auto text-info-content flex justify-center mt-16">
         <section className="w-1/2 flex flex-col items-start mb-24">
           {" "}
           {/* {Header Section} */}
