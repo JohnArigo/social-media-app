@@ -80,7 +80,7 @@ export default function HeaderSession({
         </section>
         <section
           role="link-holder"
-          className="flex justify-between items-center w-1/3 h-full"
+          className="flex justify-between items-center w-1/3 h-full "
         >
           <Link href="/feed">
             <div className="cursor-pointer">Home</div>
@@ -104,7 +104,7 @@ export default function HeaderSession({
           <Menu>
             <Menu.Target>
               <img
-                className="ml-3 h-10 w-10 rounded-full bg-white"
+                className="ml-3 h-10 w-10 rounded-full bg-white cursor-pointer"
                 src={userImage}
               />
             </Menu.Target>

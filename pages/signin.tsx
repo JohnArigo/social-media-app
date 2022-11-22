@@ -47,7 +47,7 @@ export default function SignIn() {
 
   if (!session) {
     return (
-      <main className="text-info w-screen h-screen flex justify-center items-center">
+      <main className="bg-base-200 text-info w-screen h-screen flex justify-center items-center">
         <form
           onSubmit={handleSubmit}
           className="h-full w-full sm:w-2/6 lg:w-3/12 flex flex-col justify-center"

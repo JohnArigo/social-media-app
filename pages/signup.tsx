@@ -55,7 +55,7 @@ export default function SignUp() {
   };
 
   return (
-    <main className="text-info w-screen h-screen flex justify-center items-center">
+    <main className="bg-base-200 text-info w-screen h-screen flex justify-center items-center">
       <Modal
         transition="fade"
         transitionDuration={600}

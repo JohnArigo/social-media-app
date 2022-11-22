@@ -56,7 +56,7 @@ export default function Feed({ posts }: postsType) {
   }, [userData]);
 
   return (
-    <main className="w-screen h-screen md:mt-24">
+    <main className="bg-base-200 w-screen h-screen md:pt-24">
       <h1 className="text-info text-2xl text-center">User Posts</h1>
       <PostList postData={postData} setPostData={setPostData} />
     </main>

@@ -72,7 +72,7 @@ export default function Setting() {
     }
   };
   return (
-    <main className="mt-20">
+    <main className="bg-base-200 pt-20">
       <section>Select layout : </section>
       <form onSubmit={handleSubmit}>
         <select
