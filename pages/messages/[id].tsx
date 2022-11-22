@@ -160,7 +160,7 @@ export default function UserConversation({ user }: any) {
           );
         })}
       </section>
-      <form className="rounded-lg w-96 h-20 mb-20 flex justify-center items-center bg-primary">
+      <form className="rounded-lg w-96 h-20 mb-20 flex justify-center items-center bg-info-content">
         <Textarea
           onChange={handleChange}
           value={messageData.message}

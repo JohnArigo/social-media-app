@@ -49,7 +49,7 @@ export default function HeaderSession({
   };
   if (portSize?.width! > 760) {
     return (
-      <main className="z-50 top-0 fixed w-full h-16 bg-accent text-neutral flex flex-row justify-around items-center">
+      <main className="z-50 top-0 fixed w-full h-16 bg-gradient-to-r from-accent via-accent to-gray-100 text-neutral flex flex-row justify-around items-center">
         <section className="w-1/6  h-full flex items-center" role="search">
           <Head>
             <link

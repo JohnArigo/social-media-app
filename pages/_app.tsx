@@ -8,6 +8,14 @@ import { useEffect, useState } from "react";
 import CreatePost from "../components/createPost";
 import prisma from "../lib/prisma";
 import { portType, postType, User } from "../lib/types";
+import Router from "next/router";
+import NProgress from "nprogress"; //nprogress module
+import "nprogress/nprogress.css"; //styles of nprogress
+
+//Binding events.
+Router.events.on("routeChangeStart", () => NProgress.start());
+Router.events.on("routeChangeComplete", () => NProgress.done());
+Router.events.on("routeChangeError", () => NProgress.done());
 
 declare global {
   interface Window {

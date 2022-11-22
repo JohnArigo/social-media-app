@@ -27,7 +27,7 @@ export default function Home() {
 
   return (
     <main className="bg-base-200 w-screen h-screen text-info-content md:pt-20">
-      <h1 className="text-center text-2xl font-bold text-info mt-10">
+      <h1 className="text-center text-2xl font-bold text-info pt-10">
         Messages
       </h1>
       <section className="flex flex-col items-center overflow-y-auto pb-20">
