@@ -30,15 +30,7 @@ export default function PostList({ postData, setPostData }: postDataType) {
               >
                 hide
               </div> */}
-              <Link
-                href={`/userProfile/${
-                  post.authorId +
-                  post?.author?.fName! +
-                  post?.author?.lName! +
-                  post.authorId +
-                  69
-                }`}
-              >
+              <Link href={`/userProfile/${post.authorId}`}>
                 <div className="flex flex-row mt-3 ml-2 h-1/6 items-center">
                   <div className="w-1/4 ">
                     <div className=" rounded-full h-16 w-16 flex justify-center items-center cursor-pointer">

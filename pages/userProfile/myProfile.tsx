@@ -129,7 +129,7 @@ export default function Home() {
 
   if (portSize?.width! > 760) {
     return (
-      <main className="bg-base-200 w-screen h-auto overflow-y-auto text-info-content flex justify-center mt-16">
+      <main className=" bg-base-200 w-screen h-auto overflow-clip overflow-y-auto text-info-content flex justify-center mt-16">
         {/* {Header Section} */}
         <section className="w-1/2 flex flex-col items-start">
           {" "}
@@ -156,7 +156,7 @@ export default function Home() {
             <img className="sm:h-full w-full " src={userData.banner} />
           </section>
           {/* {Profile Image and Name} */}
-          <section className="bg-transparent w-full h-30 flex flex-row items-center ml-7 absolute z-10 top-44">
+          <section className="bg-transparent w-full h-30 flex flex-row items-center ml-7 absolute z-10 top-36">
             <div
               onClick={() => setProfilePic(true)}
               className="bg-white w-28 h-28 flex justify-center items-center "
@@ -236,10 +236,7 @@ export default function Home() {
               {filterFriends()?.map((friendInfo: Friend) => {
                 const friend = friendInfo.friendInfo;
                 return (
-                  <Link
-                    href={`/userProfile/${friend?.id}${friend?.fName}${friend?.lName}${friend?.id}69`}
-                    key={friend?.id}
-                  >
+                  <Link href={`/userProfile/${friend?.id}`} key={friend?.id}>
                     <div className="h-24 w-28 flex flex-col justify-center items-center">
                       <div className="rounded-full w-14 h-14  flex justify-center items-center">
                         <img src={friend?.image} />

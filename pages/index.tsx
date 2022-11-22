@@ -163,7 +163,7 @@ export default function Index() {
         </Transition>
       </section>
 
-      <section className="w-full text-white h-5/6 bg-[conic-gradient(at_top_right,_var(--tw-gradient-stops))] from-amber-200 via-accent-500 to-violet-400 flex justify-center">
+      <section className="w-full text-white h-5/6 bg-[conic-gradient(at_top_right,_var(--tw-gradient-stops))] from-slate-200 via-accent-500 to-gray-500 flex justify-center">
         <Transition
           className="h-3/4 w-full flex flex-wrap items-end justify-center"
           show={transitionTwo}
@@ -242,7 +242,7 @@ export default function Index() {
           </div>
         </Transition>
       </section>
-      <section className="w-full h-full bg-gray-50"></section>
+
       {portSize?.width! > 760 ? null : (
         <section role="filler" className="h-20"></section>
       )}

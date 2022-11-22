@@ -11,19 +11,26 @@ export type testPage = {
   test: string;
 };
 export default function Search({ test, search }: any) {
+  //stores all user data from search
   const [userData, setUserData] = useState<User[]>();
+  //stores all post data from search
   const [postData, setPostData] = useState<postType[]>();
+  //stores search string
   const [searchValue, setSearchValue] = useState<string>();
+  //stores search category
   const [searchType, setSearchType] = useState<string>("name");
+  //stores all article data from search
   const [articleData, setArticleData] = useState<ArticleRoot>();
+  //search modal for mobile
   const [openModal, setOpenModal] = useState<boolean>(false);
 
+  //initial search from navbar
   useEffect(() => {
     fetch(`./api/search/${searchType}/${test}`)
       .then((res) => res.json())
       .then((data) => setUserData(data));
   }, [search]);
-
+  //api fetcher for search
   const handleSearch = async () => {
     try {
       await fetch(`./api/search/${searchType}/${searchValue}`)
@@ -44,12 +51,12 @@ export default function Search({ test, search }: any) {
       console.log(error);
     }
   };
-
+  //finds size of window
   const [portSize, setPortSize] = useState<portType>({
     width: 0,
     height: 0,
   });
-
+  //handles window resizing
   const handleResize = () => {
     if (typeof window !== "undefined") {
       setPortSize({
@@ -58,12 +65,13 @@ export default function Search({ test, search }: any) {
       });
     }
   };
+  //handles window resizing
   useEffect(() => {
     handleResize();
     window?.addEventListener("resize", handleResize);
     return () => window.removeEventListener("resize", handleResize);
   }, []);
-
+  //two tsx outputs based on window size
   if (portSize?.width! > 640) {
     return (
       <main className="mt-20 h-screen w-screen flex">
@@ -79,19 +87,19 @@ export default function Search({ test, search }: any) {
           </div>
           <div className="flex flex-col items-start">
             <button
-              className="btn btn-primary w-1/2 mt-5 focus:bg-secondary focus:ring"
+              className="btn bg-gray-400 text-info w-1/2 mt-5 focus:bg-accent focus:ring"
               onClick={() => setSearchType("name")}
             >
               People
             </button>
             <button
-              className="btn btn-primary w-1/2 mt-5 focus:bg-secondary focus:ring"
+              className="btn bg-gray-400 text-info w-1/2 mt-5 focus:bg-accent focus:ring"
               onClick={() => setSearchType("posts")}
             >
               Posts
             </button>
             <button
-              className="btn btn-primary w-1/2 mt-5 focus:bg-secondary focus:ring"
+              className="btn bg-gray-400 text-info w-1/2 mt-5 focus:bg-accent focus:ring"
               onClick={() => setSearchType("news")}
             >
               News
@@ -110,10 +118,7 @@ export default function Search({ test, search }: any) {
             ) : (
               userData?.map((user: User) => {
                 return (
-                  <Link
-                    key={user.id}
-                    href={`../userProfile/${user.id}${user.fName}${user.lName}${user.id}69`}
-                  >
+                  <Link key={user.id} href={`../userProfile/${user.id}`}>
                     <div className="cursor-pointer flex items-center mt-5 h-20 bg-base-content w-96 rounded-lg ">
                       <img
                         className="w-14 h-14 rounded-full mr-5 ml-5"
@@ -170,10 +175,7 @@ export default function Search({ test, search }: any) {
             ) : (
               userData?.map((user: User) => {
                 return (
-                  <Link
-                    key={user.id}
-                    href={`../userProfile/${user.id}${user.fName}${user.lName}${user.id}69`}
-                  >
+                  <Link key={user.id} href={`../userProfile/${user.id}`}>
                     <div className="cursor-pointer flex items-center mt-5 h-20 bg-base-content w-96 rounded-lg ">
                       <img
                         className="w-14 h-14 rounded-full mr-5 ml-5"
@@ -232,19 +234,19 @@ export default function Search({ test, search }: any) {
           <section className="h-full w-full flex flex-col items-center">
             <div className="flex w-full justify-center">
               <button
-                className="btn btn-primary w-1/3 mr-2 focus:bg-secondary focus:ring"
+                className="btn bg-gray-400 text-info w-1/3 mt-5 focus:bg-accent focus:ring"
                 onClick={() => setSearchType("name")}
               >
                 People
               </button>
               <button
-                className="btn btn-primary w-1/3 mr-2 focus:bg-secondary focus:ring"
+                className="btn bg-gray-400 text-info w-1/3 mt-5 focus:bg-accent focus:ring"
                 onClick={() => setSearchType("posts")}
               >
                 Posts
               </button>
               <button
-                className="btn btn-primary w-1/3 focus:bg-secondary focus:ring"
+                className="btn bg-gray-400 text-info w-1/3 mt-5 focus:bg-accent focus:ring"
                 onClick={() => setSearchType("news")}
               >
                 News

@@ -20,21 +20,13 @@ module.exports = {
           info: "#121212",
         },
       },
-      "dark",
       {
-        autumn: {
-          ...require("daisyui/src/colors/themes")["[data-theme=autumn]"],
-          "info-content": "#d3d3d3",
-          info: "#121212",
+        dark: {
+          ...require("daisyui/src/colors/themes")["[data-theme=dark]"],
+          info: "#f3f4f6",
         },
       },
-      {
-        winter: {
-          ...require("daisyui/src/colors/themes")["[data-theme=winter]"],
-          "info-content": "#d3d3d3",
-          info: "#121212",
-        },
-      },
+
       ,
     ],
   },

@@ -59,7 +59,7 @@ export default function HeaderSession({
           </Head>
           {openSearch ? null : (
             <Link href={`../`}>
-              <h1 className="mr-5 text-md font-pacifico font-extrabold cursor-pointer flex">
+              <h1 className="text-gray-100 mr-5 text-md font-pacifico font-extrabold cursor-pointer flex">
                 Social Media App
               </h1>
             </Link>
@@ -140,7 +140,7 @@ export default function HeaderSession({
     );
   } else {
     return (
-      <main className=" bottom-0 fixed w-full h-16 bg-accent text-neutral flex flex-row justify-around items-center">
+      <main className="z-50 bottom-0 fixed w-full h-16 bg-accent text-neutral flex flex-row justify-around items-center">
         <Link href="/feed">
           <div>Home</div>
         </Link>

@@ -27,9 +27,8 @@ export async function getStaticPaths() {
   const pages = await prisma.user.findMany();
 
   const paths = pages.map((page) => {
-    return { params: { id: page.id + page.fName + page.lName + page.id + 69 } };
+    return { params: { id: page.id.toString() } };
   });
-
   return {
     paths,
     fallback: "blocking",
@@ -37,7 +36,7 @@ export async function getStaticPaths() {
 }
 
 export async function getStaticProps(context: any) {
-  const userID = parseInt(context.params.id.slice(0, 1));
+  const userID = parseInt(context.params.id);
   const user = await prisma.user.findUnique({
     where: {
       id: userID,
@@ -107,6 +106,7 @@ async function sendMessage(sendingPackage: Message) {
 
 export default function Home({ user }: any) {
   const { data: session } = useSession();
+
   const userID = parseInt(session?.user?.name!.toString()!);
   const userImage = session?.user?.image!;
   //initial session user
@@ -121,14 +121,6 @@ export default function Home({ user }: any) {
     },
   ];
 
-  const initialUser: User = {
-    id: 0,
-    fName: "first",
-    lName: "last",
-    email: "",
-    posts: [],
-    friends: [],
-  };
   //session user state/data to pull
   const [currentUser, setCurrentUser] = useState<currentUser>({
     friends: initialFriend,
@@ -150,8 +142,8 @@ export default function Home({ user }: any) {
   const [userData, setUserData] = useState<User>(user);
   //finding to see if user is a friend
   const router = useRouter();
-  const profileId = router?.query?.id?.slice(0, 1);
-  console.log(profileId);
+  const profileId = router?.query?.id;
+  // console.log(profileId);
   useEffect(() => {
     fetch(`../api/findUser/${profileId}`)
       .then((res) => res.json())
@@ -186,7 +178,7 @@ export default function Home({ user }: any) {
     ).toString(),
   });
 
-  console.log(friend);
+  // console.log(friend);
   //submit add friend to add friend api
   const addFriend = async () => {
     try {
@@ -298,7 +290,7 @@ export default function Home({ user }: any) {
             <img className="bg-red-300 h-full w-full" src={userData.banner} />
           </section>
           {/* {Profile Image and Name} */}
-          <section className="bg-transparent w-full h-30 flex flex-row items-center ml-7 absolute z-10 top-44">
+          <section className="bg-transparent w-full h-30 flex flex-row items-center ml-7 absolute z-10 top-36">
             <div className="ml-5 w-28 h-28  flex justify-center items-center bg-white">
               <img src={userData.image} />
             </div>
@@ -378,9 +370,7 @@ export default function Home({ user }: any) {
               {filterFriends()?.map((friendInfo: Friend) => {
                 const friend = friendInfo.friendInfo;
                 const handleClick = () => {
-                  router.push(
-                    `../userProfile/${friend?.id}${friend?.fName}${friend?.lName}${friend?.id}69`
-                  );
+                  router.push(`../userProfile/${friend?.id}`);
                 };
                 return (
                   <div
@@ -512,9 +502,7 @@ export default function Home({ user }: any) {
           {filterFriends()?.map((friendInfo: Friend) => {
             const friend = friendInfo.friendInfo;
             const handleClick = () => {
-              router.push(
-                `../userProfile/${friend?.id}${friend?.fName}${friend?.lName}${friend?.id}69`
-              );
+              router.push(`../userProfile/${friend?.id}`);
             };
             return (
               <div
