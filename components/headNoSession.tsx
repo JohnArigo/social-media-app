@@ -22,12 +22,12 @@ export default function HeaderNoSession({ portSize }: noSessionHeader) {
 
         <section className="flex w-1/6 justify-between mr-2">
           <Link href="/signup">
-            <div className="hover:bg-gray-300 font-bold text-slate-800 hover:rounded-2xl w-24 h-10 flex items-center justify-center cursor-pointer">
+            <div className="hover:bg-gray-300 font-medium text-slate-800 hover:rounded-2xl w-24 h-10 flex items-center justify-center cursor-pointer">
               Sign up
             </div>
           </Link>
           <Link href="/signin">
-            <div className="bg-gray-200 hover:bg-gray-50 text-slate-700 font-bold border-2 rounded-2xl w-24 h-10 flex items-center justify-center cursor-pointer">
+            <div className="bg-gray-200 hover:bg-gray-50 text-slate-700 font-medium border-2 rounded-2xl w-24 h-10 flex items-center justify-center cursor-pointer">
               Sign in
             </div>
           </Link>

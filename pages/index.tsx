@@ -106,7 +106,7 @@ export default function Index() {
           </h2>
         </div>
       </section>
-      <section className="w-full h-2/3 bg-gray-50 flex ">
+      <section className="w-full h-2/3 bg-gray-50 flex text-slate-900 ">
         <Transition
           className="h-3/4 w-full flex justify-around"
           show={transitionOne}
