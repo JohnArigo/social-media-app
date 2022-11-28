@@ -4,6 +4,7 @@
 
 html,
 body {
+  width: 100vw;
   overflow-x: clip;
   padding: 0;
   margin: 0;
