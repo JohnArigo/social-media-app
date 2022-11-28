@@ -52,14 +52,16 @@ export default function HeaderSession({
       <main className="z-50 top-0 fixed w-full h-16 bg-gradient-to-r from-accent via-accent to-gray-100 text-neutral flex flex-row justify-around items-center">
         <section className="w-1/6  h-full flex items-center" role="search">
           <Head>
+            <link rel="preconnect" href="https://fonts.googleapis.com" />
+
             <link
-              href="https://fonts.googleapis.com/css2?family=Noto+Sans+Mono:wght@300;600;700&family=Pacifico&display=swap"
+              href="https://fonts.googleapis.com/css2?family=Roboto:ital,wght@0,400;1,400;1,500&display=swap"
               rel="stylesheet"
             />
           </Head>
           {openSearch ? null : (
             <Link href={`../`}>
-              <h1 className="text-gray-100 mr-5 text-md font-pacifico font-extrabold cursor-pointer flex">
+              <h1 className="text-gray-100 mr-5 text-md font-roboto font-extrabold cursor-pointer flex">
                 Social Media App
               </h1>
             </Link>

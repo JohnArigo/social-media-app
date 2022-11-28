@@ -7,6 +7,7 @@ module.exports = {
   theme: {
     fontFamily: {
       pacifico: ["Regular", "cursive"],
+      roboto: ["italic, regular"],
     },
   },
 

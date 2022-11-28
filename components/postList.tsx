@@ -16,10 +16,10 @@ export default function PostList({ postData, setPostData }: postDataType) {
         if (post.published) {
           return (
             <div
-              className="w-96 h-96 sm:w-1/2 md:1/3 lg:w-1/3 bg-base-content rounded-xl mt-5 flex flex-col"
+              className="w-96 h-96 sm:w-1/2 md:1/3 lg:w-1/3 bg-base-content rounded-lg mt-5 flex flex-col"
               key={post?.title + post.authorId + index}
             >
-              <div className="self-end mr-1 text-xs text-base-content">Egg</div>
+              <div className="self-end text-xs text-base-content">Egg</div>
               {/* <div
                 className="self-end mr-1 text-xs text-gray-300"
                 onClick={() =>
@@ -32,7 +32,7 @@ export default function PostList({ postData, setPostData }: postDataType) {
               </div> */}
               <Link href={`/userProfile/${post.authorId}`}>
                 <div className="flex flex-row mt-3 ml-2 h-1/6 items-center">
-                  <div className="w-1/4 ">
+                  <div className="w-1/4">
                     <div className=" rounded-full h-16 w-16 flex justify-center items-center cursor-pointer">
                       <img
                         className=" rounded-full h-16 w-16 "

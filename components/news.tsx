@@ -11,7 +11,7 @@ export default function News({ news }: newsType) {
       {news?.articles?.map((article) => {
         return (
           <Link href={article?.url} key={article?.url}>
-            <div className="flex flex-col items-center justify-center w-full sm:w-1/2 md:w-2/3 lg:w-1/3 h-auto bg-base-content text-info-content pb-10 mt-5 rounded-lg">
+            <div className="flex flex-col items-center justify-center w-full sm:w-1/2 md:w-2/3 lg:w-1/3 h-auto bg-base-content text-info-content pb-10 mt-5 rounded-lg cursor-pointer">
               <h2 className="mt-3 text-center mb-3 text-md">
                 {article?.title}
               </h2>
