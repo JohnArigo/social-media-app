@@ -1,5 +1,4 @@
 import type { NextApiRequest, NextApiResponse } from "next";
-import { useSession } from "next-auth/react";
 import prisma from "../../../lib/prisma";
 
 export default async function handler(
@@ -20,7 +19,7 @@ export default async function handler(
       id: "desc",
     },
     include: {
-      to: {
+      toUser: {
         select: {
           image: true,
         },

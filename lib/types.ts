@@ -17,7 +17,7 @@ export type User = {
 
 export type Message = {
   id?: number;
-  to?: User;
+  toUser?: User;
   toId: number;
   toImage: string | null;
   toFName: string;

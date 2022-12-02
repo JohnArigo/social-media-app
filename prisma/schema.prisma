@@ -59,7 +59,7 @@ model Friend {
 
 model Message {
   id Int @id @default(autoincrement())
-  to User? @relation("to", fields: [toId], references: [id])
+  toUser User? @relation("to", fields: [toId], references: [id])
   toId Int 
   toImage String?
   toFName String
