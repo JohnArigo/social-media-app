@@ -134,7 +134,7 @@ export default function Home() {
         <section className="w-1/2 flex flex-col items-start">
           {" "}
           <section
-            className="w-full h-36 bg-red-300 flex flex-col items-end"
+            className="w-full h-36 bg-gray-50 flex flex-col items-end"
             onClick={() => setBanner(true)}
           >
             <h1

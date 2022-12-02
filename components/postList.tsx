@@ -1,6 +1,8 @@
 import Link from "next/link";
 import { useState, useEffect } from "react";
 import { portType, postType } from "../lib/types";
+import defaultPhoto from "../images/defaultPhoto.jpeg";
+import Image from "next/image";
 
 export type postDataType = {
   postData: postType[];
@@ -34,10 +36,19 @@ export default function PostList({ postData, setPostData }: postDataType) {
                 <div className="flex flex-row mt-3 ml-2 h-1/6 items-center">
                   <div className="w-1/4">
                     <div className=" rounded-full h-16 w-16 flex justify-center items-center cursor-pointer">
-                      <img
-                        className=" rounded-full h-16 w-16 "
-                        src={post?.author?.image}
-                      />
+                      {post?.author?.image ? (
+                        <img
+                          className=" rounded-full h-16 w-16 "
+                          src={post?.author?.image}
+                        />
+                      ) : (
+                        <Image
+                          className="rounded-full"
+                          height={64}
+                          width={64}
+                          src={defaultPhoto}
+                        />
+                      )}
                     </div>
                   </div>
                   <div>{post?.author?.fName + " " + post?.author?.lName}</div>
