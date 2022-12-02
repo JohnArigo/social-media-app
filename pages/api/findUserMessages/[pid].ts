@@ -14,7 +14,9 @@ export default async function handler(
     where: {
       fromId: userID,
     },
+    //@ts-ignore
     include: {
+      //@ts-ignore
       toUser: {
         select: { image: true },
       },
