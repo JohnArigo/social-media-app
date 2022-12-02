@@ -10,22 +10,78 @@ export default async function handler(
   }
   const { pid } = req.query;
   const userID = parseInt(pid?.toString()!);
-  const user = await prisma.message.findMany({
+  const user = await prisma.user.findUnique({
     where: {
-      fromId: userID,
+      id: userID,
     },
-    //@ts-ignore
     include: {
-      //@ts-ignore
-      toUser: {
-        select: { image: true },
+      messages: {
+        include: {
+          from: {
+            select: {
+              image: true,
+              fName: true,
+              lName: true,
+            },
+          },
+          toUser: {
+            select: {
+              image: true,
+              fName: true,
+              lName: true,
+            },
+          },
+        },
+        distinct: ["toId"],
+        orderBy: {
+          id: "desc",
+        },
+      },
+      toMessage: {
+        include: {
+          from: {
+            select: {
+              image: true,
+              fName: true,
+              lName: true,
+            },
+          },
+          toUser: {
+            select: {
+              image: true,
+              fName: true,
+              lName: true,
+            },
+          },
+        },
+        distinct: ["toId"],
+        orderBy: {
+          id: "desc",
+        },
       },
     },
-    distinct: ["toId"],
-    orderBy: {
-      id: "desc",
-    },
   });
+  //   where: {
+  //     OR: [
+  //       {
+  //         fromId: userID,
+  //       },
+  //       { toId: userID },
+  //     ],
+  //   },
+  //   include: {
+  //     toUser: {
+  //       select: { image: true },
+  //     },
+  //     from: {
+  //       select: { image: true, fName: true, lName: true },
+  //     },
+  //   },
+  //   distinct: ["toId"],
+  //   orderBy: {
+  //     id: "desc",
+  //   },
+  // });
 
   res.status(200).json(user);
 }

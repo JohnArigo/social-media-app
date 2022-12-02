@@ -7,33 +7,28 @@ import { Message, postType, User } from "../../lib/types";
 export default function Home() {
   const { data: session } = useSession();
   const userID = parseInt(session?.user?.name?.toString()!);
-  const [userMessages, setUserMessages] = useState<Message[]>([
-    {
-      fromId: userID,
-      message: "Initial",
-      toEmail: "FakeEmail@fake.com",
-      toFName: "Joe",
-      toImage: "",
-      toId: 0,
-      toLName: "Doe",
-    },
-  ]);
+  const [user, setUser] = useState<User>({
+    id: 0,
+    email: "test@test",
+    fName: "first",
+    lName: "last",
+  });
 
   useEffect(() => {
     fetch(`./api/findUserMessages/${userID}`)
       .then((res) => res.json())
-      .then((data) => setUserMessages(data));
+      .then((data) => setUser(data));
   }, []);
-
+  console.log(user);
   return (
     <main className="bg-base-200 w-screen h-screen text-info-content md:pt-20">
       <h1 className="text-center text-2xl font-bold text-info pt-10">
         Messages
       </h1>
       <section className="flex flex-col items-center overflow-y-auto pb-20">
-        {userMessages.map((message: Message) => {
+        {user.messages?.map((message: Message) => {
           // const [userImage, setUserImage] = useState<string | undefined>();
-
+          console.log(message);
           if (message.toId)
             return (
               <Link
@@ -45,15 +40,24 @@ export default function Home() {
                 >
                   <div className="w-28 flex justify-center items-center">
                     <div className="rounded-full w-14 h-14 flex justify-center items-center">
-                      <img
-                        className="rounded-full"
-                        src={message.toUser?.image}
-                      />
+                      {message.toId === userID ? (
+                        <img
+                          className="rounded-full"
+                          src={message.from?.image}
+                        />
+                      ) : (
+                        <img
+                          className="rounded-full"
+                          src={message.toUser?.image}
+                        />
+                      )}
                     </div>
                   </div>
                   <div className=" h-full flex flex-col justify-center">
                     <h1 className="text-lg font-bold">
-                      {message.toFName + " " + message.toLName}
+                      {message.toId === userID
+                        ? message.from?.fName! + " " + message.from?.lName!
+                        : message.toFName + " " + message.toLName}
                     </h1>
                     <div className="text-sm">Open Conversation</div>
                   </div>

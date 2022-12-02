@@ -19,8 +19,7 @@ export default function Index() {
   const [transitionOne, setTransitionOne] = useState<boolean>(false);
   const [transitionTwo, setTransitionTwo] = useState<boolean>(false);
   const screenPercent = scrollSize / portSize?.height!;
-  console.log(screenPercent);
-  console.log(transitionOne);
+
   const handleResize = () => {
     if (typeof window !== "undefined") {
       setPortSize({
@@ -114,7 +113,7 @@ export default function Index() {
         >
           <Transition.Child
             className="w-1/4 h-full flex justify-center items-center"
-            enter="duration-1000 delay-20"
+            enter="duration-1000 delay-75"
             enterFrom="-translate-y-10 opacity-0"
             enterTo="translate-y-0 opacity-100"
           >
@@ -127,7 +126,7 @@ export default function Index() {
           </Transition.Child>
           <Transition.Child
             className="w-1/4 h-full flex justify-center items-center"
-            enter="duration-1000 delay-90"
+            enter="duration-1000 delay-75"
             enterFrom="-translate-y-10 opacity-0"
             enterTo="translate-y-0 opacity-100"
           >
@@ -140,7 +139,7 @@ export default function Index() {
           </Transition.Child>
           <Transition.Child
             className="w-1/4 h-full flex justify-center items-center"
-            enter="duration-1000 delay-160"
+            enter="duration-1000 delay-75"
             enterFrom="-translate-y-10 opacity-0"
             enterTo="translate-y-0 opacity-100"
           >
@@ -163,7 +162,7 @@ export default function Index() {
           <div className="w-full flex justify-center mt-10">
             <Transition.Child
               className="w-1/2 h-full flex justify-center items-center"
-              enter="duration-1000 delay-20"
+              enter="duration-1000 delay-75"
               enterFrom="-translate-y-10 opacity-0"
               enterTo="translate-y-0 opacity-100"
             >
@@ -176,7 +175,7 @@ export default function Index() {
             </Transition.Child>
             <Transition.Child
               className="w-1/2 h-full flex justify-center items-center"
-              enter="duration-1000 delay-90"
+              enter="duration-1000 delay-75"
               enterFrom="-translate-y-10 opacity-0"
               enterTo="translate-y-0 opacity-100"
             >
@@ -192,7 +191,7 @@ export default function Index() {
           <div className="w-full flex justify-center mt-5">
             <Transition.Child
               className="w-1/2 h-full flex justify-center items-center"
-              enter="duration-1000 delay-160"
+              enter="duration-1000 delay-75"
               enterFrom="-translate-y-10 opacity-0"
               enterTo="translate-y-0 opacity-100"
             >
@@ -206,7 +205,7 @@ export default function Index() {
             </Transition.Child>
             <Transition.Child
               className="w-1/2 h-full flex justify-center items-center"
-              enter="duration-1000 delay-160"
+              enter="duration-1000 delay-75"
               enterFrom="-translate-y-10 opacity-0"
               enterTo="translate-y-0 opacity-100"
             >

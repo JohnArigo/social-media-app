@@ -13,6 +13,8 @@ export type User = {
   image?: string;
   banner?: string;
   posts?: postType[];
+  messages?: Message[];
+  toMessage?: Message[];
 };
 
 export type Message = {
