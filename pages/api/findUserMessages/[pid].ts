@@ -24,6 +24,7 @@ export default async function handler(
               lName: true,
             },
           },
+          //@ts-ignore
           toUser: {
             select: {
               image: true,
@@ -46,6 +47,7 @@ export default async function handler(
               lName: true,
             },
           },
+          //@ts-ignore
           toUser: {
             select: {
               image: true,
