@@ -18,7 +18,7 @@ export default function Home() {
       toLName: "Doe",
     },
   ]);
-  console.log(userMessages);
+
   useEffect(() => {
     fetch(`./api/findUserMessages/${userID}`)
       .then((res) => res.json())
@@ -32,6 +32,7 @@ export default function Home() {
       </h1>
       <section className="flex flex-col items-center overflow-y-auto pb-20">
         {userMessages.map((message: Message) => {
+          // const [userImage, setUserImage] = useState<string | undefined>();
           if (message.toId)
             return (
               <Link
@@ -43,7 +44,7 @@ export default function Home() {
                 >
                   <div className="w-28 flex justify-center items-center">
                     <div className="rounded-full w-14 h-14 flex justify-center items-center">
-                      <img className="rounded-full" src={message.toImage!} />
+                      <img className="rounded-full" src={message.to?.image} />
                     </div>
                   </div>
                   <div className=" h-full flex flex-col justify-center">

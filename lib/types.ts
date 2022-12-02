@@ -17,6 +17,7 @@ export type User = {
 
 export type Message = {
   id?: number;
+  to?: User;
   toId: number;
   toImage: string | null;
   toFName: string;
@@ -26,6 +27,7 @@ export type Message = {
   from?: User;
   fromId: number;
 };
+
 export type FindUser = {
   id?: number;
   email?: string;
@@ -64,6 +66,7 @@ export type Banner = {
 export type allFriends = {
   allFriends: Friend[];
 };
+
 export type postType = {
   title: string;
   content: string;

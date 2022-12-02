@@ -19,6 +19,9 @@ export default async function handler(
     orderBy: {
       id: "desc",
     },
+    include: {
+      to: true,
+    },
   });
 
   res.status(200).json(user);

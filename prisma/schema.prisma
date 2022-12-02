@@ -27,7 +27,8 @@ model User {
   friends Friend[] @relation("friends")
   friendInfo Friend [] @relation("friendInfo")
   posts Post[]
-  messages Message[]
+  messages Message[] @relation("messages")
+  toMessage Message[] @relation("to")
 }
 
 model Post {
@@ -58,13 +59,14 @@ model Friend {
 
 model Message {
   id Int @id @default(autoincrement())
+  to User? @relation("to", fields: [toId], references: [id])
   toId Int 
   toImage String?
   toFName String
   toLName String
   toEmail String
   message String
-  from User? @relation(fields: [fromId], references: [id])
+  from User? @relation("messages", fields: [fromId], references: [id])
   fromId Int 
 }
 
