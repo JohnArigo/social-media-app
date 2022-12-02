@@ -14,16 +14,14 @@ export default async function handler(
     where: {
       fromId: userID,
     },
+    include: {
+      toUser: {
+        select: { image: true },
+      },
+    },
     distinct: ["toId"],
     orderBy: {
       id: "desc",
-    },
-    include: {
-      toUser: {
-        select: {
-          image: true,
-        },
-      },
     },
   });
 

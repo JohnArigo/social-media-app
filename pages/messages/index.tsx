@@ -33,6 +33,7 @@ export default function Home() {
       <section className="flex flex-col items-center overflow-y-auto pb-20">
         {userMessages.map((message: Message) => {
           // const [userImage, setUserImage] = useState<string | undefined>();
+
           if (message.toId)
             return (
               <Link
