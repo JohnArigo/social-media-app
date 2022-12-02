@@ -117,9 +117,6 @@ export default function Index() {
             enter="duration-1000 delay-20"
             enterFrom="-translate-y-10 opacity-0"
             enterTo="translate-y-0 opacity-100"
-            leave="transition-opacity duration-150"
-            leaveFrom="translate-y-0 opacity-100"
-            leaveTo="translate-y-0 opacity-100"
           >
             <div className="flex flex-col items-center">
               <Image height={60} width={60} src={cloudinary} />
@@ -133,9 +130,6 @@ export default function Index() {
             enter="duration-1000 delay-90"
             enterFrom="-translate-y-10 opacity-0"
             enterTo="translate-y-0 opacity-100"
-            leave="transition-opacity duration-150"
-            leaveFrom="translate-y-0 opacity-100"
-            leaveTo="translate-y-0 opacity-100"
           >
             <div className="flex flex-col items-center">
               <Image height={50} width={50} src={planetScale} />
@@ -149,9 +143,6 @@ export default function Index() {
             enter="duration-1000 delay-160"
             enterFrom="-translate-y-10 opacity-0"
             enterTo="translate-y-0 opacity-100"
-            leave="transition-opacity duration-150"
-            leaveFrom="translate-y-0 opacity-100"
-            leaveTo="translate-y-0 opacity-100"
           >
             <div className="flex flex-col items-center">
               <Image height={50} width={50} src={vercel} />
@@ -175,9 +166,6 @@ export default function Index() {
               enter="duration-1000 delay-20"
               enterFrom="-translate-y-10 opacity-0"
               enterTo="translate-y-0 opacity-100"
-              leave="transition-opacity duration-150"
-              leaveFrom="translate-y-0 opacity-100"
-              leaveTo="translate-y-0 opacity-100"
             >
               <div className="w-1/2 flex flex-col items-center">
                 <Image height={50} width={50} src={dayCloud} />
@@ -191,9 +179,6 @@ export default function Index() {
               enter="duration-1000 delay-90"
               enterFrom="-translate-y-10 opacity-0"
               enterTo="translate-y-0 opacity-100"
-              leave="transition-opacity duration-150"
-              leaveFrom="translate-y-0 opacity-100"
-              leaveTo="translate-y-0 opacity-100"
             >
               <div className="w-1/2 flex flex-col items-center">
                 <IconMessage size={50} />
@@ -210,9 +195,6 @@ export default function Index() {
               enter="duration-1000 delay-160"
               enterFrom="-translate-y-10 opacity-0"
               enterTo="translate-y-0 opacity-100"
-              leave="transition-opacity duration-150"
-              leaveFrom="translate-y-0 opacity-100"
-              leaveTo="translate-y-0 opacity-100"
             >
               <div className="w-1/2 flex flex-col items-center">
                 <IconSearch size={50} />
@@ -227,9 +209,6 @@ export default function Index() {
               enter="duration-1000 delay-160"
               enterFrom="-translate-y-10 opacity-0"
               enterTo="translate-y-0 opacity-100"
-              leave="transition-opacity duration-150"
-              leaveFrom="translate-y-0 opacity-100"
-              leaveTo="translate-y-0 opacity-100"
             >
               <div className="w-1/2 flex flex-col items-center">
                 <IconUser size={50} />
