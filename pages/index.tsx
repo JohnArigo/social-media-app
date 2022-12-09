@@ -107,16 +107,16 @@ export default function Index() {
           </h2>
         </div>
       </section>
-      <section className="w-full h-2/3 bg-gray-50 flex text-slate-900 ">
+      <section className="w-full h-2/3 bg-gray-50  text-slate-900 flex justify-center z-50">
         <TransitionY execute={transitionOne} translateTo="32">
-          <div className="h-3/4 w-full flex justify-around mt-10">
+          <div className="h-3/4 w-full flex justify-around mt-10 z-50">
             <div className="w-1/4 h-full flex flex-col items-center">
               <Image height={60} width={60} src={cloudinary} />
               <h1 className="text-center">
                 Upload Profile Image using cloudinary service
               </h1>
             </div>
-            <div className="w-1/4 h-full flex flex-col items-center">
+            <div className="w-1/4 h-full flex flex-col items-center z-50">
               <Image height={50} width={50} src={planetScale} />
               <h1 className="text-center">
                 Utilizes serverless database using AWS
@@ -132,14 +132,14 @@ export default function Index() {
         </TransitionY>
       </section>
 
-      <section className="w-full text-white h-5/6 bg-[conic-gradient(at_top_right,_var(--tw-gradient-stops))] from-slate-200 via-accent-500 to-gray-500 flex justify-center items-center">
-        <div className="w-1/2 h-3/4 flex justify-center">
+      <section className="w-full text-white h-5/6 bg-[conic-gradient(at_top_right,_var(--tw-gradient-stops))] from-slate-200 via-accent-500 to-gray-500 flex justify-center items-center z-50">
+        <div className="w-1/2 h-3/4 flex justify-center sm:mr-0 mr-10 z-50">
           <TransitionX
             execute={transitionTwo}
-            translateFrom="14"
-            translateTo="0"
+            translateFrom="10"
+            translateTo="10"
           >
-            <div className="h-full  w-3/4 flex flex-col items-center justify-center">
+            <div className="h-full  w-full flex flex-col items-center justify-center z-50">
               <div className="w-full h-1/2 flex flex-col items-center">
                 <Image height={50} width={50} src={dayCloud} />
                 <h1 className="text-center">
@@ -147,7 +147,7 @@ export default function Index() {
                 </h1>
               </div>
 
-              <div className="w-full h-1/2 flex flex-col items-center">
+              <div className="w-full h-1/2 flex flex-col items-center z-50">
                 <IconMessage size={50} />
                 <h1 className="text-center">
                   Say hello by creating a post or direct message other users by
@@ -157,13 +157,13 @@ export default function Index() {
             </div>
           </TransitionX>
         </div>
-        <div className="w-1/2 h-3/4 flex justify-center">
+        <div className="w-1/2 h-3/4 flex justify-center sm:mr-10 mr-20 z-50">
           <TransitionX
             execute={transitionTwo}
-            translateFrom="0"
-            translateTo="14"
+            translateFrom="10"
+            translateTo="20"
           >
-            <div className="h-full  w-3/4 flex flex-col items-center justify-center">
+            <div className="h-full  w-full flex flex-col items-center justify-center z-50">
               <div className="w-full h-full flex flex-col items-center">
                 <IconSearch size={50} />
                 <h1 className="text-center">
@@ -172,7 +172,7 @@ export default function Index() {
                 </h1>
               </div>
 
-              <div className="w-full h-full flex flex-col items-center">
+              <div className="w-full h-full flex flex-col items-center z-50 ">
                 <IconUser size={50} />
                 <h1 className="text-center">
                   Customize your profile by uploading your profile image and
