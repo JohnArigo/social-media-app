@@ -108,85 +108,79 @@ export default function Index() {
         </div>
       </section>
       <section className="w-full h-2/3 bg-gray-50 flex text-slate-900 ">
-        <TransitionY
-          children={
-            <div className="h-3/4 w-full flex justify-around mt-10">
-              <div className="w-1/4 h-full flex flex-col items-center">
-                <Image height={60} width={60} src={cloudinary} />
-                <h1 className="text-center">
-                  Upload Profile Image using cloudinary service
-                </h1>
-              </div>
-              <div className="w-1/4 h-full flex flex-col items-center">
-                <Image height={50} width={50} src={planetScale} />
-                <h1 className="text-center">
-                  Utilizes serverless database using AWS
-                </h1>
-              </div>
-              <div className="w-1/4 h-full flex flex-col items-center">
-                <Image height={50} width={50} src={vercel} />
-                <h1 className="text-center">
-                  Deployed using Vercel, a fast and highly reliable service
-                </h1>
-              </div>
+        <TransitionY execute={transitionOne} translateTo="32">
+          <div className="h-3/4 w-full flex justify-around mt-10">
+            <div className="w-1/4 h-full flex flex-col items-center">
+              <Image height={60} width={60} src={cloudinary} />
+              <h1 className="text-center">
+                Upload Profile Image using cloudinary service
+              </h1>
             </div>
-          }
-          execute={transitionOne}
-          translateTo="32"
-        />
+            <div className="w-1/4 h-full flex flex-col items-center">
+              <Image height={50} width={50} src={planetScale} />
+              <h1 className="text-center">
+                Utilizes serverless database using AWS
+              </h1>
+            </div>
+            <div className="w-1/4 h-full flex flex-col items-center">
+              <Image height={50} width={50} src={vercel} />
+              <h1 className="text-center">
+                Deployed using Vercel, a fast and highly reliable service
+              </h1>
+            </div>
+          </div>
+        </TransitionY>
       </section>
 
       <section className="w-full text-white h-5/6 bg-[conic-gradient(at_top_right,_var(--tw-gradient-stops))] from-slate-200 via-accent-500 to-gray-500 flex justify-center items-center">
         <div className="w-1/2 h-3/4 flex justify-center">
           <TransitionX
-            children={
-              <div className="h-full  w-3/4 flex flex-col items-center justify-center">
-                <div className="w-full h-1/2 flex flex-col items-center">
-                  <Image height={50} width={50} src={dayCloud} />
-                  <h1 className="text-center">
-                    Check current headlines and weather using Explore
-                  </h1>
-                </div>
-
-                <div className="w-full h-1/2 flex flex-col items-center">
-                  <IconMessage size={50} />
-                  <h1 className="text-center">
-                    Say hello by creating a post or direct message other users
-                    by accessing their profiles
-                  </h1>
-                </div>
-              </div>
-            }
             execute={transitionTwo}
             translateFrom="14"
             translateTo="0"
-          />
+          >
+            <div className="h-full  w-3/4 flex flex-col items-center justify-center">
+              <div className="w-full h-1/2 flex flex-col items-center">
+                <Image height={50} width={50} src={dayCloud} />
+                <h1 className="text-center">
+                  Check current headlines and weather using Explore
+                </h1>
+              </div>
+
+              <div className="w-full h-1/2 flex flex-col items-center">
+                <IconMessage size={50} />
+                <h1 className="text-center">
+                  Say hello by creating a post or direct message other users by
+                  accessing their profiles
+                </h1>
+              </div>
+            </div>
+          </TransitionX>
         </div>
         <div className="w-1/2 h-3/4 flex justify-center">
           <TransitionX
-            children={
-              <div className="h-full  w-3/4 flex flex-col items-center justify-center">
-                <div className="w-full h-full flex flex-col items-center">
-                  <IconSearch size={50} />
-                  <h1 className="text-center">
-                    Search for news articles, posts and people using the search
-                    function
-                  </h1>
-                </div>
-
-                <div className="w-full h-full flex flex-col items-center">
-                  <IconUser size={50} />
-                  <h1 className="text-center">
-                    Customize your profile by uploading your profile image and
-                    writing a little bit about yourself
-                  </h1>
-                </div>
-              </div>
-            }
             execute={transitionTwo}
             translateFrom="0"
             translateTo="14"
-          />
+          >
+            <div className="h-full  w-3/4 flex flex-col items-center justify-center">
+              <div className="w-full h-full flex flex-col items-center">
+                <IconSearch size={50} />
+                <h1 className="text-center">
+                  Search for news articles, posts and people using the search
+                  function
+                </h1>
+              </div>
+
+              <div className="w-full h-full flex flex-col items-center">
+                <IconUser size={50} />
+                <h1 className="text-center">
+                  Customize your profile by uploading your profile image and
+                  writing a little bit about yourself
+                </h1>
+              </div>
+            </div>
+          </TransitionX>
         </div>
       </section>
 
