@@ -6,21 +6,18 @@ export const TransitionX = ({
   translateTo,
   translateFrom,
 }: TransitionType) => {
-  console.log(translateFrom);
-  console.log(translateTo?.charAt(0) === "-");
-
   return (
     <div
-      className={`transition-all duration-1000 ease-in ${
+      className={`transform transition-all duration-1000 ease-in ${
         execute
           ? `${
-              translateFrom?.charAt(0) === "-"
-                ? `-translate-x-${translateFrom?.slice(1)}`
+              translateFrom !== undefined && translateFrom < 0
+                ? `-translate-x-${translateFrom}`
                 : `translate-x-${translateFrom}`
             } opacity-100`
           : `${
-              translateTo?.charAt(0) === "-"
-                ? `-translate-x-${translateTo?.slice(1)}`
+              translateTo < 0
+                ? `-translate-x-${translateTo}`
                 : `translate-x-${translateTo}`
             } opacity-0`
       }`}

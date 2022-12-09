@@ -108,7 +108,7 @@ export default function Index() {
         </div>
       </section>
       <section className="w-full h-2/3 bg-gray-50  text-slate-900 flex justify-center z-50">
-        <TransitionY execute={transitionOne} translateTo="32">
+        <TransitionY execute={transitionOne} translateTo={32}>
           <div className="h-3/4 w-full flex justify-around mt-10 z-50">
             <div className="w-1/4 h-full flex flex-col items-center">
               <Image height={60} width={60} src={cloudinary} />
@@ -136,8 +136,8 @@ export default function Index() {
         <div className="w-1/2 h-3/4 flex justify-center sm:mr-0 mr-10 z-50">
           <TransitionX
             execute={transitionTwo}
-            translateFrom="10"
-            translateTo="10"
+            translateFrom={10}
+            translateTo={0}
           >
             <div className="h-full  w-full flex flex-col items-center justify-center z-50">
               <div className="w-full h-1/2 flex flex-col items-center">
@@ -160,8 +160,8 @@ export default function Index() {
         <div className="w-1/2 h-3/4 flex justify-center sm:mr-10 mr-20 z-50">
           <TransitionX
             execute={transitionTwo}
-            translateFrom="10"
-            translateTo="20"
+            translateFrom={10}
+            translateTo={20}
           >
             <div className="h-full  w-full flex flex-col items-center justify-center z-50">
               <div className="w-full h-full flex flex-col items-center">
