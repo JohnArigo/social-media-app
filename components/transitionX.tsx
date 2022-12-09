@@ -6,6 +6,8 @@ export const TransitionX = ({
   translateTo,
   translateFrom,
 }: TransitionType) => {
+  console.log(translateFrom);
+  console.log(translateTo);
   return (
     <div
       className={`transition-all duration-1000 ease-in ${
