@@ -3,20 +3,12 @@ import React, { ReactNode } from "react";
 export type TransitionType = {
   children: ReactNode;
   execute: boolean;
-  translateTo: number;
-  translateFrom?: number;
 };
-export const TransitionY = ({
-  children,
-  execute,
-  translateTo,
-}: TransitionType) => {
+export const TransitionY = ({ children, execute }: TransitionType) => {
   return (
     <div
-      className={`transition-all duration-1000 ease-in transform ${
-        execute
-          ? `translate-y-${translateTo} opacity-100`
-          : "translate-y-0 opacity-0"
+      className={`w-full h-full flex justify-center items-center transition-all duration-1000 ease-in transform ${
+        execute ? `opacity-100 translate-y-14` : "opacity-0 translate-y-0"
       }`}
     >
       {children}

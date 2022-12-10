@@ -10,17 +10,6 @@ module.exports = {
         pacifico: ["Regular", "cursive"],
         roboto: ["italic, regular"],
       },
-      animation: {
-        fade: "fadeOut 5s ease-in-out",
-      },
-
-      // that is actual animation
-      keyframes: (theme) => ({
-        fadeOut: {
-          "0%": { opacity: 0 },
-          "100%": { opacity: 1 },
-        },
-      }),
     },
   },
   plugins: [require("daisyui")],
