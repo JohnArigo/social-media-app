@@ -8,7 +8,13 @@ import planetScale from "../images/planetscale.png";
 import vercel from "../images/vercel.svg";
 import dayCloud from "../components/WeatherComponent/dayCloud.png";
 import Image from "next/image";
-import { IconSearch, IconFilter, IconMessage, IconUser } from "@tabler/icons";
+import {
+  IconSearch,
+  IconFilter,
+  IconMessage,
+  IconUser,
+  IconSunHigh,
+} from "@tabler/icons";
 import TransitionY from "../components/transition";
 
 export default function Index() {
@@ -136,7 +142,7 @@ export default function Index() {
           <div className="w-full h-3/4 flex flex-col justify-between items-center">
             <div className="w-11/12 h-1/2 flex justify-between ">
               <div className="w-1/2 flex flex-col h-full items-center">
-                <Image height={50} width={50} src={dayCloud} />
+                <IconSunHigh size={50} />
                 <h1 className="text-center">
                   Check current headlines and weather using Explore
                 </h1>
