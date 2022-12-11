@@ -38,14 +38,18 @@ export const Table = ({ url }: TableType) => {
       <table className="bg-base-content w-96 sm:w-2/3 text-info-content">
         <tr className="w-full text-start">
           {Object.keys(data[0]).map((name: string) => {
-            return <th className={`1/${data.length}`}>{name}</th>;
+            return (
+              <th key={name} className={`1/${data.length}`}>
+                {name}
+              </th>
+            );
           })}
         </tr>
         {data.map((item: any) => {
           return (
             <tr className="w-full text-center">
-              {Object.values(item).map((value: any) => {
-                return <td>{value}</td>;
+              {Object.values(item).map((value: any, index: number) => {
+                return <td key={index}>{value}</td>;
               })}
             </tr>
           );
