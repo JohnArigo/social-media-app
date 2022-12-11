@@ -45,9 +45,9 @@ export const Table = ({ url }: TableType) => {
             );
           })}
         </tr>
-        {data.map((item: any) => {
+        {data.map((item: any, index: number) => {
           return (
-            <tr className="w-full text-center">
+            <tr key={index} className="w-full text-center">
               {Object.values(item).map((value: any, index: number) => {
                 return <td key={index}>{value}</td>;
               })}
