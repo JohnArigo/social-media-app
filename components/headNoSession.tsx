@@ -7,7 +7,7 @@ export type noSessionHeader = {
 export default function HeaderNoSession({ portSize }: noSessionHeader) {
   if (portSize?.width! > 760) {
     return (
-      <main className="top-0 z-100 fixed w-full h-16 bg-accent text-neutral flex flex-row justify-between items-center">
+      <main className="top-0 z-50 fixed w-full h-16 bg-accent text-neutral flex flex-row justify-between items-center">
         <Head>
           <link
             href="https://fonts.googleapis.com/css2?family=Noto+Sans+Mono:wght@300;600;700&family=Pacifico&display=swap"
