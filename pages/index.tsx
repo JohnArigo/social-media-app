@@ -112,16 +112,16 @@ export default function Index() {
           </h2>
         </div>
       </section>
-      <section className="w-full h-2/3 bg-gray-50 text-slate-900 flex justify-center items-center z-50">
+      <section className="w-full h-2/3 bg-gray-50 text-slate-900 flex justify-center items-center z-100">
         <TransitionY execute={transitionOne}>
-          <div className="h-2/3 w-full flex justify-around mt-10 z-50">
+          <div className="h-2/3 w-full flex justify-around mt-10 z-100">
             <div className="w-1/4 h-full flex flex-col items-center">
               <Image height={60} width={60} src={cloudinary} />
               <h1 className="text-center">
                 Upload Profile Image using cloudinary service
               </h1>
             </div>
-            <div className="w-1/4 h-full flex flex-col items-center z-50">
+            <div className="w-1/4 h-full flex flex-col items-center z-100">
               <Image height={50} width={50} src={planetScale} />
               <h1 className="text-center">
                 Utilizes serverless database using AWS
@@ -137,7 +137,7 @@ export default function Index() {
         </TransitionY>
       </section>
 
-      <section className="w-full text-white h-5/6 bg-[conic-gradient(at_top_right,_var(--tw-gradient-stops))] from-slate-200 via-accent-500 to-gray-500 flex justify-center items-center z-50">
+      <section className="w-full text-white h-5/6 bg-[conic-gradient(at_top_right,_var(--tw-gradient-stops))] from-slate-200 via-accent-500 to-gray-500 flex justify-center items-center z-100">
         <TransitionY execute={transitionTwo}>
           <div className="w-full h-3/4 flex flex-col justify-between items-center">
             <div className="w-11/12 h-1/2 flex justify-between ">
