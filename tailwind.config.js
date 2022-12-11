@@ -10,6 +10,9 @@ module.exports = {
         pacifico: ["Regular", "cursive"],
         roboto: ["italic, regular"],
       },
+      zIndex: {
+        100: "100",
+      },
     },
   },
   plugins: [require("daisyui")],

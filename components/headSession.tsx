@@ -49,7 +49,7 @@ export default function HeaderSession({
   };
   if (portSize?.width! > 760) {
     return (
-      <main className="z-50 top-0 fixed w-full h-16 bg-gradient-to-r from-accent via-accent to-gray-100 text-neutral flex flex-row justify-around items-center">
+      <main className="z-100 top-0 fixed w-full h-16 bg-gradient-to-r from-accent via-accent to-gray-100 text-neutral flex flex-row justify-around items-center">
         <section className="w-1/6  h-full flex items-center" role="search">
           <Head>
             <link rel="preconnect" href="https://fonts.googleapis.com" />
@@ -142,7 +142,7 @@ export default function HeaderSession({
     );
   } else {
     return (
-      <main className="z-50 bottom-0 fixed w-full h-16 bg-accent text-neutral flex flex-row justify-around items-center">
+      <main className="z-100 bottom-0 fixed w-full h-16 bg-accent text-neutral flex flex-row justify-around items-center">
         <Link href="/feed">
           <div>Home</div>
         </Link>
@@ -162,7 +162,7 @@ export default function HeaderSession({
             <div>User</div>
           </Menu.Target>
 
-          <Menu.Dropdown className="z-50">
+          <Menu.Dropdown className="z-100">
             <Menu.Label>Go to...</Menu.Label>
             <Menu.Item
               icon={<IconSearch size={14} />}
