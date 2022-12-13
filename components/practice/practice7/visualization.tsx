@@ -69,6 +69,7 @@ export const Visualization = ({ data }: visualizationType) => {
               <div>
                 {" "}
                 <div
+                  key={key}
                   //@ts-ignore
                   style={{ height: counter[key] * 4 }}
                   className={` w-5 bg-red-50`}
