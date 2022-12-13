@@ -66,10 +66,9 @@ export const Visualization = ({ data }: visualizationType) => {
         {Object.keys(counter).map((key) => {
           if (key !== "NaN") {
             return (
-              <div>
+              <div key={key}>
                 {" "}
                 <div
-                  key={key}
                   //@ts-ignore
                   style={{ height: counter[key] * 4 }}
                   className={` w-5 bg-red-50`}
