@@ -4,6 +4,7 @@ import { RandomQuote } from "../components/practice/practice2/quote";
 import NewsPractice from "../components/practice/practice3/news";
 import UserForm from "../components/practice/practice4/userForm";
 import Table from "../components/practice/practice5/table";
+import Carousel from "../components/practice/practice6/carousel";
 import { ArticleRoot } from "../lib/types";
 
 // export async function getStaticProps() {
@@ -23,11 +24,18 @@ import { ArticleRoot } from "../lib/types";
 
 export const PracticePage = () => {
   // const [newsData, setNewsData] = useState<ArticleRoot>(news);
-  const url =
-    "https://datausa.io/api/data?drilldowns=Nation&measures=Population";
+  // const url =
+  //   "https://datausa.io/api/data?drilldowns=Nation&measures=Population";
+  const [data, setData] = useState([]);
+  useEffect(() => {
+    fetch("https://api.imgflip.com/get_memes")
+      .then((response) => response.json())
+      .then((data) => setData(data.data.memes));
+  }, []);
+  console.log(data);
   return (
-    <main>
-      <Table url={url} />
+    <main className="w-screen h-screen flex justify-center items-center">
+      <Carousel data={data} />
     </main>
   );
 };
