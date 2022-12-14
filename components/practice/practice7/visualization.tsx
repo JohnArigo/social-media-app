@@ -4,12 +4,15 @@
 //counter will represent css height
 
 import { objectEnumValues } from "@prisma/client/runtime";
+import { normalize } from "node:path/win32";
 import { useEffect, useState } from "react";
 
 export type visualizationType = { data: number[] };
 
 export const Visualization = ({ data }: visualizationType) => {
   const [counter, setCounter] = useState({});
+  const [refresh, setRefresh] = useState<boolean>(false);
+
   const min = data.sort((a, b) => a - b)[0];
   const max = data.sort((a, b) => a - b)[data.length - 2];
 
@@ -19,7 +22,7 @@ export const Visualization = ({ data }: visualizationType) => {
         return { ...prev, [i]: 0 };
       });
     }
-  }, [data]);
+  }, [data, refresh]);
 
   //
   useEffect(() => {
@@ -33,15 +36,16 @@ export const Visualization = ({ data }: visualizationType) => {
         });
       }
     }
-  }, [data]);
+  }, [data, refresh]);
 
   // @ts-ignore
 
   const arrayValue = Object.values(counter).sort((a, b) => a - b)[
     Object.values(counter).length - 1
   ];
+
   return (
-    <main className="w-screen h-screen flex justify-center">
+    <main className="w-screen h-screen flex justify-center items-center">
       <div className="h-2/3 w-2/12 flex flex-col justify-end ">
         <div
           className="
@@ -62,23 +66,32 @@ export const Visualization = ({ data }: visualizationType) => {
         <div className="self-center">0</div>
       </div>
 
-      <div className="flex justify-between items-end w-10/12 h-2/3">
+      <div className="flex justify-between items-end w-10/12 h-2/3 mr-10">
         {Object.keys(counter).map((key) => {
           if (key !== "NaN") {
             return (
               <div key={key}>
-                {" "}
                 <div
-                  //@ts-ignore
-                  style={{ height: counter[key] * 4 }}
-                  className={` w-5 bg-red-50`}
+                  style={{
+                    //@ts-ignore
+                    height: counter[key] * 4,
+                    backgroundColor:
+                      "#" + Math.floor(100000 + Math.random() * 900000),
+                  }}
+                  className={` w-5 hover:bg-amber-300 hover:w-20 `}
                 ></div>
-                <div>{key}</div>
+                <div className="text-center">{key}</div>
               </div>
             );
           }
         })}
       </div>
+      {/* <button
+        className="w-15 h-10 bg-green-100 rounded-full"
+        onClick={() => setRefresh((prevState) => !prevState)}
+      >
+        Refresh Data
+      </button> */}
     </main>
   );
 };
