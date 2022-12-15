@@ -28,7 +28,7 @@ export const PracticePage = () => {
   // const [newsData, setNewsData] = useState<ArticleRoot>(news);
   // const url =
   //   "https://datausa.io/api/data?drilldowns=Nation&measures=Population";
-  // const [data, setData] = useState<number[]>([]);
+  //
   // useEffect(() => {
   //   const dataArray: number[] = [];
   //   fetch(
@@ -40,6 +40,14 @@ export const PracticePage = () => {
   //       setData(dataNumbers);
   //     });
   // }, []);
+
+  const [data, setData] = useState([]);
+
+  useEffect(() => {
+    fetch("https://api.imgflip.com/get_memes")
+      .then((res) => res.json())
+      .then((data) => setData(data.data.memes));
+  }, []);
 
   const code = 1121;
   return (

@@ -54,10 +54,10 @@ export const TwoFactor = ({ code }: TwoFactorType) => {
   return (
     <main className="w-full h-full absolute bg-white bg-opacity-40 flex justify-center items-center">
       <form
-        className="w-96 h-96 flex flex-col items-center"
+        className="rounded-lg w-56 h-56 px-5 flex flex-col items-center bg-white justify-center"
         onSubmit={handleSubmit}
       >
-        <div className="w-full flex justify-between">
+        <div className="w-full flex justify-between mb-5">
           <input
             className={`w-10 h-14 border bg-white ${
               form.input1 === ""
@@ -68,7 +68,6 @@ export const TwoFactor = ({ code }: TwoFactorType) => {
             name="input1"
             onChange={handleChange}
             value={form.input1}
-            pattern="/^[0-9]\b$/"
             required
           />
           <input
@@ -104,7 +103,6 @@ export const TwoFactor = ({ code }: TwoFactorType) => {
             type="tel"
             name="input4"
             value={form.input4}
-            // onKeyDown={handleBackspace}
             onChange={handleChange}
             required
           />
