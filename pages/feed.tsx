@@ -5,8 +5,50 @@ import prisma from "../lib/prisma";
 import { postType, User, Friend, postsType } from "../lib/types";
 export async function getServerSideProps() {
   const posts = await prisma.post.findMany({
-    include: {
-      author: true,
+    select: {
+      id: true,
+      title: true,
+      content: true,
+      published: true,
+      authorId: true,
+      author: {
+        select: {
+          id: true,
+          email: true,
+          image: true,
+          fName: true,
+          lName: true,
+        },
+      },
+      comments: {
+        select: {
+          id: true,
+          content: true,
+          author: {
+            select: {
+              id: true,
+              email: true,
+              image: true,
+              fName: true,
+              lName: true,
+            },
+          },
+        },
+      },
+      likes: {
+        select: {
+          id: true,
+          user: {
+            select: {
+              id: true,
+              email: true,
+              image: true,
+              fName: true,
+              lName: true,
+            },
+          },
+        },
+      },
     },
     orderBy: {
       id: "desc",
@@ -21,7 +63,7 @@ export async function getServerSideProps() {
 
 export default function Feed({ posts }: postsType) {
   const [postData, setPostData] = useState<postType[]>(posts);
-
+  console.log(postData);
   //pull session for ID
   const { data: session } = useSession();
   //find userID for API call
@@ -58,7 +100,11 @@ export default function Feed({ posts }: postsType) {
   return (
     <main className="bg-base-200 w-screen h-screen sm:pt-24 overflow-y-hidden">
       <h1 className="text-info text-2xl text-center">User Posts</h1>
-      <PostList postData={postData} setPostData={setPostData} />
+      <PostList
+        postData={postData}
+        setPostData={setPostData}
+        userData={userData}
+      />
     </main>
   );
 }

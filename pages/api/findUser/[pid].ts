@@ -28,6 +28,7 @@ export default async function handler(
       posts: {
         include: { author: true },
       },
+      like: true,
       friends: {
         include: {
           friendInfo: {

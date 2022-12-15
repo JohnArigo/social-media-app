@@ -15,6 +15,8 @@ export type User = {
   posts?: postType[];
   messages?: Message[];
   toMessage?: Message[];
+  like?: Likes[];
+  comments?: Comment[];
 };
 
 export type Message = {
@@ -70,11 +72,31 @@ export type allFriends = {
 };
 
 export type postType = {
+  id?: number;
   title: string;
   content: string;
   published: boolean;
   author?: User;
   authorId: number;
+  comments?: Comment[];
+  likes?: Likes[];
+};
+
+export type Comment = {
+  id: number;
+  content: string;
+  post?: postType;
+  postId: number;
+  author?: User;
+  authorId: number;
+};
+
+export type Likes = {
+  id?: number;
+  post?: postType;
+  postId: number;
+  user?: User;
+  userId: number;
 };
 
 export type postsType = {

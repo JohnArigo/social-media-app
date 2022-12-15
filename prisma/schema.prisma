@@ -30,6 +30,7 @@ model User {
   messages Message[] @relation("messages")
   toMessage Message[] @relation("to")
   comments Comment[]
+  like Like[]
 }
 
 model Post {
@@ -40,7 +41,15 @@ model Post {
   comments  Comment[]
   author    User?    @relation(fields: [authorId], references: [id])
   authorId  Int
-  likes Int
+  likes Like[]
+}
+
+model Like {
+  id Int @id @default(autoincrement())
+  post Post? @relation(fields: [postId], references: [id])
+  postId Int
+  user User? @relation(fields: [userId], references: [id])
+  userId Int
 }
 
 model Comment {
