@@ -30,7 +30,7 @@ model User {
   messages Message[] @relation("messages")
   toMessage Message[] @relation("to")
   comments Comment[]
-  like Like[]
+  likes Like[]
 }
 
 model Post {
