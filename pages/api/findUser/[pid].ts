@@ -29,40 +29,8 @@ export default async function handler(
         include: { author: true },
       },
       likes: {
-        // id Int @id @default(autoincrement())
-        // post Post? @relation(fields: [postId], references: [id])
-        // postId Int
-        // user User? @relation(fields: [userId], references: [id])
-        // userId Int
-
-        // id        Int     @id @default(autoincrement())
-        // title     String
-        // content   String?
-        // published Boolean @default(false)
-        // comments  Comment[]
-        // author    User?    @relation(fields: [authorId], references: [id])
-        // authorId  Int
-        // likes Like[]
         include: {
-          post: {
-            include: {
-              author: true,
-              comments: {
-                include: {
-                  author: true,
-                },
-              },
-            },
-          },
-          user: {
-            select: {
-              image: true,
-              fName: true,
-              lName: true,
-              email: true,
-              id: true,
-            },
-          },
+          post: true,
         },
       },
       friends: {
