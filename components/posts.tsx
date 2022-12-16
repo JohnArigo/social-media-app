@@ -65,9 +65,10 @@ export const Posts = ({ post, userData, key }: postsProps) => {
   //stores post data for user to like
   const [postToLike, setPostToLike] = useState<Likes>({
     postId: post.id!,
-    userId: userData.id,
+    userId: userData?.id,
   });
 
+  console.log(userData);
   useEffect(() => {
     post.likes?.filter((like: Likes) => {
       if (like.user?.id === userData.id) {
