@@ -42,6 +42,8 @@ model Post {
   author    User?    @relation(fields: [authorId], references: [id])
   authorId  Int
   likes Like[]
+
+  @@index([authorId])
 }
 
 model Like {
@@ -50,6 +52,9 @@ model Like {
   postId Int
   user User? @relation(fields: [userId], references: [id])
   userId Int
+
+  @@index([postId])
+  @@index([userId])
 }
 
 model Comment {
@@ -59,6 +64,9 @@ model Comment {
   postId  Int
   author  User?    @relation(fields: [authorId], references: [id])
   authorId Int
+
+  @@index([postId])
+  @@index([authorId])
 }
 
 model Profile {
@@ -76,6 +84,9 @@ model Friend {
   friendLastName String
   owner User?  @relation("friends", fields: [ownerId], references: [id])
   ownerId Int 
+
+  @@index([friendId])
+  @@index([ownerId])
 }
 
 model Message {
@@ -89,6 +100,9 @@ model Message {
   message String
   from User? @relation("messages", fields: [fromId], references: [id])
   fromId Int 
+
+  @@index([fromId])
+  @@index([toId])
 }
 
 model Banner {
