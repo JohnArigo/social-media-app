@@ -28,9 +28,10 @@ export default async function handler(
       posts: {
         include: { author: true },
       },
-      likes: {
+      like: {
         include: {
           post: true,
+          user: true,
         },
       },
       friends: {
