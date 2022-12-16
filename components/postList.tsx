@@ -15,7 +15,7 @@ import Posts from "./posts";
 export type postDataType = {
   postData: postType[];
   setPostData: any;
-  userData: User;
+  userData?: User;
   //(value: SetStateAction<postType[]>) => void
   //FIND WHY THIS IS A TYPE ERROR
 };
@@ -26,14 +26,14 @@ export default function PostList({
   userData,
 }: postDataType) {
   const [userLikes, setUserLikes] = useState<Likes[] | undefined>(
-    userData.like
+    userData?.like
   );
 
   return (
     <section className="text-info-content shadow-sm pb-20 h-full w-full flex flex-col justify-start items-center overflow-y-auto overflow-x-hidden">
       {/* individual post */}
       {postData?.map((post: postType, index: number) => {
-        return <Posts key={index} post={post} userData={userData} />;
+        return <Posts key={index} post={post} userData={userData!} />;
       })}
     </section>
   );
