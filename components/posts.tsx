@@ -67,8 +67,7 @@ export const Posts = ({ post, userData, key }: postsProps) => {
     postId: post.id!,
     userId: userData?.id,
   });
-
-  console.log(userData);
+  //find if user already liked post
   useEffect(() => {
     post.likes?.filter((like: Likes) => {
       if (like.user?.id === userData.id) {
@@ -89,8 +88,6 @@ export const Posts = ({ post, userData, key }: postsProps) => {
         console.log("success");
       } catch (error) {
         console.log(error);
-        setLike(true);
-        setLikeCount(likeCount! + 1);
       }
     } else {
       setLike(true);
@@ -99,12 +96,15 @@ export const Posts = ({ post, userData, key }: postsProps) => {
         await likePost(postToLike);
         console.log("success");
       } catch (error) {
-        setLike(false);
-        console.log(error);
-        setLikeCount(likeCount! - 1);
+        if (error) {
+          console.log(error);
+        }
       }
     }
   };
+
+  const handleComment = async () => {};
+
   if (post.published) {
     return (
       <div
@@ -140,10 +140,12 @@ export const Posts = ({ post, userData, key }: postsProps) => {
         <div className="ml-2 max-h-2/3 overflow-y-auto mb-5">
           {post.content}
         </div>
-        <div className="ml-3 flex items-center">
-          <IconThumbUp size={15} color="blue" />
-          <h4>{likeCount}</h4>
-        </div>
+        {likeCount !== undefined && likeCount > 0 ? (
+          <div className="ml-3 flex items-center">
+            <IconThumbUp size={15} color="blue" />
+            <h4>{likeCount}</h4>
+          </div>
+        ) : null}
         <div className="w-full flex justify-around text-xs border-y border-gray-500 py-2">
           <div
             onClick={handleLike}
@@ -152,7 +154,10 @@ export const Posts = ({ post, userData, key }: postsProps) => {
             <IconThumbUp size={30} color={like ? "blue" : "black"} />
             <h4>Like</h4>
           </div>
-          <div className="w-1/4 flex justify-center items-center">
+          <div
+            onClick={() => setOpenComment((prevState) => !prevState)}
+            className="w-1/4 flex justify-center items-center"
+          >
             <IconMessageDots
               size={30}
               onClick={() => {
@@ -178,6 +183,9 @@ export const Posts = ({ post, userData, key }: postsProps) => {
           />
           <button className="ml-2">Post</button>
         </div>
+        {openComment ? (
+          <div>This is where the comments will be iterated</div>
+        ) : null}
       </div>
     );
   } else return null;
