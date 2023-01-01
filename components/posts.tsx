@@ -108,7 +108,7 @@ export const Posts = ({ post, userData, key }: postsProps) => {
   if (post.published) {
     return (
       <div
-        className="w-96 h-96 sm:w-1/2 md:1/3 lg:w-1/3 bg-base-content rounded-lg mt-5 flex flex-col"
+        className="w-96 h-96 sm:w-1/2 md:1/2 lg:w-5/12 xl:1/3 bg-base-content rounded-lg mt-5 flex flex-col"
         key={post?.title + post.authorId}
       >
         <div className="self-end text-xs text-base-content">Egg</div>
