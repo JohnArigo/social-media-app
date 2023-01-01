@@ -6,7 +6,6 @@ import Typewriter from "typewriter-effect";
 import cloudinary from "../images/cloudinary.png";
 import planetScale from "../images/planetscale.png";
 import vercel from "../images/vercel.svg";
-import dayCloud from "../components/WeatherComponent/dayCloud.png";
 import Image from "next/image";
 import {
   IconSearch,
@@ -25,8 +24,11 @@ export default function Index() {
   const [scrollSize, setScrollSize] = useState<number>(0);
   const [transitionOne, setTransitionOne] = useState<boolean>(false);
   const [transitionTwo, setTransitionTwo] = useState<boolean>(false);
-  const screenPercent = scrollSize / portSize?.height!;
+  const [screenPercent, setScreenPercent] = useState<number>(
+    scrollSize / portSize.height!
+  );
 
+  //handles window resizing
   const handleResize = () => {
     if (typeof window !== "undefined") {
       setPortSize({
@@ -35,21 +37,31 @@ export default function Index() {
       });
     }
   };
+
+  //handles window resizing
   useEffect(() => {
     handleResize();
     window?.addEventListener("resize", handleResize);
     return () => window.removeEventListener("resize", handleResize);
   }, []);
+
+  console.log(scrollSize);
   const handleScroll = () => {
-    setScrollSize?.(window.scrollY);
+    setScrollSize(window.scrollY);
+    if (typeof window !== "undefined") {
+      console.log(window.scrollY);
+      setScrollSize(window.scrollY);
+      setScreenPercent(scrollSize / portSize?.height!);
+    }
   };
+
   useEffect(() => {
     handleScroll();
     window.addEventListener("scroll", handleScroll);
     return () => {
       window.removeEventListener("scroll", handleScroll);
     };
-  }, []);
+  }, [scrollSize]);
 
   const activateTransitionOne = () => {
     setTransitionOne(true);
@@ -57,6 +69,7 @@ export default function Index() {
   const activateTransitionTwo = () => {
     setTransitionTwo(true);
   };
+
   useEffect(() => {
     if (screenPercent >= 0.15) {
       activateTransitionOne();
@@ -67,13 +80,22 @@ export default function Index() {
   }, [screenPercent]);
 
   return (
-    <main className="w-screen h-screen">
+    <main className="w-screen h-screen overflow-y-auto">
       {portSize?.width! > 760 ? (
         <section role="filler" className="h-16"></section>
       ) : null}
 
-      <section className="w-full bg-[url('../images/splashBg.jpg')] h-5/6 bg-cover flex flex-col items-end justify-end">
-        <div className="bg-white w-full h-1/3 sm:w-96 sm:h-96 md:mb-10 md:mr-2 flex flex-col justify-center rounded-sm">
+      <section className="w-full sticky top-0 h-2/3 sm:top-0 z-20 flex flex-col items-end justify-end">
+        <video
+          //video background
+          autoPlay={true}
+          muted={true}
+          loop={true}
+          className="w-full z-10 h-full object-cover"
+          src="https://res.cloudinary.com/dwbzf4ywk/video/upload/v1672539492/production_ID_4391550_enmzuh.mp4"
+        />
+        <div className="w-full h-full bg-gray-300 z-20 absolute top-0 bg-opacity-20"></div>
+        <div className="bg-white sm:absolute sm:top-20 z-30 w-full h-1/3 sm:w-96 sm:h-96 md:mb-10 md:mr-2 flex flex-col justify-center rounded-sm">
           <h1 className="text-accent italic text-4xl mt-5 flex self-center">
             <Typewriter
               options={{
@@ -112,69 +134,70 @@ export default function Index() {
           </h2>
         </div>
       </section>
-      <section className="w-full h-2/3 bg-gray-50 text-slate-900 flex justify-center items-center z-50">
-        <TransitionY execute={transitionOne}>
-          <div className="h-2/3 w-full flex justify-around mt-10 z-50">
-            <div className="w-1/4 h-full flex flex-col items-center">
-              <Image height={60} width={60} src={cloudinary} />
-              <h1 className="text-center">
-                Upload Profile Image using cloudinary service
-              </h1>
+      <section className="w-screen h-screen flex flex-col">
+        <section className="w-full sticky sm:top-16 top-0 h-2/3 bg-gray-50 text-slate-900 flex justify-center items-center z-50">
+          <TransitionY execute={transitionOne}>
+            <div className="h-2/3 w-full flex justify-around mt-10 z-50">
+              <div className="w-1/4 h-full flex flex-col items-center">
+                <Image height={60} width={60} src={cloudinary} />
+                <h1 className="text-center">
+                  Upload Profile Image using cloudinary service
+                </h1>
+              </div>
+              <div className="w-1/4 h-full flex flex-col items-center z-50">
+                <Image height={50} width={50} src={planetScale} />
+                <h1 className="text-center">
+                  Utilizes serverless database using AWS
+                </h1>
+              </div>
+              <div className="w-1/4 h-full flex flex-col items-center">
+                <Image height={50} width={50} src={vercel} />
+                <h1 className="text-center">
+                  Deployed using Vercel, a fast and highly reliable service
+                </h1>
+              </div>
             </div>
-            <div className="w-1/4 h-full flex flex-col items-center z-50">
-              <Image height={50} width={50} src={planetScale} />
-              <h1 className="text-center">
-                Utilizes serverless database using AWS
-              </h1>
-            </div>
-            <div className="w-1/4 h-full flex flex-col items-center">
-              <Image height={50} width={50} src={vercel} />
-              <h1 className="text-center">
-                Deployed using Vercel, a fast and highly reliable service
-              </h1>
-            </div>
-          </div>
-        </TransitionY>
-      </section>
+          </TransitionY>
+        </section>
+        <section className="w-full text-white h-5/6 bg-[conic-gradient(at_top_right,_var(--tw-gradient-stops))] from-slate-200 via-accent-500 to-gray-500 flex justify-center items-center z-50">
+          <TransitionY execute={transitionTwo}>
+            <div className="w-full h-3/4 flex flex-col justify-between items-center">
+              <div className="w-11/12 h-1/2 flex justify-between ">
+                <div className="w-1/2 flex flex-col h-full items-center">
+                  <IconSunHigh size={50} />
+                  <h1 className="text-center">
+                    Check current headlines and weather using Explore
+                  </h1>
+                </div>
 
-      <section className="w-full text-white h-5/6 bg-[conic-gradient(at_top_right,_var(--tw-gradient-stops))] from-slate-200 via-accent-500 to-gray-500 flex justify-center items-center z-50">
-        <TransitionY execute={transitionTwo}>
-          <div className="w-full h-3/4 flex flex-col justify-between items-center">
-            <div className="w-11/12 h-1/2 flex justify-between ">
-              <div className="w-1/2 flex flex-col h-full items-center">
-                <IconSunHigh size={50} />
-                <h1 className="text-center">
-                  Check current headlines and weather using Explore
-                </h1>
+                <div className="w-1/2 flex flex-col h-full items-center">
+                  <IconMessage size={50} />
+                  <h1 className="text-center">
+                    Say hello by creating a post or direct message other users
+                    by accessing their profiles
+                  </h1>
+                </div>
               </div>
+              <div className="w-11/12 h-1/2 flex justify-between ">
+                <div className="w-1/2 flex flex-col h-full items-center">
+                  <IconSearch size={50} />
+                  <h1 className="text-center">
+                    Search for news articles, posts and people using the search
+                    function
+                  </h1>
+                </div>
 
-              <div className="w-1/2 flex flex-col h-full items-center">
-                <IconMessage size={50} />
-                <h1 className="text-center">
-                  Say hello by creating a post or direct message other users by
-                  accessing their profiles
-                </h1>
+                <div className="w-1/2 flex flex-col h-full items-center">
+                  <IconUser size={50} />
+                  <h1 className="text-center">
+                    Customize your profile by uploading your profile image and
+                    writing a little bit about yourself
+                  </h1>
+                </div>
               </div>
             </div>
-            <div className="w-11/12 h-1/2 flex justify-between ">
-              <div className="w-1/2 flex flex-col h-full items-center">
-                <IconSearch size={50} />
-                <h1 className="text-center">
-                  Search for news articles, posts and people using the search
-                  function
-                </h1>
-              </div>
-
-              <div className="w-1/2 flex flex-col h-full items-center">
-                <IconUser size={50} />
-                <h1 className="text-center">
-                  Customize your profile by uploading your profile image and
-                  writing a little bit about yourself
-                </h1>
-              </div>
-            </div>
-          </div>
-        </TransitionY>
+          </TransitionY>
+        </section>
       </section>
 
       {portSize?.width! > 760 ? null : (
