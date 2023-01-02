@@ -42,13 +42,6 @@ export default function Index() {
     return () => window.removeEventListener("resize", handleResize);
   }, []);
 
-  const activateTransitionOne = () => {
-    setTransitionOne(true);
-  };
-  const activateTransitionTwo = () => {
-    setTransitionTwo(true);
-  };
-
   const [ref2, inView2, entry2] = useInView({
     threshold: 0.5,
   });
