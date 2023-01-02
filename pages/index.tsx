@@ -21,12 +21,9 @@ export default function Index() {
     width: 0,
     height: 0,
   });
-  const [scrollSize, setScrollSize] = useState<number>(0);
+
   const [transitionOne, setTransitionOne] = useState<boolean>(false);
   const [transitionTwo, setTransitionTwo] = useState<boolean>(false);
-  const [screenPercent, setScreenPercent] = useState<number>(
-    scrollSize / portSize.height!
-  );
 
   //handles window resizing
   const handleResize = () => {
@@ -45,24 +42,6 @@ export default function Index() {
     return () => window.removeEventListener("resize", handleResize);
   }, []);
 
-  console.log(scrollSize);
-  const handleScroll = () => {
-    setScrollSize(window.scrollY);
-    if (typeof window !== "undefined") {
-      console.log(window.scrollY);
-      setScrollSize(window.scrollY);
-      setScreenPercent(scrollSize / portSize?.height!);
-    }
-  };
-
-  useEffect(() => {
-    handleScroll();
-    window.addEventListener("scroll", handleScroll);
-    return () => {
-      window.removeEventListener("scroll", handleScroll);
-    };
-  }, [scrollSize]);
-
   const activateTransitionOne = () => {
     setTransitionOne(true);
   };
@@ -70,14 +49,13 @@ export default function Index() {
     setTransitionTwo(true);
   };
 
-  useEffect(() => {
-    if (screenPercent >= 0.15) {
-      activateTransitionOne();
-    }
-    if (screenPercent >= 0.85) {
-      activateTransitionTwo();
-    }
-  }, [screenPercent]);
+  const [ref2, inView2, entry2] = useInView({
+    threshold: 0.5,
+  });
+
+  const [ref1, inView1, entry1] = useInView({
+    threshold: 0.7,
+  });
 
   return (
     <main className="w-screen h-screen overflow-y-auto">
@@ -135,8 +113,11 @@ export default function Index() {
         </div>
       </section>
       <section className="w-screen h-screen flex flex-col">
-        <section className="w-full sticky sm:top-16 top-0 h-2/3 bg-gray-50 text-slate-900 flex justify-center items-center z-50">
-          <TransitionY execute={transitionOne}>
+        <section
+          className="w-full sticky sm:top-16 top-0 h-2/3 bg-gray-50 text-slate-900 flex justify-center items-center z-50"
+          ref={ref1}
+        >
+          <TransitionY execute={inView1}>
             <div className="h-2/3 w-full flex justify-around mt-10 z-50">
               <div className="w-1/4 h-full flex flex-col items-center">
                 <Image height={60} width={60} src={cloudinary} />
@@ -159,8 +140,11 @@ export default function Index() {
             </div>
           </TransitionY>
         </section>
-        <section className="w-full text-white h-5/6 bg-[conic-gradient(at_top_right,_var(--tw-gradient-stops))] from-slate-200 via-accent-500 to-gray-500 flex justify-center items-center z-50">
-          <TransitionY execute={transitionTwo}>
+        <section
+          ref={ref2}
+          className="w-full text-white h-5/6 bg-[conic-gradient(at_top_right,_var(--tw-gradient-stops))] from-slate-200 via-accent-500 to-gray-500 flex justify-center items-center z-50"
+        >
+          <TransitionY execute={inView2}>
             <div className="w-full h-3/4 flex flex-col justify-between items-center">
               <div className="w-11/12 h-1/2 flex justify-between ">
                 <div className="w-1/2 flex flex-col h-full items-center">
