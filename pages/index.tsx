@@ -142,14 +142,14 @@ export default function Index() {
               <div className="w-11/12 h-1/2 flex justify-between ">
                 <div className="w-1/2 flex flex-col h-full items-center">
                   <IconSunHigh size={50} />
-                  <h1 className="text-center">
+                  <h1 className="text-center text-sm sm:text-md">
                     Check current headlines and weather using Explore
                   </h1>
                 </div>
 
                 <div className="w-1/2 flex flex-col h-full items-center">
                   <IconMessage size={50} />
-                  <h1 className="text-center">
+                  <h1 className="text-center text-sm sm:text-md">
                     Say hello by creating a post or direct message other users
                     by accessing their profiles
                   </h1>
@@ -158,7 +158,7 @@ export default function Index() {
               <div className="w-11/12 h-1/2 flex justify-between ">
                 <div className="w-1/2 flex flex-col h-full items-center">
                   <IconSearch size={50} />
-                  <h1 className="text-center">
+                  <h1 className="text-center text-sm sm:text-md">
                     Search for news articles, posts and people using the search
                     function
                   </h1>
@@ -166,7 +166,7 @@ export default function Index() {
 
                 <div className="w-1/2 flex flex-col h-full items-center">
                   <IconUser size={50} />
-                  <h1 className="text-center">
+                  <h1 className="text-center text-sm sm:text-md">
                     Customize your profile by uploading your profile image and
                     writing a little bit about yourself
                   </h1>
