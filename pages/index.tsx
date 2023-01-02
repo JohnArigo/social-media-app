@@ -54,7 +54,7 @@ export default function Index() {
   });
 
   const [ref1, inView1, entry1] = useInView({
-    threshold: 0.7,
+    threshold: portSize?.width! > 760 ? 0.7 : 0.8,
   });
 
   return (
