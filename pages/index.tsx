@@ -43,7 +43,7 @@ export default function Index() {
   }, []);
 
   const [ref2, inView2, entry2] = useInView({
-    threshold: 0.5,
+    threshold: 0.7,
   });
 
   const [ref1, inView1, entry1] = useInView({
