@@ -114,7 +114,7 @@ export default function Index() {
       </section>
       <section className="w-screen h-screen flex flex-col">
         <section
-          className="w-full sticky sm:top-16 top-0 h-2/3 bg-gray-50 text-slate-900 flex justify-center items-center z-50"
+          className="w-full sticky sm:top-16 top-0 h-full bg-gray-50 text-slate-900 flex justify-center items-center z-50"
           ref={ref1}
         >
           <TransitionY execute={inView1}>
@@ -142,7 +142,7 @@ export default function Index() {
         </section>
         <section
           ref={ref2}
-          className="w-full text-white h-5/6 bg-[conic-gradient(at_top_right,_var(--tw-gradient-stops))] from-slate-200 via-accent-500 to-gray-500 flex justify-center items-center z-50"
+          className="w-full text-white h-full pb-20 bg-[conic-gradient(at_top_right,_var(--tw-gradient-stops))] from-slate-200 via-accent-500 to-gray-500 flex justify-center items-center z-50"
         >
           <TransitionY execute={inView2}>
             <div className="w-full h-3/4 flex flex-col justify-between items-center">
