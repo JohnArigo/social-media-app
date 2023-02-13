@@ -1,5 +1,6 @@
 import { useState, useEffect } from "react";
 import { Transition } from "@headlessui/react";
+import { carousel } from "mantine/";
 import { useInView } from "react-intersection-observer";
 import { portType } from "../lib/types";
 import Typewriter from "typewriter-effect";
@@ -7,6 +8,7 @@ import cloudinary from "../images/cloudinary.png";
 import planetScale from "../images/planetscale.png";
 import vercel from "../images/vercel.svg";
 import Image from "next/image";
+import { Carousel } from "@mantine/carousel";
 import {
   IconSearch,
   IconFilter,
@@ -15,6 +17,12 @@ import {
   IconSunHigh,
 } from "@tabler/icons";
 import TransitionY from "../components/transition";
+import CarouselCard from "../components/carouselCard";
+
+type carouselType = {
+  title: string;
+  image: string;
+};
 
 export default function Index() {
   const [portSize, setPortSize] = useState<portType>({
@@ -49,6 +57,43 @@ export default function Index() {
   const [ref1, inView1, entry1] = useInView({
     threshold: portSize?.width! > 760 ? 0.7 : 0.8,
   });
+
+  const carouselOneInfo: carouselType = [
+    {
+      title: "Upload Profile Image using cloudinary service",
+      image: cloudinary,
+    },
+    {
+      title: "Utilizes serverless database using AWS",
+      image: planetScale,
+    },
+    {
+      title: "Deployed using Vercel, a fast and highly reliable service",
+      image: vercel,
+    },
+  ];
+
+  const carouselTwoInfo: carouselType = [
+    {
+      title: "Check current headlines and weather using explore",
+      icon: <IconSunHigh size={80} />,
+    },
+    {
+      icon: <IconSearch size={80} />,
+      title:
+        "Say hello by creating a post or direct message other users by accessing their profiles",
+    },
+    {
+      icon: <IconFilter size={80} />,
+      title:
+        "Search for news articles, posts and people using the search function",
+    },
+    {
+      icon: <IconMessage size={80} />,
+      title:
+        "Customize your profile by uploading your profile image and writing a little bit about yourself",
+    },
+  ];
 
   return (
     <main className="w-screen h-screen overflow-y-auto">
@@ -111,70 +156,94 @@ export default function Index() {
           className="w-full sticky sm:top-16 top-0 h-full bg-gray-50 text-slate-900 flex justify-center items-center z-50"
           ref={ref1}
         >
-          <TransitionY execute={inView1}>
-            <div className="h-2/3 w-full flex justify-around mt-10 z-50">
-              <div className="w-1/4 h-full flex flex-col items-center">
-                <Image height={60} width={60} src={cloudinary} />
-                <h1 className="text-center">
-                  Upload Profile Image using cloudinary service
-                </h1>
+          {portSize?.width! > 410 ? (
+            <TransitionY execute={inView1}>
+              <div className="h-2/3 w-full flex justify-around mt-10 z-50">
+                <div className="w-1/4 h-full flex flex-col items-center">
+                  <Image height={60} width={60} src={cloudinary} />
+                  <h1 className="text-center">
+                    Upload Profile Image using cloudinary service
+                  </h1>
+                </div>
+                <div className="w-1/4 h-full flex flex-col items-center z-50">
+                  <Image height={50} width={50} src={planetScale} />
+                  <h1 className="text-center">
+                    Utilizes serverless database using AWS
+                  </h1>
+                </div>
+                <div className="w-1/4 h-full flex flex-col items-center">
+                  <Image height={50} width={50} src={vercel} />
+                  <h1 className="text-center">
+                    Deployed using Vercel, a fast and highly reliable service
+                  </h1>
+                </div>
               </div>
-              <div className="w-1/4 h-full flex flex-col items-center z-50">
-                <Image height={50} width={50} src={planetScale} />
-                <h1 className="text-center">
-                  Utilizes serverless database using AWS
-                </h1>
-              </div>
-              <div className="w-1/4 h-full flex flex-col items-center">
-                <Image height={50} width={50} src={vercel} />
-                <h1 className="text-center">
-                  Deployed using Vercel, a fast and highly reliable service
-                </h1>
-              </div>
-            </div>
-          </TransitionY>
+            </TransitionY>
+          ) : (
+            <Carousel mx="auto" withIndicators height={200} loop>
+              {carouselOneInfo.map((item, index) => {
+                return (
+                  <Carousel.Slide key={index.toString() + item.title}>
+                    <CarouselCard title={item.title} image={item.image} />;
+                  </Carousel.Slide>
+                );
+              })}
+            </Carousel>
+          )}
         </section>
         <section
           ref={ref2}
           className="w-full text-white h-full pb-20 bg-[conic-gradient(at_top_right,_var(--tw-gradient-stops))] from-slate-200 via-accent-500 to-gray-500 flex justify-center items-center z-50"
         >
-          <TransitionY execute={inView2}>
-            <div className="w-full h-3/4 flex flex-col justify-between items-center">
-              <div className="w-11/12 h-1/2 flex justify-between ">
-                <div className="w-1/2 flex flex-col h-full items-center">
-                  <IconSunHigh size={50} />
-                  <h1 className="text-center text-sm sm:text-md">
-                    Check current headlines and weather using Explore
-                  </h1>
-                </div>
+          {portSize.width > 410 ? (
+            <TransitionY execute={inView2}>
+              <div className="w-full h-3/4 flex flex-col justify-between items-center">
+                <div className="w-11/12 h-1/2 flex justify-between ">
+                  <div className="w-1/2 flex flex-col h-full items-center">
+                    <IconSunHigh size={50} />
+                    <h1 className="text-center text-sm sm:text-md">
+                      Check current headlines and weather using Explore
+                    </h1>
+                  </div>
 
-                <div className="w-1/2 flex flex-col h-full items-center">
-                  <IconMessage size={50} />
-                  <h1 className="text-center text-sm sm:text-md">
-                    Say hello by creating a post or direct message other users
-                    by accessing their profiles
-                  </h1>
+                  <div className="w-1/2 flex flex-col h-full items-center">
+                    <IconMessage size={50} />
+                    <h1 className="text-center text-sm sm:text-md">
+                      Say hello by creating a post or direct message other users
+                      by accessing their profiles
+                    </h1>
+                  </div>
+                </div>
+                <div className="w-11/12 h-1/2 flex justify-between ">
+                  <div className="w-1/2 flex flex-col h-full items-center">
+                    <IconSearch size={50} />
+                    <h1 className="text-center text-sm sm:text-md">
+                      Search for news articles, posts and people using the
+                      search function
+                    </h1>
+                  </div>
+
+                  <div className="w-1/2 flex flex-col h-full items-center">
+                    <IconUser size={50} />
+                    <h1 className="text-center text-sm sm:text-md">
+                      Customize your profile by uploading your profile image and
+                      writing a little bit about yourself
+                    </h1>
+                  </div>
                 </div>
               </div>
-              <div className="w-11/12 h-1/2 flex justify-between ">
-                <div className="w-1/2 flex flex-col h-full items-center">
-                  <IconSearch size={50} />
-                  <h1 className="text-center text-sm sm:text-md">
-                    Search for news articles, posts and people using the search
-                    function
-                  </h1>
-                </div>
-
-                <div className="w-1/2 flex flex-col h-full items-center">
-                  <IconUser size={50} />
-                  <h1 className="text-center text-sm sm:text-md">
-                    Customize your profile by uploading your profile image and
-                    writing a little bit about yourself
-                  </h1>
-                </div>
-              </div>
-            </div>
-          </TransitionY>
+            </TransitionY>
+          ) : (
+            <Carousel mx="auto" withIndicators height={200} loop>
+              {carouselTwoInfo.map((item, index) => {
+                return (
+                  <Carousel.Slide key={index.toString() + item.title}>
+                    <CarouselCard title={item.title} icon={item.icon} />;
+                  </Carousel.Slide>
+                );
+              })}
+            </Carousel>
+          )}
         </section>
       </section>
 
