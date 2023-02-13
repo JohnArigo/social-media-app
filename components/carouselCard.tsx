@@ -1,6 +1,6 @@
 import Image from "next/image";
 
-type CarouselCardProps = {
+export type CarouselCardProps = {
   title: string;
   image?: string;
   icon?: React.ReactNode;

@@ -17,11 +17,7 @@ import {
 } from "@tabler/icons";
 import TransitionY from "../components/transition";
 import CarouselCard from "../components/carouselCard";
-
-type carouselType = {
-  title: string;
-  image: string;
-};
+import { CarouselCardProps } from "../components/carouselCard";
 
 export default function Index() {
   const [portSize, setPortSize] = useState<portType>({
@@ -57,7 +53,7 @@ export default function Index() {
     threshold: portSize?.width! > 760 ? 0.7 : 0.8,
   });
 
-  const carouselOneInfo: carouselType = [
+  const carouselOneInfo: CarouselCardProps[] = [
     {
       title: "Upload Profile Image using cloudinary service",
       image: cloudinary,
@@ -72,7 +68,7 @@ export default function Index() {
     },
   ];
 
-  const carouselTwoInfo: carouselType = [
+  const carouselTwoInfo: CarouselCardProps[] = [
     {
       title: "Check current headlines and weather using explore",
       icon: <IconSunHigh size={80} />,
@@ -194,7 +190,7 @@ export default function Index() {
           ref={ref2}
           className="w-full text-white h-full pb-20 bg-[conic-gradient(at_top_right,_var(--tw-gradient-stops))] from-slate-200 via-accent-500 to-gray-500 flex justify-center items-center z-50"
         >
-          {portSize.width > 410 ? (
+          {portSize?.width! > 410 ? (
             <TransitionY execute={inView2}>
               <div className="w-full h-3/4 flex flex-col justify-between items-center">
                 <div className="w-11/12 h-1/2 flex justify-between ">
