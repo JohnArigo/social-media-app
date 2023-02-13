@@ -175,7 +175,24 @@ export default function Index() {
               </div>
             </TransitionY>
           ) : (
-            <Carousel mx="auto" withIndicators height={200} loop>
+            <Carousel
+              mx="auto"
+              withIndicators
+              styles={{
+                indicator: {
+                  width: 12,
+                  color: "blue",
+                  height: 4,
+                  transition: "width 250ms ease",
+
+                  "&[data-active]": {
+                    width: 40,
+                  },
+                },
+              }}
+              height={200}
+              loop
+            >
               {carouselOneInfo.map((item, index) => {
                 return (
                   <Carousel.Slide key={index.toString() + item.title}>
@@ -234,7 +251,25 @@ export default function Index() {
               </div>
             </TransitionY>
           ) : (
-            <Carousel mx="auto" withIndicators slideGap="sm" height={200} loop>
+            <Carousel
+              mx="auto"
+              withIndicators
+              slideGap="sm"
+              height={200}
+              styles={{
+                indicator: {
+                  width: 12,
+                  color: "white",
+                  height: 4,
+                  transition: "width 250ms ease",
+
+                  "&[data-active]": {
+                    width: 40,
+                  },
+                },
+              }}
+              loop
+            >
               {carouselTwoInfo.map((item, index) => {
                 return (
                   <Carousel.Slide key={index.toString() + item.title}>
