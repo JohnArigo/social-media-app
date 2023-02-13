@@ -60,7 +60,8 @@ export default function Index() {
         <video
           //video background
           autoPlay={true}
-          muted={true}
+          muted
+          playsInline
           loop={true}
           className="w-full z-10 h-full object-cover"
           src="https://res.cloudinary.com/dwbzf4ywk/video/upload/v1672539492/production_ID_4391550_enmzuh.mp4"
