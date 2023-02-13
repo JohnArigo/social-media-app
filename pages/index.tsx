@@ -1,6 +1,5 @@
 import { useState, useEffect } from "react";
 import { Transition } from "@headlessui/react";
-import { carousel } from "mantine/";
 import { useInView } from "react-intersection-observer";
 import { portType } from "../lib/types";
 import Typewriter from "typewriter-effect";
@@ -234,7 +233,7 @@ export default function Index() {
               </div>
             </TransitionY>
           ) : (
-            <Carousel mx="auto" withIndicators height={200} loop>
+            <Carousel mx="auto" withIndicators slideGap="sm" height={200} loop>
               {carouselTwoInfo.map((item, index) => {
                 return (
                   <Carousel.Slide key={index.toString() + item.title}>
