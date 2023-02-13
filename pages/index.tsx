@@ -179,7 +179,12 @@ export default function Index() {
               {carouselOneInfo.map((item, index) => {
                 return (
                   <Carousel.Slide key={index.toString() + item.title}>
-                    <CarouselCard title={item.title} image={item.image} />;
+                    <CarouselCard
+                      execute={inView1}
+                      title={item.title}
+                      image={item.image}
+                    />
+                    ;
                   </Carousel.Slide>
                 );
               })}
@@ -233,7 +238,12 @@ export default function Index() {
               {carouselTwoInfo.map((item, index) => {
                 return (
                   <Carousel.Slide key={index.toString() + item.title}>
-                    <CarouselCard title={item.title} icon={item.icon} />;
+                    <CarouselCard
+                      execute={inView2}
+                      title={item.title}
+                      icon={item.icon}
+                    />
+                    ;
                   </Carousel.Slide>
                 );
               })}
